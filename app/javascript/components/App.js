@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import "../styles";
 import "remixicon/fonts/remixicon.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import User from "./User";
+import Merchant from "./Merchant";
+import Admin from "./Admin";
 
 export default class App extends Component {
   state = {
@@ -8,6 +13,20 @@ export default class App extends Component {
   };
 
   render() {
-    return <h1 className="text-xl font-bold text-center">Hey there!</h1>;
+    return (
+      <Router>
+        <Switch>
+          <Route path="/merchant">
+            <Merchant />
+          </Route>
+          <Route path="/admin">
+            <Admin />
+          </Route>
+          <Route path="/">
+            <User />
+          </Route>
+        </Switch>
+      </Router>
+    );
   }
 }
