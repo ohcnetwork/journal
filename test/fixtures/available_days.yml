@@ -1,0 +1,7 @@
+user_one:
+  wday: '5'
+  meeting_type_id: '3ca0ae48-8cbe-564a-9a38-7f406d9d08ef'
+
+user_two:
+  wday: '3'
+  meeting_type_id: '32a83486-1530-507c-add7-d97f4316b28b'
