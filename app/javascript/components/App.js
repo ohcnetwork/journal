@@ -3,6 +3,8 @@ import "../styles";
 import "remixicon/fonts/remixicon.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import Input from "Common/Form/Input";
+
 export default class App extends Component {
   state = {
     loading: true,
@@ -23,9 +25,9 @@ export default class App extends Component {
             </h1>
           </Route>
           <Route path="/">
-            <h1 className="text-center text-3xl leading-9 font-extrabold text-gray-900">
-              User
-            </h1>
+            <div className="sm:w-full sm:max-w-md">
+              <Input label="Email" name="email" />
+            </div>
           </Route>
         </Switch>
       </Router>
