@@ -7,7 +7,16 @@ import classnames from "classnames";
  * Common Input component.
  * To be used with React Hook Form.
  */
-function Input({ id, name, type, label, required, className, ...rest }) {
+function Input({
+  id,
+  name,
+  type,
+  as: As,
+  label,
+  required,
+  className,
+  ...rest
+}) {
   const inputId = useId(id);
 
   return (
@@ -19,7 +28,7 @@ function Input({ id, name, type, label, required, className, ...rest }) {
         {label}
       </label>
       <div className="mt-1 rounded-md shadow-sm">
-        <input
+        <As
           id={inputId}
           type={type}
           name={name}
@@ -38,11 +47,14 @@ Input.defaultProps = {
   required: false,
   register: null,
   className: null,
+  as: "input",
 };
 
 Input.propTypes = {
   /** Label for input */
   label: PropTypes.node.isRequired,
+  /** defaults to input, can render a different element if necessary */
+  as: PropTypes.elementType.isRequired,
   /** Unique name (in the form) for input, this will be used as key in react-hook-form */
   name: PropTypes.string.isRequired,
   /** register function from react-hook-form */

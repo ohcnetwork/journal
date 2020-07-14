@@ -27,6 +27,14 @@ function GenerateForm() {
                 required
                 placeholder="10 digit mobile number"
               />
+              <Input
+                as="textarea"
+                name="address"
+                rows={6}
+                label="Address"
+                required
+                placeholder="Complete address of the establishment/shop/premises"
+              />
             </form>
           </div>
         </div>
