@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useId } from "@reach/auto-id";
 import classnames from "classnames";
+import { get } from "lodash";
 
 /**
  * Common Input component.
@@ -10,14 +11,18 @@ import classnames from "classnames";
 function Input({
   id,
   name,
+  errors,
   type,
   as: As,
   label,
   required,
+  register,
   className,
   ...rest
 }) {
   const inputId = useId(id);
+  const errorId = `error-${inputId}`;
+  const errorMessage = get(errors, name);
 
   return (
     <div className={classnames("my-6", className)}>
@@ -33,10 +38,18 @@ function Input({
           type={type}
           name={name}
           required={required}
+          ref={register}
+          aria-invalid={errorMessage ? "true" : "false"}
+          aria-describedby={errorId}
           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
           {...rest}
         />
       </div>
+      {errorMessage && (
+        <div className="mt-1 text-red-600" role="alert" id={errorMessage}>
+          <p>{errorMessage?.message}</p>
+        </div>
+      )}
     </div>
   );
 }
