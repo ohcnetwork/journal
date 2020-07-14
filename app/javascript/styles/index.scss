@@ -1,0 +1,17 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+
+// Libraries
+@import "~@blueprintjs/core/lib/css/blueprint";
+@import "~@blueprintjs/datetime/lib/css/blueprint-datetime";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// Animate.css
+@import "./animate.css";
+
+body {
+  font-family: 'Inter', sans-serif;
+}

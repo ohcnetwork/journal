@@ -1,0 +1,11 @@
+one:
+  from: <%= Time.zone.parse('2020-06-01 09:00')%>
+  to: <%= Time.zone.parse('2020-06-01 18:00')%>
+  available_day_id: '8f7a5d5c-cfcf-5195-9989-f56fb71a66cc'
+  available_date_id: '8c1ed49a-ac1d-5480-9943-34c730c92c74'
+
+two:
+  from: <%= Time.zone.parse('2020-07-03 10:00')%>
+  to: <%= Time.zone.parse('2020-07-03 22:00')%>
+  available_day_id: '13cce128-702a-5e62-9b10-9ebc10fda9d4'
+  available_date_id: '23113263-f417-5426-9189-018203405fbb'
