@@ -4,7 +4,12 @@ module.exports = {
     "es6": true
   },
   "parser": "babel-eslint",
-  "extends": ["plugin:prettier/recommended", "eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended", 
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -22,11 +27,11 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "prettier"
   ],
   "rules": {
     "semi": ["error", "always"],
-    "prettier/prettier": ["error", { "trailingComma": "es5" }],
     "react/prop-types": 0
   }
 };

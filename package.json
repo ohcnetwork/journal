@@ -1,9 +1,11 @@
 {
+  "name": "coronasafe-journal",
   "scripts": {
     "precommit": "lint-staged"
   },
   "lint-staged": {
     "app/**/*.{js,jsx,json,yml}": [
+      "prettier --write",
       "eslint --fix",
       "git add"
     ],
@@ -12,18 +14,19 @@
       "git add"
     ]
   },
+  "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^6.4.0",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^0.14.3",
     "lint-staged": "^4.1.0",
     "node-sass": "^4.13.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
-    "prettier": "^1.6.1",
+    "prettier": "2.0.5",
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
