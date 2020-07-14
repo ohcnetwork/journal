@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 
-import useQuery from "Hooks/useQuery";
+import useGetQrUrl from "./useGetQrUrl";
 
-const chartApiRoot = "https://chart.googleapis.com/chart";
-
+/**
+ * Display generated QR code with code passed through query parameter in URL.
+ * If code is not present user is redirected to merchant page.
+ * Provides merchant instructions when on screen, these are hidden in print mode.
+ */
 function DisplayQr() {
-  const [qrCodeUrl, setQrCodeUrl] = useState("");
-  const history = useHistory();
+  const qrCodeUrl = useGetQrUrl();
 
-  const queryParams = useQuery();
-  useEffect(() => {
-    const code = queryParams.get("code");
-    if (!code) {
-      history.push("/merchant");
-    }
-    const searchParams = new URLSearchParams();
-    searchParams.set("cht", "qr");
-    searchParams.set("chl", code);
-    searchParams.set("chs", "500x500");
-    searchParams.set("choe", "UTF-8");
-    setQrCodeUrl(`${chartApiRoot}?${searchParams.toString()}`);
-  }, []);
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
