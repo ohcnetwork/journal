@@ -1,0 +1,13 @@
+retro:
+  name: 'Retro call'
+  duration: '1'
+  description: 'Some description for retro call'
+  link: 'https://zoom.us/'
+  user_id: '135138680'
+
+demo:
+  name: 'Product demo'
+  duration: '2'
+  description: 'Some description for product demo'
+  link: 'https://zoom.us/'
+  user_id: '135138124'

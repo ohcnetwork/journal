@@ -1,0 +1,9 @@
+event:
+  time: <%= Time.zone.parse('2020-04-11 21:00')%>
+  user_id: '135138680'
+  meeting_type_id: '3ca0ae48-8cbe-564a-9a38-7f406d9d08ef'
+
+another_event:
+  time: <%= Time.zone.parse('2020-04-13 22:00')%>
+  user_id: '135138124'
+  meeting_type_id: '32a83486-1530-507c-add7-d97f4316b28b'
