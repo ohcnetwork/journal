@@ -1,12 +1,12 @@
 import React from 'react';
 import SignUpOtp from './SignUpOtp'
-import signUpThump from './signUpThump.jpg'
+import SignUpThump from './signUpThump.jpg'
 
 function SignUp() {
   return (
     <div className="w-full h-full flex justify-center items-center">
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
-      <img className="w-full h-64" src={signUpThump} alt="signUpThump"/>
+      <img className="w-full h-64" src={SignUpThump} alt="signUpThump"/>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">Sign Up</div>
         <form>
