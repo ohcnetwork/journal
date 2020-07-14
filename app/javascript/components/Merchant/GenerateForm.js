@@ -1,8 +1,30 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers";
+import * as yup from "yup";
 
 import Input from "Common/Form/Input";
+import Button from "Common/Button";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Please enter name of shop"),
+  phone: yup
+    .string()
+    .trim()
+    .required("Please enter mobile number")
+    .length(10, "Please enter 10 digit mobile number"),
+  address: yup.string().trim().required("Please enter address"),
+});
 
 function GenerateForm() {
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const handleFormValues = (formData) => {
+    console.log(formData);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -14,18 +36,22 @@ function GenerateForm() {
         </p>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
-            <form>
+            <form noValidate onSubmit={handleSubmit(handleFormValues)}>
               <Input
                 name="name"
                 label="Shop Name"
                 required
                 placeholder="Name of the establishment/shop/premises"
+                register={register}
+                errors={errors}
               />
               <Input
                 name="phone"
                 label="Mobile number"
                 required
                 placeholder="10 digit mobile number"
+                register={register}
+                errors={errors}
               />
               <Input
                 as="textarea"
@@ -34,15 +60,19 @@ function GenerateForm() {
                 label="Address"
                 required
                 placeholder="Complete address of the establishment/shop/premises"
+                register={register}
+                errors={errors}
               />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
-                  <button
-                    type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                  <Button
+                    htmlType="submit"
+                    colorType="primary"
+                    sizeType="lg"
+                    block
                   >
                     Generate
-                  </button>
+                  </Button>
                 </span>
               </div>
             </form>

@@ -33,6 +33,7 @@
     "@babel/preset-react": "^7.0.0",
     "@blueprintjs/core": "^3.24.0",
     "@blueprintjs/datetime": "^3.16.1",
+    "@hookform/resolvers": "^0.0.6",
     "@rails/ujs": "^6.0.2-2",
     "@rails/webpacker": "^4.0.2",
     "@reach/auto-id": "^0.10.5",
@@ -55,6 +56,7 @@
     "react-spring": "^8.0.27",
     "react_ujs": "^2.6.1",
     "remixicon": "^2.3.0",
-    "tailwindcss": "^1.2.0"
+    "tailwindcss": "^1.2.0",
+    "yup": "^0.29.1"
   }
 }
