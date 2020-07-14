@@ -1,7 +1,9 @@
 import React from "react";
 
+import GenerateForm from "./GenerateForm";
+
 function Merchant() {
-  return <p>Merchant</p>;
+  return <GenerateForm />;
 }
 
 export default Merchant;
