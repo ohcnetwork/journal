@@ -1,7 +1,8 @@
 import React from "react";
+import SignUp from "./SignUp/SignUp"
 
 function User() {
-  return <p>User</p>;
+  return <SignUp />;
 }
 
 export default User;
