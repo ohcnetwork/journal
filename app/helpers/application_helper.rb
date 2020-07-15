@@ -7,6 +7,7 @@ module ApplicationHelper
         user: current_user,
         authenticated: current_user.present?
       }
+
       client_props
     end
   end
