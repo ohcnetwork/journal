@@ -3,6 +3,7 @@ module.exports = {
     alias: {
       apis: "apis",
       Common: "components/Common",
+      Hooks: "hooks/",
     },
   },
 };
