@@ -11,6 +11,9 @@ function Admin() {
       <Route exact path={`${match.url}/login`}>
         <SignIn />
       </Route>
+      <Route exact path={`${match.url}/`}>
+        <h1 className="text-xl leading-6 font-bold">Admin</h1>
+      </Route>
     </>
   );
 }
