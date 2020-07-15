@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
@@ -23,12 +24,23 @@ const schema = yup.object().shape({
 });
 
 function SignUp() {
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
-    await login(data);
+  const onSubmit = async (payload) => {
+    setLoading(true);
+    try {
+      const response = await login(payload);
+      if (response.data?.user) {
+        history.push("/scan");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,6 +85,7 @@ function SignUp() {
                     colorType="primary"
                     sizeType="lg"
                     block
+                    loading={loading}
                   >
                     Sign Up
                   </Button>

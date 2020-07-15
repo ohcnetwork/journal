@@ -1,7 +1,7 @@
 import { login as userLogin } from "../authentication";
 import { show as userShow } from "../users";
 
-const currentUserLoggedIn = async localUserId => {
+const currentUserLoggedIn = async (localUserId) => {
   try {
     await userShow(localUserId);
     return true;
@@ -14,7 +14,7 @@ const localUser = () => {
   return JSON.parse(localStorage.getItem("currentUser")) || {};
 };
 
-const setLocalUser = user => {
+const setLocalUser = (user) => {
   localStorage.setItem("currentUser", JSON.stringify(user));
 };
 
@@ -23,9 +23,10 @@ export const isLoggedIn = async () => {
   return localUserId ? await currentUserLoggedIn(localUserId) : false;
 };
 
-export const login = async payload => {
+export const login = async (payload) => {
   const response = await userLogin(payload);
   setLocalUser(response.data.user);
+  return response;
 };
 
 export const logout = () => {
