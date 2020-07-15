@@ -3,23 +3,23 @@
 require "test_helper"
 
 class ActiveAdmin::DashboardControllerTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  # fixtures :all
 
-  def setup
-    sign_in users(:admin)
-  end
+  # def setup
+  #   sign_in users(:admin)
+  # end
 
-  def test_index_success_for_super_admin
-    get active_admin_root_url
+  # def test_index_success_for_super_admin
+  #   get active_admin_root_url
 
-    assert_response :success
-  end
+  #   assert_response :success
+  # end
 
-  def test_index_for_non_super_admin
-    sign_in users(:nancy)
+  # def test_index_for_non_super_admin
+  #   sign_in users(:nancy)
 
-    assert_raises ActionController::RoutingError do
-      get active_admin_root_url
-    end
-  end
+  #   assert_raises ActionController::RoutingError do
+  #     get active_admin_root_url
+  #   end
+  # end
 end
