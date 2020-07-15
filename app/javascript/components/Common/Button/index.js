@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
+import Spinner from "../Spinner";
+
 const colorTypes = {
   primary:
     "border-transparent text-white bg-indigo-600 hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700",
@@ -27,6 +29,8 @@ function Button({
   children,
   colorType,
   sizeType,
+  loading,
+  disabled,
   ...rest
 }) {
   const colorClasses = colorTypes[colorType];
@@ -40,14 +44,16 @@ function Button({
       <button
         type={htmlType}
         className={classnames(
-          "w-full inline-flex justify-center items-center border font-medium rounded-md focus:outline-none transition ease-in-out duration-150",
+          "w-full inline-flex justify-center items-center border font-medium rounded-md disabled:opacity-60 focus:outline-none transition ease-in-out duration-150",
           colorClasses,
           sizeClasses,
           className
         )}
+        disabled={disabled || loading}
         onClick={onClick}
         {...rest}
       >
+        {loading && <Spinner className="w-6 mr-2" />}
         {children}
       </button>
     </span>
@@ -61,6 +67,7 @@ Button.defaultProps = {
   colorType: "default",
   sizeType: "md",
   block: false,
+  loading: false,
 };
 
 Button.propTypes = {
@@ -79,6 +86,8 @@ Button.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  /** Show loading indicator and disable button */
+  loading: PropTypes.bool.isRequired,
 };
 
 export default Button;

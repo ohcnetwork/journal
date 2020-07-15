@@ -70,6 +70,7 @@ function GenerateForm() {
                     colorType="primary"
                     sizeType="lg"
                     block
+                    loading
                   >
                     Generate
                   </Button>
