@@ -7,7 +7,7 @@ import { login } from "../../apis/Auth";
 function SignIn() {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     await login(data);
   };
 
@@ -19,7 +19,6 @@ function SignIn() {
       <Input
         id="id"
         name="name"
-        type="text"
         label="Name"
         register={register({ required: true })}
         required
@@ -28,7 +27,6 @@ function SignIn() {
       <Input
         id="phone-number"
         name="phone_number"
-        type="text"
         label="Phone Number"
         register={register({ required: true })}
         required
@@ -37,7 +35,7 @@ function SignIn() {
       <Input
         id="date-of-birth"
         name="date_of_birth"
-        type="text"
+        type="date"
         label="Date of Birth"
         register={register({ required: true })}
         required

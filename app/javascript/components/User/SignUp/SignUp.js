@@ -1,51 +1,84 @@
-import React from 'react';
-import SignUpOtp from './SignUpOtp'
-import SignUpThump from './signUpThump.jpg'
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers";
+import * as yup from "yup";
+
+import Input from "Common/Form/Input";
+import Button from "Common/Button";
+import { login } from "Apis/Auth";
+import SignUpOtp from "./SignUpOtp";
+import SignUpThump from "./signUpThump.jpg";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Please enter your name"),
+  phone_number: yup
+    .string()
+    .trim()
+    .required("Please enter mobile number")
+    .length(10, "Please enter 10 digit mobile number"),
+  date_of_birth: yup
+    .date("Please enter valid date")
+    .required("Please enter date of birth")
+    .max(new Date(2010, 0, 1)),
+});
 
 function SignUp() {
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    await login(data);
+  };
+
   return (
     <div className="w-full h-full flex justify-center items-center">
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-      <img className="w-full h-64" src={SignUpThump} alt="signUpThump"/>
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">Sign Up</div>
-        <form>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Full Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username" type="text" placeholder="Full Name" required/>
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Date of Birth
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="dob" type="date" placeholder="Date of Birth" required/>
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" for="password">
-              Mobile Number
-            </label>
-            +91<input
-              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="mobileNumber" maxlength="10" type="tel" required/>
-            <p className="text-red-500 text-xs italic">Please provide your 10 digit Mobile number.</p>
-          </div>
-          <div className="flex items-center justify-center">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button">
-              Send OTP
-            </button>
-          </div>
-        </form>
+      <div className="max-w-sm rounded overflow-hidden shadow-lg">
+        <img className="w-full h-64" src={SignUpThump} alt="" />
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">Sign Up</div>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              name="name"
+              label="Full Name"
+              required
+              placeholder="John Doe"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              name="phone_number"
+              label="Mobile number"
+              required
+              placeholder="10 digit mobile number"
+              register={register}
+              errors={errors}
+            />
+            <Input
+              name="date_of_birth"
+              label="Date of Birth"
+              required
+              type="date"
+              placeholder=""
+              register={register}
+              errors={errors}
+            />
+            <div className="mt-6">
+              <span className="block w-full rounded-md shadow-sm">
+                <Button
+                  htmlType="submit"
+                  colorType="primary"
+                  sizeType="lg"
+                  block
+                >
+                  Sign Up
+                </Button>
+              </span>
+            </div>
+          </form>
+        </div>
+        <SignUpOtp />
       </div>
-   <SignUpOtp />
-    </div>
     </div>
   );
 }
