@@ -41,7 +41,6 @@ class Api::V1::SessionsController < Devise::SessionsController
 
     def sign_in_and_render_user(user)
       sign_in(user)
-      binding.pry
       render json: { user: user }
     end
 
