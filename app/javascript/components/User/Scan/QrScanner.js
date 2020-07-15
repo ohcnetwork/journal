@@ -8,6 +8,7 @@ function QrScanner({ onScanned, onError }) {
       onScanned(data);
     }
   };
+
   const handleError = (err) => {
     console.error(err);
     onError(err);
