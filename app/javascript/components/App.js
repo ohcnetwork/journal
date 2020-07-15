@@ -50,10 +50,6 @@ const PrivateRoute = ({ children, ...rest }) => {
 };
 
 export default class App extends Component {
-  state = {
-    loading: true,
-  };
-
   render() {
     return (
       <Router>
@@ -61,15 +57,15 @@ export default class App extends Component {
           <Route path="/login">
             <SignIn />
           </Route>
-          <PrivateRoute path="/merchant">
-            <Merchant />
-          </PrivateRoute>
-          <PrivateRoute path="/admin">
-            <Admin />
-          </PrivateRoute>
           <PrivateRoute path="/">
             <User />
           </PrivateRoute>
+          <Route path="/merchant">
+            <Merchant />
+          </Route>
+          <Route path="/admin">
+            <Admin />
+          </Route>
         </Switch>
       </Router>
     );
