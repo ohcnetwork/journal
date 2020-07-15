@@ -52,6 +52,7 @@
     "react-dom": "^16.8.4",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^6.0.4",
+    "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27",
     "react_ujs": "^2.6.1",
