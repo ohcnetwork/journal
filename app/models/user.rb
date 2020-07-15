@@ -3,23 +3,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :trackable, :validatable, :rememberable, :omniauthable
+  devise :database_authenticatable, :registerable, :omniauthable
 
-  before_save :ensure_authentication_token_is_present
-
-  has_many :meeting_types
-  has_many :scheduled_meetings
-
-  validates :first_name, :last_name, :email, presence: true
-  validates :email, uniqueness: true
-
-  def name
-    [first_name, last_name].join(" ").strip
-  end
+  validates :phone_number, uniqueness: true
 
   def display_name
-    name || email
+    name
   end
 
   def super_admin?
@@ -27,11 +16,9 @@ class User < ApplicationRecord
   end
 
   def as_json(options = {})
-    new_options = options.merge(only: [:email, :first_name, :last_name, :current_sign_in_at])
-
+    new_options = options.merge(only: [:id, :name, :phone_number, :date_of_birth])
     super new_options
   end
-
 
   def self.from_omniauth(access_token)
     data = access_token.info

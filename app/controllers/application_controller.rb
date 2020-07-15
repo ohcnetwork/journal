@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :set_layout_carrier
+  before_action :set_csrf_cookie
 
   private
 
@@ -22,5 +23,9 @@ class ApplicationController < ActionController::Base
 
     def set_layout_carrier
       @layout_carrier = LayoutCarrier.new
+    end
+
+    def set_csrf_cookie
+      cookies["CSRF-TOKEN"] = form_authenticity_token
     end
 end

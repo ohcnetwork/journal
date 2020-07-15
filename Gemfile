@@ -83,6 +83,9 @@ group :development do
   # For better debugging
   gem "byebug"
 
+  # pry bindings to byebug
+  gem "pry-byebug"
+
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", "~> 3.0"
 
