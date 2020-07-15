@@ -32,50 +32,54 @@ function SignUp() {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <div className="max-w-sm rounded overflow-hidden shadow-lg">
-        <img className="w-full h-64" src={SignUpThump} alt="" />
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-sm">
+        <img className="w-full" src={SignUpThump} alt="" />
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">Sign Up</div>
-          <form noValidate onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              name="name"
-              label="Full Name"
-              required
-              placeholder="John Doe"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              name="phone_number"
-              label="Mobile number"
-              required
-              placeholder="10 digit mobile number"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              name="date_of_birth"
-              label="Date of Birth"
-              required
-              type="date"
-              placeholder=""
-              register={register}
-              errors={errors}
-            />
-            <div className="mt-6">
-              <span className="block w-full rounded-md shadow-sm">
-                <Button
-                  htmlType="submit"
-                  colorType="primary"
-                  sizeType="lg"
-                  block
-                >
-                  Sign Up
-                </Button>
-              </span>
-            </div>
-          </form>
+          <div className="text-3xl leading-9 font-extrabold text-gray-900">
+            Sign Up
+          </div>
+          <div className="mt-6">
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                name="name"
+                label="Full Name"
+                required
+                placeholder="John Doe"
+                register={register}
+                errors={errors}
+              />
+              <Input
+                name="phone_number"
+                label="Mobile number"
+                required
+                placeholder="10 digit mobile number"
+                register={register}
+                errors={errors}
+              />
+              <Input
+                name="date_of_birth"
+                label="Date of Birth"
+                required
+                type="date"
+                placeholder=""
+                register={register}
+                errors={errors}
+              />
+              <div className="mt-6">
+                <span className="block w-full rounded-md shadow-sm">
+                  <Button
+                    htmlType="submit"
+                    colorType="primary"
+                    sizeType="lg"
+                    block
+                  >
+                    Sign Up
+                  </Button>
+                </span>
+              </div>
+            </form>
+          </div>
         </div>
         <SignUpOtp />
       </div>
