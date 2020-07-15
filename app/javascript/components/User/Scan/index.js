@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import states from "./states.json";
+import states from "./states.js";
 import ComponentByState from "./ComponentByState";
 
 function Scan() {
   const [state, setState] = useState(states.SCANNING);
-  const [merchandDetails, setMerchandDetails] = useState({
+  const [merchantDetails, setmerchantDetails] = useState({
     name: "",
     address: "",
   });
@@ -14,7 +14,7 @@ function Scan() {
   };
 
   const findMerchantDetails = () => {
-    setMerchandDetails({
+    setmerchantDetails({
       name: "Lulu Hypermarket",
       address: "Edapally, Kochi",
     });
@@ -45,7 +45,7 @@ function Scan() {
               onScanned={onScanned}
               onError={onError}
               resetState={resetState}
-              merchandDetails={merchandDetails}
+              merchantDetails={merchantDetails}
             />
           </div>
         </div>

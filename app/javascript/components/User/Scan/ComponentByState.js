@@ -2,13 +2,13 @@ import React from "react";
 import QrScanner from "./QrScanner";
 import Success from "./Success";
 import Error from "./Error";
-import states from "./states.json";
+import states from "./states.js";
 
 const ComponentByState = ({
   state,
   onScanned,
   onError,
-  merchandDetails,
+  merchantDetails,
   resetState,
 }) => {
   switch (state) {
@@ -17,14 +17,14 @@ const ComponentByState = ({
     case states.SUCCESS:
       return (
         <Success
-          name={merchandDetails.name}
-          address={merchandDetails.address}
+          name={merchantDetails.name}
+          address={merchantDetails.address}
           resetState={resetState}
         />
       );
     case states.ERROR_QR_READ:
       return <Error state={state} resetState={resetState} />;
-    case states.ERROR_MERCHAND:
+    case states.ERROR_merchant:
       return <Error state={state} resetState={resetState} />;
   }
 };

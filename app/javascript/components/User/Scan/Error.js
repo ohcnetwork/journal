@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "Common/Button";
-import states from "./states.json";
+import states from "./states.js";
 
 const errorMessages = {
-  [states.ERROR_MERCHAND]: "You are scanning a wrong QR code!.",
+  [states.ERROR_MERCHANT]: "You are scanning a wrong QR code!.",
   [states.ERROR_QR_READ]: "Something went wrong while reading QR code.",
 };
 
