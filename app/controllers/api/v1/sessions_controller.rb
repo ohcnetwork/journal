@@ -49,7 +49,7 @@ class Api::V1::SessionsController < Devise::SessionsController
       if user.save
         sign_in_and_render_user(user)
       else
-        respond_with_error "While creating new user: ", 422, user.errors.messages
+        respond_with_errors "While creating new user: ", 422, user.errors.messages
       end
     end
 end
