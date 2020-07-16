@@ -76,6 +76,9 @@ gem "delayed_job_active_record"
 # To generate QR Code
 gem "rqrcode"
 
+# To load enviroment variables from .env
+gem "dotenv-rails"
+
 group :development do
   # speeds up development by keeping your application running in the background
   gem "spring"
