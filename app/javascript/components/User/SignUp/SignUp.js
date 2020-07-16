@@ -36,7 +36,7 @@ function SignUp() {
     try {
       const response = await login(payload);
       if (response.data?.user) {
-        history.push("/scan");
+        history.push("/user");
       }
     } finally {
       setLoading(false);
