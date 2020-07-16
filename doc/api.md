@@ -19,7 +19,7 @@ curl -v                                      \
      http://localhost:3000/api/v1/visits
 ```
 
-### Get ongoing visits of a user (most recent one first)
+### Get all visits of a user (most recent one first)
 
 ```
 curl -v                                       \
@@ -28,6 +28,29 @@ curl -v                                       \
      -H "Content-type: application/json"      \
      http://localhost:3000/api/v1/visits
 ```
+
+### Get ongoing visits of a user (most recent one first)
+
+```
+curl -v                                       \
+     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL"  \
+     -H "Accept: application/json"            \
+     -H "Content-type: application/json"      \
+     http://localhost:3000/api/v1/visits/ongoing
+```
+
+### Mark exit on an ongoing visit
+
+```
+curl -v                                      \
+     -X PUT                                 \
+     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
+     -H "Accept: application/json"           \
+     -H "Content-type: application/json"     \
+     -d '{"visitable_id":"3sds324234", visitable_type: "Merchant"}' \
+     http://localhost:3000/api/v1/visits/:visit_id/exit
+```
+
 
 ### Update user information
 

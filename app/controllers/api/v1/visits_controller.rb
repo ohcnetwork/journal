@@ -11,6 +11,16 @@ class Api::V1::VisitsController < Api::V1::BaseController
     @visit = @user.visits.create!(visit_params)
   end
 
+  def ongoing
+    @visits = @user.visits.ongoing.order("entry_at desc")
+    render :index
+  end
+
+  def exit
+    @visit = @user.visits.find(params[:id])
+    @visit.exit!
+  end
+
   private
 
     def visit_params

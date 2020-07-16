@@ -11,9 +11,19 @@ class Visit < ApplicationRecord
 
   validates :entry_at, :user, :visitable, presence: true
 
+  scope :ongoing, -> { where("exit_at is null") }
+
+  def exit!
+    update!(exit_at: current_time)
+  end
+
   private
 
     def set_entry_at
-      self.entry_at = Time.zone.now
+      self.entry_at = current_time
+    end
+
+    def current_time
+      Time.zone.now
     end
 end

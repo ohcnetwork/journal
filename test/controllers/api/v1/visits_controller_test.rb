@@ -23,7 +23,28 @@ class Api::V1::VisitsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference "visitor.visits.count", 1 do
       post api_v1_visits_path, headers: headers(visitor), params: { visit: visit_params }
-      p json_body
     end
+  end
+
+  def test_ongoing
+    visitor = create(:user)
+    5.times { create(:visit, user: visitor, exit_at: nil) }
+    5.times { create(:visit, user: visitor, exit_at: Time.zone.now) }
+
+    get ongoing_api_v1_visits_path, headers: headers(visitor)
+    assert_response :success
+    assert_equal 5, json_body["visits"].count
+  end
+
+  def test_exit
+    visitor = create(:user)
+    visit = create(:visit, user: visitor, exit_at: nil)
+
+    assert visit.exit_at.nil?
+
+    put exit_api_v1_visit_path(visit), headers: headers(visitor)
+    assert_response :success
+
+    assert_not visit.reload.exit_at.nil?
   end
 end
