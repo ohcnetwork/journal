@@ -1,8 +1,9 @@
 import React from "react";
 import { Route, useRouteMatch } from "react-router-dom";
 
-import Scan from "./Scan";
+import Scan from "../Scan";
 import Header from "./Header";
+import Content from "./Content";
 
 function Home() {
   const match = useRouteMatch();
@@ -11,7 +12,7 @@ function Home() {
     <div className="min-h-screen">
       <Header />
       <Route path={`${match.url}/`} exact>
-        <p>User Home</p>
+        <Content />
       </Route>
       <Route path={`${match.url}/scan`}>
         <Scan />
