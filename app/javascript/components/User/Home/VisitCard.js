@@ -3,15 +3,7 @@ import dayjs from "dayjs";
 
 import Button from "components/Common/Button";
 
-const data = {
-  id: 1,
-  name: "Lulu Hypermarket",
-  entry_at: "2020-07-17T02:46:43.566+05:30",
-  visitable_id: "192d8213-3016-43d2-84e9-1b6c97c0c4e3",
-  visitable_type: "Merchant",
-};
-
-function VisitCard() {
+function VisitCard({ data }) {
   return (
     <li className="py-2 px-2 flex items-center justify-between">
       <div className="flex-shrink-0 truncate">
