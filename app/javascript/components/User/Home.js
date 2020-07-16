@@ -10,6 +10,9 @@ function Home() {
   return (
     <div className="min-h-screen">
       <Header />
+      <Route path={`${match.url}/`} exact>
+        <p>User Home</p>
+      </Route>
       <Route path={`${match.url}/scan`}>
         <Scan />
       </Route>

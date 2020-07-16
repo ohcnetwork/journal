@@ -1,3 +1,3 @@
-import axios from "axios";
+import Axios from "./axios";
 
-export const show = id => axios.get(`/api/v1/users/${id}`);
+export const show = (id) => Axios.get(`/users/${id}`);
