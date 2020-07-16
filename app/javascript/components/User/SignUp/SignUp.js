@@ -61,6 +61,7 @@ function SignUp() {
                 register={register}
                 errors={errors}
                 autoComplete="name"
+                autoFocus
               />
               <Input
                 name="phone_number"
