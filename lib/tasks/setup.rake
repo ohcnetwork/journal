@@ -38,17 +38,67 @@ desc "Deletes all records and populates sample data"
 task setup_sample_data: [:environment, :not_production] do
   delete_all_records_from_all_tables
 
-  create_user email: "sam@example.com"
+  @visitors  = create_visitors
+  @merchants = create_merchants
+  
+  create_visits
 
   puts "sample data was added successfully"
 end
 
-def create_user(options = {})
-  user_attributes = { email: "sam@example.com",
-                      password: "welcome",
-                      first_name: "Sam",
-                      last_name: "Smith",
-                      role: "super_admin" }
-  attributes = user_attributes.merge options
-  User.create! attributes
+def create_merchants
+  [
+    {
+      name: "Akshaya Centre, Kakkanad",
+      phone_number: "1231231231",
+      address: "Civil Station, Kakkanad, 682030"
+    },
+
+    {
+      name: "Lakeshore Hospital",
+      phone_number: "2342342341",
+      address: "Madavana, Maradu PO, 682304"   
+    },
+
+    {
+      name: "Veekay Mart, Kakkanad",
+      phone_number: "4564564561",
+      address: "Seaport-Airport Road, Kakkanad, 682030"
+    }
+  ].map do |merchant_data|
+    Merchant.create! merchant_data
+  end
+end
+
+def create_visits
+  10.times do 
+    Visit.create! visitor: @visitors.sample, visitable: @merchants.sample
+  end
+end
+
+def create_visitors
+  [
+    {
+      name: "Stephen Nedumpally",
+      phone_number: "2255225522",
+      date_of_birth: "05/05/1975",
+      role: "visitor"
+    },
+
+    {
+      name: "Priyadarshini Ramdas",
+      phone_number: "1237891231",
+      date_of_birth: "18/01/1985",
+      role: "visitor"
+    },
+
+    {
+      name: "Govardhan",
+      phone_number: "7895674561",
+      date_of_birth: "04/04/2005",
+      role: "visitor"
+    }
+  ].map do |user_data|
+    User.create! user_data
+  end
 end
