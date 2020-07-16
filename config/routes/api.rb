@@ -18,6 +18,11 @@ namespace :api, defaults: { format: :json }  do
     namespace :admin do 
       resources :sessions, only: [:create]
       resources :visits, only: [:index]
+      resources :users, only: [:index] do 
+        member do 
+          get :routemap
+        end
+      end
     end
   end
 end
