@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ApplicationController
+  before_action :authenticate_user_using_session_token!
+
   respond_to :json
 
   private
@@ -21,10 +23,8 @@ class Api::V1::BaseController < ApplicationController
       Rails.logger.info exception.backtrace.join("\n")
     end
 
-    def authenticate_user_using_x_auth_token!
-      auth_token = request.headers["X-Auth-Token"].presence
-
-      @user = User.from_authentication_token(auth_token)
+    def authenticate_user_using_session_token!
+      @user = current_user
 
       if @user.present?
         sign_in @user, store: false
