@@ -6,7 +6,7 @@ import SignUp from "./SignUp/SignUp";
 import Scan from "./Scan";
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState([]);
 
   useEffect(() => {
