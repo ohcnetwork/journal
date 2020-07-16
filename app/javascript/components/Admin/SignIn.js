@@ -2,30 +2,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import { login } from "Apis/Auth";
-import SignUpOtp from "./SignUpOtp";
-import SignUpThump from "./signUpThump.jpg";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Please enter your name"),
-  phone_number: yup
-    .string()
-    .trim()
-    .required("Please enter mobile number")
-    .length(10, "Please enter 10 digit mobile number"),
-  date_of_birth: yup
-    .date("Please enter valid date")
-    .required("Please enter date of birth")
-    .max(new Date(2010, 0, 1)),
+  username: yup.string().required("Please enter username"),
+  password: yup.string().required("Please enter password"),
 });
 
-function SignUp() {
+function SignIn() {
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -34,10 +21,7 @@ function SignUp() {
   const onSubmit = async (payload) => {
     setLoading(true);
     try {
-      const response = await login(payload);
-      if (response.data?.user) {
-        history.push("/scan");
-      }
+      console.log(payload);
     } finally {
       setLoading(false);
     }
@@ -45,41 +29,33 @@ function SignUp() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-sm">
-        <img className="w-full" src={SignUpThump} alt="" />
-        <div className="px-6 py-4">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center mb-4">
           <h2 className="text-3xl leading-9 font-extrabold text-gray-900">
-            Sign Up
+            Admin Login
           </h2>
+        </div>
+        <div className="px-6 py-4 bg-white shadow-sm">
           <div className="mt-6">
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
               <Input
-                name="name"
-                label="Full Name"
+                name="username"
+                label="Username"
                 required
-                placeholder="John Doe"
+                placeholder="username"
                 register={register}
                 errors={errors}
-                autoComplete="name"
+                autoComplete="username"
               />
               <Input
-                name="phone_number"
-                label="Mobile number"
+                name="password"
+                label="Password"
                 required
-                placeholder="10 digit mobile number"
+                type="password"
+                placeholder="******"
                 register={register}
                 errors={errors}
-                autoComplete="tel"
-              />
-              <Input
-                name="date_of_birth"
-                label="Date of Birth"
-                required
-                type="date"
-                placeholder=""
-                register={register}
-                errors={errors}
-                autoComplete="bday"
+                autoComplete="current-password"
               />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
@@ -90,17 +66,16 @@ function SignUp() {
                     block
                     loading={loading}
                   >
-                    Sign Up
+                    LOGIN
                   </Button>
                 </span>
               </div>
             </form>
           </div>
         </div>
-        <SignUpOtp />
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default SignIn;

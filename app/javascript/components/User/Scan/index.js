@@ -4,7 +4,7 @@ import ComponentByState from "./ComponentByState";
 
 function Scan() {
   const [state, setState] = useState(states.SCANNING);
-  const [merchantDetails, setmerchantDetails] = useState({
+  const [merchantDetails, setMerchantDetails] = useState({
     name: "",
     address: "",
   });
@@ -14,7 +14,7 @@ function Scan() {
   };
 
   const findMerchantDetails = () => {
-    setmerchantDetails({
+    setMerchantDetails({
       name: "Lulu Hypermarket",
       address: "Edapally, Kochi",
     });
