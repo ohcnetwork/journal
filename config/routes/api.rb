@@ -5,6 +5,7 @@ namespace :api, defaults: { format: :json }  do
     resources :users, only: [:show]
     resources :merchants, only: [:create]
     resources :qr_codes, only: [:show]
+    
     resources :visits, only: [:create, :index] do 
       member do 
         put :exit
@@ -12,6 +13,11 @@ namespace :api, defaults: { format: :json }  do
       collection do 
         get :ongoing
       end
+    end
+
+    namespace :admin do 
+      resources :sessions, only: [:create]
+      resources :visits, only: [:index]
     end
   end
 end
