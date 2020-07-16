@@ -4,7 +4,7 @@ class Api::V1::VisitsController < Api::V1::BaseController
   skip_before_action :authenticate_user!
 
   def index
-    @visits = @user.visits
+    @visits = @user.visits.order("entry_at desc")
   end
 
   def create

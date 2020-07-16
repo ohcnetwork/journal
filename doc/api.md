@@ -7,14 +7,26 @@ auth_token = user.authentication_token
 
 In the following example replace the `auth_token` value with the value derived in the above step when appropriate.
 
-### Show user information
+### Log a new visit
+
+```
+curl -v                                      \
+     -X POST                                 \
+     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
+     -H "Accept: application/json"           \
+     -H "Content-type: application/json"     \
+     -d '{"visitable_id":"3sds324234", visitable_type: "Merchant"}' \
+     http://localhost:3000/api/v1/visits
+```
+
+### Get ongoing visits of a user (most recent one first)
 
 ```
 curl -v                                       \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
-     http://localhost:3000/api/v1/users/john@example.com
+     http://localhost:3000/api/v1/visits
 ```
 
 ### Update user information
