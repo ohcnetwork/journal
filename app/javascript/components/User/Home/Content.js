@@ -22,7 +22,7 @@ function Content() {
 
     getOnGoingVisits();
   }, []);
-  console.log(loading);
+
   return (
     <main className="py-1">
       <section className="px-4 mt-4">
@@ -55,6 +55,7 @@ function Content() {
           {onGoingVisits.map((visit) => {
             return <VisitCard key={visit.id} data={visit} />;
           })}
+          {loading && <p></p>}
           {!loading && onGoingVisits.length === 0 && (
             <p className="text-center mt-8 my-2 text-gray-500">
               You don&apos;t have any visits in progress.
