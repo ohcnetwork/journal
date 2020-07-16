@@ -45,6 +45,7 @@ function SignIn() {
                 placeholder="username"
                 register={register}
                 errors={errors}
+                autoComplete="username"
               />
               <Input
                 name="password"
@@ -54,6 +55,7 @@ function SignIn() {
                 placeholder="******"
                 register={register}
                 errors={errors}
+                autoComplete="current-password"
               />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">

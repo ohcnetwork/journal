@@ -60,6 +60,7 @@ function SignUp() {
                 placeholder="John Doe"
                 register={register}
                 errors={errors}
+                autoComplete="name"
               />
               <Input
                 name="phone_number"
@@ -68,6 +69,7 @@ function SignUp() {
                 placeholder="10 digit mobile number"
                 register={register}
                 errors={errors}
+                autoComplete="tel"
               />
               <Input
                 name="date_of_birth"
@@ -77,6 +79,7 @@ function SignUp() {
                 placeholder=""
                 register={register}
                 errors={errors}
+                autoComplete="bday"
               />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
