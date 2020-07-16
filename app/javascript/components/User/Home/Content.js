@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { userOngoingVisits } from "Apis/visits";
 import VisitCard from "./VisitCard";
 import Button from "components/Common/Button";
+import { Link } from "react-router-dom";
 
 function Content() {
   const [loading, setLoading] = useState(false);
@@ -34,11 +35,13 @@ function Content() {
             press the button to scan QR code and mark your visit.
           </p>
         </header>
-        <Button block colorType="primary" size="lg">
-          Scan QR Code
-        </Button>
+        <div className="mt-5">
+          <Button block colorType="primary" size="lg" as={Link} to="/user/scan">
+            Scan QR Code
+          </Button>
+        </div>
       </section>
-      <section className="py-2 px-4">
+      <section className="mt-6 py-2 px-4">
         <header>
           <h2 className="mt-6 text-xl leading-6 font-medium text-gray-800">
             Ongoing Visits
