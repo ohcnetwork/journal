@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   validates :phone_number, uniqueness: true
 
+  has_many :visits, as: :visitable, dependent: :destroy
+
   def display_name
     name
   end
