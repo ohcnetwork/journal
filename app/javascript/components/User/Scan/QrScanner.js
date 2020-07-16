@@ -3,7 +3,6 @@ import QrReader from "react-qr-reader";
 
 function QrScanner({ onScanned, onError }) {
   const handleScan = (data) => {
-    console.log("data", data);
     if (data) {
       onScanned(data);
     }
