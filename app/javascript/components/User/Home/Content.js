@@ -9,17 +9,17 @@ function Content() {
   const [loading, setLoading] = useState(false);
   const [onGoingVisits, setOnGoingVisits] = useState([]);
 
-  useEffect(() => {
-    const getOnGoingVisits = async () => {
-      try {
-        setLoading(true);
-        const response = await userOngoingVisits();
-        setOnGoingVisits(response.data.visits);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const getOnGoingVisits = async () => {
+    try {
+      setLoading(true);
+      const response = await userOngoingVisits();
+      setOnGoingVisits(response.data.visits);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     getOnGoingVisits();
   }, []);
 
@@ -53,7 +53,13 @@ function Content() {
         </header>
         <ul className="my-2 divide-y divide-gray-200">
           {onGoingVisits.map((visit) => {
-            return <VisitCard key={visit.id} data={visit} />;
+            return (
+              <VisitCard
+                key={visit.id}
+                data={visit}
+                refetch={getOnGoingVisits}
+              />
+            );
           })}
           {loading && <p></p>}
           {!loading && onGoingVisits.length === 0 && (
