@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :phone_number, uniqueness: true
   validates :phone_number, :date_of_birth, presence: true
 
-  has_many :visits, as: :visitable, dependent: :destroy
+  has_many :visits, dependent: :destroy
 
   before_create :ensure_authentication_token_is_present
 
@@ -36,6 +36,10 @@ class User < ApplicationRecord
       user.save!
     end
     user
+  end
+
+  def self.from_authentication_token(auth_token)
+    User.find_by(authentication_token: auth_token)
   end
 
   private

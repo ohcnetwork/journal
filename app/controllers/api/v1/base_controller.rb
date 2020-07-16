@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user_using_x_auth_token!
 
   respond_to :json
 
@@ -23,14 +23,13 @@ class Api::V1::BaseController < ApplicationController
       Rails.logger.info exception.backtrace.join("\n")
     end
 
-    def authenticate_user_using_x_auth_token
-      user_email = request.headers["X-Auth-Email"]
+    def authenticate_user_using_x_auth_token!
       auth_token = request.headers["X-Auth-Token"].presence
 
-      user = user_email && User.find_by(email: user_email)
+      @user = User.from_authentication_token(auth_token)
 
-      if user && Devise.secure_compare(user.authentication_token, auth_token)
-        sign_in user, store: false
+      if @user.present?
+        sign_in @user, store: false
       else
         respond_with_error("Could not authenticate with the provided credentials", 401)
       end

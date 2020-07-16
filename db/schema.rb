@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_110601) do
   create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "visitable_type"
     t.uuid "visitable_id"
-    t.uuid "user_id"
+    t.integer "user_id"
     t.datetime "entry_at"
     t.datetime "exit_at"
   end

@@ -72,7 +72,7 @@ end
 
 def create_visits
   10.times do 
-    Visit.create! visitor: @visitors.sample, visitable: @merchants.sample
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample
   end
 end
 

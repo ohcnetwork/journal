@@ -120,6 +120,11 @@ group :test do
 
   # Minitest reporter plugin for CircleCI.
   gem "minitest-ci"
+
+  # generate test data
+  gem "factory_bot_rails"
+
+  gem "faker"
 end
 
 # To inject React components in views and pass props from server

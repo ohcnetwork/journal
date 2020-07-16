@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Visit < ApplicationRecord
-  belongs_to :visitor, class_name: "User", foreign_key: "user_id", inverse_of: :visits
+  belongs_to :user
 
   belongs_to :visitable, polymorphic: true
   # Possible Visitable for now is only a Merchant.
@@ -9,7 +9,7 @@ class Visit < ApplicationRecord
 
   before_validation :set_entry_at
 
-  validates :entry_at, :visitor, :visitable, presence: true
+  validates :entry_at, :user, :visitable, presence: true
 
   private
 
