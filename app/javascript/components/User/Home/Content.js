@@ -55,6 +55,11 @@ function Content() {
           {onGoingVisits.map((visit) => {
             return <VisitCard key={visit.id} data={visit} />;
           })}
+          {!loading && onGoingVisits.length === 0 && (
+            <p className="text-center mt-8 my-2 text-gray-500">
+              You don&apos;t have any visits in progress.
+            </p>
+          )}
         </ul>
       </section>
     </main>
