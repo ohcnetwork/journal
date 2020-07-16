@@ -40,7 +40,7 @@ task setup_sample_data: [:environment, :not_production] do
 
   @visitors  = create_visitors
   @merchants = create_merchants
-  
+
   create_visits
 
   puts "sample data was added successfully"
@@ -57,7 +57,7 @@ def create_merchants
     {
       name: "Lakeshore Hospital",
       phone_number: "2342342341",
-      address: "Madavana, Maradu PO, 682304"   
+      address: "Madavana, Maradu PO, 682304"
     },
 
     {
@@ -71,7 +71,7 @@ def create_merchants
 end
 
 def create_visits
-  10.times do 
+  10.times do
     Visit.create! user: @visitors.sample, visitable: @merchants.sample
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 authenticate :user, ->(u) { u.super_admin? } do
 
     ActiveAdmin.routes(self)
