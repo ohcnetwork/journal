@@ -25,7 +25,7 @@ gem "jbuilder", ">= 2.2.13"
 gem "devise", "~> 4.7"
 
 # Error tracking
-gem "honeybadger", "~> 3.1"
+gem "honeybadger", "~> 4.7"
 
 # Bootstrap framework
 gem "bootstrap", "~> 4.4.1"
@@ -58,7 +58,7 @@ gem "mail_interceptor", group: [:development, :staging]
 gem "email_prefixer"
 
 # Application server
-gem "puma", "~> 3.12"
+gem "puma", "~> 4.3"
 
 # Rails request timeout, needed if running on Heroku-
 # https://devcenter.heroku.com/articles/request-timeout
@@ -72,6 +72,9 @@ gem "bootsnap"
 
 # Background jobs
 gem "delayed_job_active_record"
+
+# To generate QR Code
+gem "rqrcode"
 
 group :development do
   # speeds up development by keeping your application running in the background
@@ -87,10 +90,10 @@ group :development do
   gem "pry-byebug"
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "web-console", "~> 3.0"
+  gem "web-console", "~> 4.0"
 
   # Reenable after https://github.com/rails/rails/issues/26158 is fixed
-  gem "listen", "~> 3.1.5"
+  gem "listen", "~> 3.2"
 
   # reports N+1 queries
   gem "bullet"

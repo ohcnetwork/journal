@@ -3,9 +3,9 @@
 module ApiResponders
   extend ActiveSupport::Concern
 
-  def respond_with_error(message, status = 422, errors = nil)
+  def respond_with_errors(message, status = 422, errors = nil)
     response = { error: message }
-    response.merge({ errors: errors }) if errors.present?
+    response.merge!({ errors: errors }) if errors.present?
     render json: response, status: status
   end
 

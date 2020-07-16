@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# Following code is disabling Rack Timeout logger.
-# Rack Timeout is enabled in development.
-Rack::Timeout::Logger.disable if Rails.env.development?
 
-# Rack::Timeout.service_timeout = 30 # seconds
+timeout_interval = Rails.env.production? ? 15 : 120
+Rails.application.config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: timeout_interval

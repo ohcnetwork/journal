@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import { create as merchantCreate } from "../../apis/MerchantApi";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of shop"),
-  phone: yup
+  phone_number: yup
     .string()
     .trim()
     .required("Please enter mobile number")
@@ -17,12 +19,28 @@ const schema = yup.object().shape({
 });
 
 function GenerateForm() {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const handleFormValues = (formData) => {
-    console.log(formData);
+  const qrCodeData = (merchantData) => {
+    const qrCodeData = JSON.stringify({
+      id: merchantData.id,
+      type: "merchant",
+    });
+    return encodeURIComponent(qrCodeData);
+  };
+
+  const handleFormValues = async (formData) => {
+    setLoading(true);
+    const response = await merchantCreate(formData);
+    setLoading(false);
+    if (!response.error) {
+      history.push(`/merchant/qr?code=${qrCodeData(response)}`);
+    }
   };
 
   return (
@@ -46,7 +64,7 @@ function GenerateForm() {
                 errors={errors}
               />
               <Input
-                name="phone"
+                name="phone_number"
                 label="Mobile number"
                 required
                 placeholder="10 digit mobile number"
@@ -69,8 +87,8 @@ function GenerateForm() {
                     htmlType="submit"
                     colorType="primary"
                     sizeType="lg"
+                    loading={loading}
                     block
-                    loading
                   >
                     Generate
                   </Button>
