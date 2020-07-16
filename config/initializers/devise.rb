@@ -150,7 +150,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  
+
   # config.timeout_in = 30.minutes
 
   # If true, expires auth token on session timeout.
@@ -235,7 +235,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  
+
   # Uncomment when needed
   # config.omniauth :google_oauth2, "Google client ID", "Google Seceret", {}
 

@@ -102,7 +102,7 @@ group :development do
   gem "rubocop", require: false
 
   # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
-  gem 'rubocop-rails', require: false
+  gem "rubocop-rails", require: false
 
   # Patch-level verification for Bundler.
   gem "bundler-audit", require: false
@@ -120,10 +120,15 @@ group :test do
 
   # Minitest reporter plugin for CircleCI.
   gem "minitest-ci"
+
+  # generate test data
+  gem "factory_bot_rails"
+
+  gem "faker"
 end
 
 # To inject React components in views and pass props from server
-gem 'react-rails', '~> 2.6'
+gem "react-rails", "~> 2.6"
 
 # For Google Login
-gem 'omniauth-google-oauth2', '~> 0.8.0'
+gem "omniauth-google-oauth2", "~> 0.8.0"
