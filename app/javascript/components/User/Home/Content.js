@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { userOngoingVisits } from "Apis/visits";
 import VisitCard from "./VisitCard";
+import Button from "components/Common/Button";
 
 function Content() {
   const [loading, setLoading] = useState(false);
@@ -22,20 +23,36 @@ function Content() {
   }, []);
   console.log(loading);
   return (
-    <main className="px-3 py-1">
-      <section>
-        <h2 className="mt-6 text-2xl leading-8 font-extrabold text-gray-900">
-          Ongoing Visits
-        </h2>
-        <p className="mt-2 text-sm leading-5 text-gray-600 max-w">
-          These are visits that you have currently started. Press exit button to
-          end these visits.
-        </p>
-        <div className="my-2">
+    <main className="py-1">
+      <section className="px-4 mt-4">
+        <header>
+          <h2 className="mt-6 text-xl leading-6 font-medium text-gray-800">
+            Start a Visit
+          </h2>
+          <p className="mt-2 text-sm leading-5 text-gray-600 max-w">
+            Whenever you come across a Journal QR code in a shop/marketplace,
+            press the button to scan QR code and mark your visit.
+          </p>
+        </header>
+        <Button block colorType="primary" size="lg">
+          Scan QR Code
+        </Button>
+      </section>
+      <section className="py-2 px-4">
+        <header>
+          <h2 className="mt-6 text-xl leading-6 font-medium text-gray-800">
+            Ongoing Visits
+          </h2>
+          <p className="mt-2 text-sm leading-5 text-gray-600 max-w">
+            These are visits that you have currently started. Press exit button
+            to end these visits.
+          </p>
+        </header>
+        <ul className="my-2 divide-y divide-gray-200">
           {onGoingVisits.map((visit) => {
             return <VisitCard key={visit.id} data={visit} />;
           })}
-        </div>
+        </ul>
       </section>
     </main>
   );
