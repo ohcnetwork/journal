@@ -2,7 +2,12 @@
 
 namespace :api, defaults: { format: :json }  do
   namespace :v1 do
-    resources :users, only: [:show]
+    resources :sessions, only: [:create]
+    resources :users do
+      member do
+        post :verify_otp
+      end
+    end
     resources :merchants, only: [:create]
     resources :qr_codes, only: [:show]
 

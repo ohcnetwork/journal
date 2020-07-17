@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::MerchantsController < Api::V1::BaseController
-  skip_before_action :authenticate_user!
-  protect_from_forgery except: :create
-
   def create
     merchant = Merchant.new(merchant_params)
     if merchant.save

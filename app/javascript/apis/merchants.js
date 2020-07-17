@@ -1,3 +1,3 @@
-import axios from "axios";
+import Axios from "./axios";
 
-export const create = (payload) => axios.post("/api/v1/merchants", payload);
+export const create = (payload) => Axios.post("/merchants", payload);

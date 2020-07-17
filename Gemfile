@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "2.7.0"
 
-gem "rails", "~> 6.0.2.2"
+gem "rails", "~> 6.0.3"
 gem "sprockets", "~> 3.7.2"
 
 # friends of Rails
@@ -75,6 +75,8 @@ gem "rqrcode"
 
 # To load enviroment variables from .env
 gem "dotenv-rails"
+# To run cron jobs
+gem "whenever", require: false
 
 group :development do
   # speeds up development by keeping your application running in the background

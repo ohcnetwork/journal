@@ -162,50 +162,40 @@ curl -v                                      \
 ```
 
 
-### Update user information
+### User Login 
 
-Using `wrap_parameters`.
-
-```
-curl -v                                      \
-     -X PUT                                  \
-     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
-     -H "Accept: application/json"           \
-     -H "Content-type: application/json"     \
-     -d '{"first_name":"Johnny"}'            \
-     http://localhost:3000/api/v1/users/john@example.com
-```
-
-Without using `wrap_parameters`.
-
-```
-curl -v                                       \
-     -X PUT                                   \
-     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL"  \
-     -H "Accept: application/json"            \
-     -H "Content-type: application/json"      \
-     -d '{"user":{"first_name":"Johnny"}}'    \
-     http://localhost:3000/api/v1/users/john@example.com
-```
-
-#### Deleting a user
+1. Creates a new user if phone number doesn't already exist.
+2. Updates the existing user with given Name and DOB if phone number already exists.
+3. Sends out an OTP to the user's phone number.
 
 ```
 curl -v                                      \
-     -X DELETE                               \
-     -H "X-Auth-Token: jz_sPhqn-8jySr_72Ehj" \
+     -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     http://localhost:3000/api/v1/users/john@example.com
+     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
+     http://localhost:3000/api/v1/sessions
 ```
 
-#### Adding a new user
+### OTP Verification
 
 ```
 curl -v                                      \
-     -X POST                                 \
+     -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"first_name":"Mary","last_name":"Smith","email":"mary@example.com","[user]password":"welcome","password_confirmation":"welcome"}' \
-     http://localhost:3000/api/v1/users
+     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
+     http://localhost:3000/api/v1/sessions/verify_otp?otp=1947
+```
+
+If OTP is incorrect response will be a `400`
+
+Otherwise:
+```
+{
+  "id": 45, 
+  "name": "Gudrun Ziemann", 
+  "phone_number": "1243444037", 
+  "date_of_birth": "1956-09-12"
+}
 ```

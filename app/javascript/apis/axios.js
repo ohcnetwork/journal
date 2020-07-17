@@ -1,8 +1,14 @@
 import axios from "axios";
 
-axios.defaults.headers = {
-  "Content-Type": "application/json",
-};
+const Axios = axios.create({
+  baseURL: "/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export default Axios;
+
 export const setAxiosIntercepts = () => {
   axios.interceptors.response.use(
     function (response) {
