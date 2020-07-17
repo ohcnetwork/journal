@@ -29,6 +29,7 @@ function SignUpOtp() {
       },
     } = event;
     setLoading(true);
+    setError(null);
     try {
       const response = await verifyOtp(userId, value);
       console.log(response);

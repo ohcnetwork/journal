@@ -22,6 +22,7 @@ function SignIn() {
 
   const onSubmit = async (payload) => {
     setLoading(true);
+    setError(null);
     try {
       const response = await AdminAuthApi.signIn(payload);
       console.log(response.data);
