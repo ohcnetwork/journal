@@ -22,6 +22,7 @@ const sizeTypes = {
 };
 
 function Button({
+  as: As,
   className,
   htmlType,
   onClick,
@@ -41,7 +42,7 @@ function Button({
         "w-full": block,
       })}
     >
-      <button
+      <As
         type={htmlType}
         className={classnames(
           "w-full inline-flex justify-center items-center border font-medium rounded-md disabled:opacity-60 focus:outline-none transition ease-in-out duration-150",
@@ -55,12 +56,13 @@ function Button({
       >
         {loading && <Spinner className="w-6 mr-2" />}
         {children}
-      </button>
+      </As>
     </span>
   );
 }
 
 Button.defaultProps = {
+  as: "button",
   htmlType: "button",
   children: null,
   onClick: () => {},
@@ -71,6 +73,8 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+  /** defaults to button, can be used to render an anchor tag or Link component */
+  as: PropTypes.elementType.isRequired,
   /** Defines HTML type of button */
   htmlType: PropTypes.oneOf(["submit", "reset", "button"]),
   /** Defines color type of button */

@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import states from "./states.js";
 import ComponentByState from "./ComponentByState";
-import { useHistory } from "react-router-dom";
-import { logout } from "Apis/Auth";
-import Button from "Common/Button";
 
 function Scan() {
-  const history = useHistory();
   const [state, setState] = useState(states.SCANNING);
   const [merchantDetails, setMerchantDetails] = useState({
     name: "",
@@ -33,24 +29,8 @@ function Scan() {
     setState(states.ERROR_QR_READ);
   };
 
-  const onLogout = () => {
-    logout();
-    history.push("/signUp");
-  };
-
   return (
     <div className="min-h-screen flex flex-col py-12 px-6">
-      <span className="self-end">
-        <Button
-          htmlType="button"
-          colorType="primary"
-          sizeType="lg"
-          block
-          onClick={onLogout}
-        >
-          Log out
-        </Button>
-      </span>
       <div className="bg-gray-50 flex flex-col justify-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
