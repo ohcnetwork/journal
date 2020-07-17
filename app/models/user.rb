@@ -12,6 +12,13 @@ class User < ApplicationRecord
 
   before_create :ensure_authentication_token_is_present
 
+  scope :by_age,   -> (age)  { where("EXTRACT(YEAR FROM AGE(date_of_birth)) = ?", age) }
+  scope :by_phone, -> (phone) { where(phone_number: phone) }
+
+  def age
+    Time.zone.today.year - date_of_birth.year
+  end
+
   def display_name
     name
   end

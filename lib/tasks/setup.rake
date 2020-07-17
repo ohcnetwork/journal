@@ -38,12 +38,18 @@ desc "Deletes all records and populates sample data"
 task setup_sample_data: [:environment, :not_production] do
   delete_all_records_from_all_tables
 
+  create_admin_user
+
   @visitors  = create_visitors
   @merchants = create_merchants
 
   create_visits
 
   puts "sample data was added successfully"
+end
+
+def create_admin_user
+  AdminUser.create!(name: "CoronaSafe")
 end
 
 def create_merchants
@@ -72,7 +78,23 @@ end
 
 def create_visits
   10.times do
-    Visit.create! user: @visitors.sample, visitable: @merchants.sample
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 10.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 5.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 2.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 1.day.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: Time.zone.today
   end
 end
 

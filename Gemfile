@@ -41,9 +41,6 @@ gem "simple_form", "~>5.0"
 
 gem "coffee-script"
 
-# Admin framework
-gem "activeadmin"
-
 # Email validation
 gem "email_validator"
 
@@ -76,8 +73,10 @@ gem "delayed_job_active_record"
 # To generate QR Code
 gem "rqrcode"
 
+# To load enviroment variables from .env
+gem "dotenv-rails"
 # To run cron jobs
-gem 'whenever', require: false
+gem "whenever", require: false
 
 group :development do
   # speeds up development by keeping your application running in the background

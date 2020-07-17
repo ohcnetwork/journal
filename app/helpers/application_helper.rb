@@ -19,7 +19,7 @@ module ApplicationHelper
   def nav_link(text, path, condition = false, options = {})
     class_name = (current_page?(path) || condition) ? "active" : ""
 
-    content_tag(:li, class: class_name) do
+    tag.li(class: class_name) do
       options[:title] = text unless options.has_key?(:title)
       link_to text, path, options
     end
