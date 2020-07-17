@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch, Route } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
@@ -25,6 +25,7 @@ const schema = yup.object().shape({
 
 function SignUp() {
   const [loading, setLoading] = useState(false);
+  const match = useRouteMatch();
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm({
@@ -35,8 +36,9 @@ function SignUp() {
     setLoading(true);
     try {
       const response = await login(payload);
-      if (response.data?.user) {
-        history.push("/user");
+      const userId = response.data?.user_id;
+      if (userId) {
+        history.push(`${match.url}verify?id=${userId}`);
       }
     } finally {
       setLoading(false);
@@ -44,61 +46,69 @@ function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-6 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-sm">
         <img className="w-full" src={SignUpThump} alt="" />
         <div className="px-6 py-4">
-          <h2 className="text-3xl leading-9 font-extrabold text-gray-900">
-            Sign Up
-          </h2>
-          <div className="mt-6">
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                name="name"
-                label="Full Name"
-                required
-                placeholder="John Doe"
-                register={register}
-                errors={errors}
-                autoComplete="name"
-                autoFocus
-              />
-              <Input
-                name="phone_number"
-                label="Mobile number"
-                required
-                placeholder="10 digit mobile number"
-                register={register}
-                errors={errors}
-                autoComplete="tel"
-              />
-              <Input
-                name="date_of_birth"
-                label="Date of Birth"
-                required
-                type="date"
-                placeholder=""
-                register={register}
-                errors={errors}
-                autoComplete="bday"
-              />
+          <Route path={`${match.url}`} exact>
+            <>
+              <h2 className="text-3xl leading-9 font-extrabold text-gray-900">
+                Enter your details
+              </h2>
               <div className="mt-6">
-                <span className="block w-full rounded-md shadow-sm">
-                  <Button
-                    htmlType="submit"
-                    colorType="primary"
-                    sizeType="lg"
-                    block
-                    loading={loading}
-                  >
-                    Sign Up
-                  </Button>
-                </span>
+                <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                  <Input
+                    name="name"
+                    label="Full Name"
+                    required
+                    placeholder="John Doe"
+                    register={register}
+                    errors={errors}
+                    autoComplete="name"
+                    autoFocus
+                  />
+                  <Input
+                    name="phone_number"
+                    label="Mobile number"
+                    required
+                    placeholder="10 digit mobile number"
+                    register={register}
+                    errors={errors}
+                    autoComplete="tel"
+                  />
+                  <Input
+                    name="date_of_birth"
+                    label="Date of Birth"
+                    required
+                    type="date"
+                    placeholder=""
+                    register={register}
+                    errors={errors}
+                    autoComplete="bday"
+                  />
+                  <div className="mt-6">
+                    <span className="block w-full rounded-md shadow-sm">
+                      <Button
+                        htmlType="submit"
+                        colorType="primary"
+                        sizeType="lg"
+                        block
+                        loading={loading}
+                      >
+                        Sign Up
+                      </Button>
+                    </span>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
+            </>
+          </Route>
+          <Route path={`${match.url}verify`}>
+            <div className="mt-2">
+              <SignUpOtp />
+            </div>
+          </Route>
         </div>
-        <SignUpOtp />
       </div>
     </div>
   );
