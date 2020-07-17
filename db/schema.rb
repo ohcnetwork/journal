@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_110601) do
+ActiveRecord::Schema.define(version: 2020_07_17_184234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 2020_07_16_110601) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "admin_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "authentication_token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -79,6 +86,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_110601) do
     t.string "name", null: false
     t.string "phone_number", null: false
     t.date "date_of_birth", null: false
+    t.string "otp"
     t.index ["phone_number", "date_of_birth"], name: "index_users_on_phone_number_and_date_of_birth", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

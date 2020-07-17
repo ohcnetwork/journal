@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ApplicationController
-  before_action :authenticate_user_using_session_token!
-
   respond_to :json
 
   private
@@ -21,15 +19,5 @@ class Api::V1::BaseController < ApplicationController
       Rails.logger.info exception.class.to_s
       Rails.logger.info exception.to_s
       Rails.logger.info exception.backtrace.join("\n")
-    end
-
-    def authenticate_user_using_session_token!
-      @user = current_user
-
-      if @user.present?
-        sign_in @user, store: false
-      else
-        respond_with_error("Could not authenticate with the provided credentials", 401)
-      end
     end
 end
