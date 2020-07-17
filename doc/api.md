@@ -89,26 +89,28 @@ Note:
 
 ```
 curl -v                                       \
-     -H "X-Auth-Token: aYrUiKbHeFeMnKwUgJUB5Q=="  \
+     -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
-     http://localhost:3000/api/v1/admin/users/:user_id/route_map?from=21-05-2020&to=30-06-2020
+     http://localhost:3000/api/v1/admin/users/:user_id/route_map?from=2020-07-02&to=2020-07-17
 ```
 
 ```
-[
-  {
-    entry_at: "10:10:00 22-05-2020",
-    exit_at: "11:00:00 22-05-2020",
-    visitable: {
-      type: "Merchant",
-      id: "dsfgdfgfd",
-      name: "Lakeshore Hospital",
-      phone: "1233214567",
-      address: "Madavana, Maradu PO, 682023"
-    }
-  }
-]
+{
+  visits: [
+    {
+      entry_at: "10:10:00 22-05-2020",
+      exit_at: "11:00:00 22-05-2020",
+      visitable: {
+        type: "Merchant",
+        id: "dsfgdfgfd",
+        name: "Lakeshore Hospital",
+        phone: "1233214567",
+        address: "Madavana, Maradu PO, 682023"
+      }
+   }
+  ]
+}
 ```
 
 ---
