@@ -52,50 +52,38 @@ curl -v                                      \
 ```
 
 
-### Update user information
+### Login 
 
 Using `wrap_parameters`.
 
 ```
 curl -v                                      \
-     -X PUT                                  \
-     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
+     -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"first_name":"Johnny"}'            \
-     http://localhost:3000/api/v1/users/john@example.com
+     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
+     http://localhost:3000/api/v1/sessions
 ```
 
-Without using `wrap_parameters`.
-
-```
-curl -v                                       \
-     -X PUT                                   \
-     -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL"  \
-     -H "Accept: application/json"            \
-     -H "Content-type: application/json"      \
-     -d '{"user":{"first_name":"Johnny"}}'    \
-     http://localhost:3000/api/v1/users/john@example.com
-```
-
-#### Deleting a user
+### OTP Verification
 
 ```
 curl -v                                      \
-     -X DELETE                               \
-     -H "X-Auth-Token: jz_sPhqn-8jySr_72Ehj" \
+     -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     http://localhost:3000/api/v1/users/john@example.com
+     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
+     http://localhost:3000/api/v1/sessions/verify_otp?otp=1947
 ```
 
-#### Adding a new user
+If OTP is incorrect response will be a `400`
 
+Otherwise:
 ```
-curl -v                                      \
-     -X POST                                 \
-     -H "Accept: application/json"           \
-     -H "Content-type: application/json"     \
-     -d '{"first_name":"Mary","last_name":"Smith","email":"mary@example.com","[user]password":"welcome","password_confirmation":"welcome"}' \
-     http://localhost:3000/api/v1/users
+{
+  "id": 45, 
+  "name": "Gudrun Ziemann", 
+  "phone_number": "1243444037", 
+  "date_of_birth": "1956-09-12"
+}
 ```
