@@ -20,7 +20,7 @@ namespace :api, defaults: { format: :json }  do
       resources :visits, only: [:index]
       resources :users, only: [:index] do
         member do
-          get :routemap
+          get :route_map
         end
       end
     end
