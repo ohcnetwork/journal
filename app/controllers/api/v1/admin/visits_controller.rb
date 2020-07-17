@@ -6,7 +6,7 @@ class Api::V1::Admin::VisitsController < Api::V1::BaseController
   before_action :ensure_mandatory_params_are_present
 
   def index
-    @visits = visitable.visits.between(start_date, end_date)
+    @visits = visitable.visits.between(start_date, end_date).order("entry_at desc")
   end
 
   private

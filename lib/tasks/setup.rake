@@ -78,7 +78,23 @@ end
 
 def create_visits
   10.times do
-    Visit.create! user: @visitors.sample, visitable: @merchants.sample
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 10.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 5.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 2.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 1.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: Time.zone.today
   end
 end
 

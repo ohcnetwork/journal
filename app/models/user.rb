@@ -12,6 +12,10 @@ class User < ApplicationRecord
 
   before_create :ensure_authentication_token_is_present
 
+  def age
+    Time.zone.today.year - date_of_birth.year
+  end
+
   def display_name
     name
   end

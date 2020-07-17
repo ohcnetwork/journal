@@ -16,7 +16,7 @@ curl -v                                      \
      -X POST                                 \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"username": "root", "password": "mypassword"}' \
+     -d '{"username": "root", "password": "whoami"}' \
      http://localhost:3000/api/v1/admin/sessions
 ```
 
@@ -37,11 +37,16 @@ Status: 401
 
 ```
 curl -v                                       \
-     -H "X-Auth-Token: aYrUiKbHeFeMnKwUgJUB5Q=="  \
+     -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
-     http://localhost:3000/api/v1/admin/visits?visitable_id=ewrewrew&visitable_type=Merchant&from=21-05-2020&to=30-06-2020
+     http://localhost:3000/api/v1/admin/visits?visitable_id=8fa1033f-b8a1-4cc1-a00b-378eae56d790&visitable_type=Merchant&from=2020-07-05&to=2020-07-17
 ```
+
+Note: 
+
+1. `visitable_id` and `visitable_type` are mandatory parameters. They should come from scanning the QR code. If they are missing the backend will respond with `400`
+2. `from` and `to` are optional. They have default values set to `7-days-ago` and `today`.
 
 ### Search for a user
 

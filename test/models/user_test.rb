@@ -53,4 +53,15 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not user.valid?
   end
+
+  test "age" do
+    user = User.create({
+      name: "Stephen Nedumpally",
+      phone_number: "2255225522",
+      date_of_birth: "05/05/1975",
+      role: "visitor"
+    })
+
+    assert_equal 45, user.age
+  end
 end
