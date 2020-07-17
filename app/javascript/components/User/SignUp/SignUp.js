@@ -37,8 +37,9 @@ function SignUp() {
     try {
       const response = await login(payload);
       const userId = response.data?.user_id;
+      const mobileNumber = payload.phone_number;
       if (userId) {
-        history.push(`${match.url}verify?id=${userId}`);
+        history.push(`${match.url}verify?id=${userId}&mobile=${mobileNumber}`);
       }
     } finally {
       setLoading(false);

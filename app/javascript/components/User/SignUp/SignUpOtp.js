@@ -1,18 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
+import useQuery from "Hooks/useQuery";
+import { verifyOtp } from "Apis/authentication";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 
 function SignUpOtp() {
+  const params = useQuery();
+  const userId = params.get("id");
+
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!userId) {
+      history.push("/");
+    }
+  }, [params]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const {
+      target: {
+        otp: { value },
+      },
+    } = event;
+    setLoading(true);
+    try {
+      const response = await verifyOtp(userId, value);
+      console.log(response);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="py-4">
       <h2 className="font-bold text-gray-900 text-lg mb-2">Enter OTP</h2>
       <p className="text-sm text-gray-500">
-        You would have received a one time password from us in your registered
-        mobile number. Please provide the OTP here to verify your mobile number.{" "}
+        You would have received a one time password as SMS in your registered
+        mobile number {params.get("mobile")}. Please provide the OTP here to
+        verify your mobile number.{" "}
       </p>
-      <form>
-        <div className="mt-2 mb-1">
+      <form onSubmit={handleSubmit}>
+        <div className="mt-2">
           <Input
             pattern="\d*"
             maxLength="6"
@@ -20,9 +56,15 @@ function SignUpOtp() {
             label="One Time Password"
             name="otp"
             autoComplete="one-time-code"
+            className="mt-6 mb-4"
           />
         </div>
-        <div className="flex items-center justify-between">
+        {error && (
+          <div className="mb-2 text-red-600 text-center" role="alert">
+            <p>Could not verify OTP. Please try again.</p>
+          </div>
+        )}
+        <div className="flex items-center justify-between mt-6">
           <a
             className="inline-block font-medium text-sm text-blue-500 hover:text-blue-800"
             href="/"
@@ -31,7 +73,12 @@ function SignUpOtp() {
           </a>
           <div>
             <span className="block w-full rounded-md shadow-sm">
-              <Button htmlType="submit" colorType="primary" sizeType="lg">
+              <Button
+                htmlType="submit"
+                colorType="primary"
+                sizeType="lg"
+                loading={loading}
+              >
                 Verify OTP
               </Button>
             </span>

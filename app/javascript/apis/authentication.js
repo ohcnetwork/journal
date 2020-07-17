@@ -5,4 +5,9 @@ export const login = (payload) =>
     user: payload,
   });
 
+export const verifyOtp = (userId, otp) =>
+  Axios.post(`/users/${userId}/verify_otp`, {
+    otp,
+  });
+
 export const logout = () => Axios.delete("/logout");
