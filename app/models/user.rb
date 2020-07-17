@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :omniauthable
 
   validates :phone_number, uniqueness: true
+  validates :name, :date_of_birth, presence: true
 
   def display_name
     name
