@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import { useHistory } from "react-router-dom";
 
 import * as AdminAuthApi from "Apis/Admin/Auth";
 import Input from "Common/Form/Input";
@@ -13,6 +14,8 @@ const schema = yup.object().shape({
 });
 
 function SignIn() {
+  const history = useHistory();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -25,7 +28,9 @@ function SignIn() {
     setError(null);
     try {
       const response = await AdminAuthApi.signIn(payload);
-      console.log(response.data);
+      const authToken = response.data;
+      localStorage.setItem("admin-auth-token", authToken);
+      history.push("/admin");
     } catch (err) {
       setError(err);
     } finally {
