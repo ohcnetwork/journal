@@ -82,7 +82,7 @@ curl -v                                       \
 
 Note: 
 
-1. Practically, this API response should only a maximum of 1 user.
+1. Practically, this API response should only return a maximum of 1 user.
 2. `age` and `phone` are mandatory parameters. If they are missing the backend will respond with `400`.
 
 ### RouteMap for a user
