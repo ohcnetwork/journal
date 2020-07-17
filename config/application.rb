@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Journal
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
     config.active_job.queue_adapter = :delayed_job
     config.action_dispatch.return_only_media_type_on_content_type = false
 
