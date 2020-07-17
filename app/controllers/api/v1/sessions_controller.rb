@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::SessionsController < Api::V1::BaseController
+  skip_before_action :authenticate_user_using_x_auth_token!
+
   def create
     @user = User.where(phone_number: params[:user][:phone_number]).first
 
