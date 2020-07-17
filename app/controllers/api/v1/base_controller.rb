@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user_using_x_auth_token!
 
   respond_to :json

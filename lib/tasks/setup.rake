@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 desc "Ensure that code is not running in production environment"
-task :not_production do
+task not_production: :environment do
   if Rails.env.production? && ENV["DELETE_PRODUCTION_DATA"].blank?
     puts ""
     puts "*" * 50
@@ -38,12 +38,18 @@ desc "Deletes all records and populates sample data"
 task setup_sample_data: [:environment, :not_production] do
   delete_all_records_from_all_tables
 
+  create_admin_user
+
   @visitors  = create_visitors
   @merchants = create_merchants
 
   create_visits
 
   puts "sample data was added successfully"
+end
+
+def create_admin_user
+  AdminUser.create!(name: "CoronaSafe")
 end
 
 def create_merchants

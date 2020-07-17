@@ -16,7 +16,7 @@ curl -v                                      \
      -X POST                                 \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{username: "root", password: "mypassword"}' \
+     -d '{"username": "root", "password": "mypassword"}' \
      http://localhost:3000/api/v1/admin/sessions
 ```
 
@@ -33,7 +33,7 @@ OR
 Status: 401
 ```
 
-### Visits Search
+### Visits Filter 
 
 ```
 curl -v                                       \
