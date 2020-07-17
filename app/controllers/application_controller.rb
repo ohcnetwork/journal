@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   include ApiResponders
 
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
   before_action :set_layout_carrier
   before_action :set_csrf_cookie
 
