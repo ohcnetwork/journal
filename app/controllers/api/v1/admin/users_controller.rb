@@ -9,6 +9,9 @@ class Api::V1::Admin::UsersController < Api::V1::BaseController
     @users = User.by_age(params[:age]).by_phone(params[:phone])
   end
 
+  def route_map
+  end
+
   private
     def ensure_mandatory_params_are_present
       unless params[:age] && params[:phone]

@@ -10,7 +10,7 @@ class Api::V1::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     @user = create(:user)
   end
 
-  def test_success
+  def test_index_success
     get api_v1_admin_users_path(phone: @user.phone_number, age: @user.age), headers: headers(@admin_user)
     assert_response :success
 
@@ -19,21 +19,26 @@ class Api::V1::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal @user.id, users.first["id"]
   end
 
-  def test_with_wrong_age
+  def test_index_with_wrong_age
     get api_v1_admin_users_path(phone: @user.phone_number, age: @user.age + 10), headers: headers(@admin_user)
     assert_response :success
     assert_equal 0, json_body["users"].count
   end
 
-  def test_with_wrong_phone
+  def test_index_with_wrong_phone
     get api_v1_admin_users_path(phone: "wrongphone", age: @user.age), headers: headers(@admin_user)
     assert_response :success
     assert_equal 0, json_body["users"].count
   end
 
-  def test_with_wrong_phone_and_age
+  def test_index_with_wrong_phone_and_age
     get api_v1_admin_users_path(phone: "wrongphone", age: @user.age + 10), headers: headers(@admin_user)
     assert_response :success
     assert_equal 0, json_body["users"].count
+  end
+
+  def test_index_with_out_mandatory_params
+    get api_v1_admin_users_path, headers: headers(@admin_user)
+    assert_response :bad_request
   end
 end
