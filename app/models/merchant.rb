@@ -2,6 +2,7 @@
 
 class Merchant < ApplicationRecord
   has_many :qr_codes, as: :qr_coded, dependent: :destroy
+  has_many :visits, as: :visitable, dependent: :destroy
 
   # after_create :generate_qr_code
 

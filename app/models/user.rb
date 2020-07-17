@@ -5,8 +5,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable
 
-  validates :phone_number, uniqueness: true
-  validates :name, :date_of_birth, presence: true
+  validates :name, :phone_number, :date_of_birth, presence: true
+
+  has_many :visits, dependent: :destroy
+
+  before_create :ensure_authentication_token_is_present
 
   def display_name
     name
@@ -32,6 +35,10 @@ class User < ApplicationRecord
       user.save!
     end
     user
+  end
+
+  def self.from_authentication_token(auth_token)
+    User.find_by(authentication_token: auth_token)
   end
 
   private

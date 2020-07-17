@@ -3,10 +3,10 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import { isLoggedIn } from "Apis/Auth";
 import SignUp from "./SignUp/SignUp";
-import Scan from "./Scan";
+import Home from "./Home";
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState([]);
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const PrivateRoute = ({ children, ...rest }) => {
 function User() {
   return (
     <Switch>
-      <PrivateRoute path="/scan">
-        <Scan />
+      <PrivateRoute path="/user">
+        <Home />
       </PrivateRoute>
       <Route path="/">
         <SignUp />

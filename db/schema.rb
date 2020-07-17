@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_073318) do
+ActiveRecord::Schema.define(version: 2020_07_16_110601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -82,6 +82,14 @@ ActiveRecord::Schema.define(version: 2020_07_16_073318) do
     t.index ["phone_number", "date_of_birth"], name: "index_users_on_phone_number_and_date_of_birth", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "visitable_type"
+    t.uuid "visitable_id"
+    t.integer "user_id"
+    t.datetime "entry_at"
+    t.datetime "exit_at"
   end
 
 end
