@@ -2,14 +2,14 @@
 
 module ApplicationHelper
   def get_client_props
-    if current_user.present?
-      client_props = {
-        user: current_user,
-        authenticated: current_user.present?
-      }
+    # if current_user.present?
+    #   client_props = {
+    #     user: current_user,
+    #     authenticated: current_user.present?
+    #   }
 
-      client_props
-    end
+    #   client_props
+    # end
   end
 
   def super_admin_signed_in?
