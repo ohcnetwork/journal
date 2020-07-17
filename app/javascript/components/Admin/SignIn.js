@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 
+import * as AdminAuthApi from "Apis/Admin/Auth";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 
@@ -13,6 +14,7 @@ const schema = yup.object().shape({
 
 function SignIn() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -21,7 +23,10 @@ function SignIn() {
   const onSubmit = async (payload) => {
     setLoading(true);
     try {
-      console.log(payload);
+      const response = await AdminAuthApi.signIn(payload);
+      console.log(response.data);
+    } catch (err) {
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -57,6 +62,11 @@ function SignIn() {
                 errors={errors}
                 autoComplete="current-password"
               />
+              {error && (
+                <div className="mt-1 text-red-600 text-center" role="alert">
+                  <p>Invalid Username/Password. Please try again.</p>
+                </div>
+              )}
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button
