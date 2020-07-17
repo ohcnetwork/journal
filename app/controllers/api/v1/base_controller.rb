@@ -29,9 +29,7 @@ class Api::V1::BaseController < ApplicationController
 
       @user = User.from_authentication_token(auth_token)
 
-      if @user.present?
-        sign_in @user, store: false
-      else
+      if @user.blank?
         respond_with_error("Could not authenticate with the provided credentials", 401)
       end
     end
