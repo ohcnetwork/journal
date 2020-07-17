@@ -64,4 +64,32 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal 45, user.age
   end
+
+  test "by_age" do
+    user = User.create({
+      name: "Stephen Nedumpally",
+      phone_number: "2255225522",
+      date_of_birth: "05/05/1975",
+      role: "visitor"
+    })
+
+    users = User.by_age(user.age)
+
+    assert_equal 1, users.count
+    assert_equal user, users[0]
+  end
+
+  test "by_phone" do
+    user = User.create({
+      name: "Stephen Nedumpally",
+      phone_number: "2255225522",
+      date_of_birth: "05/05/1975",
+      role: "visitor"
+    })
+
+    users = User.by_phone(user.phone_number)
+
+    assert_equal 1, users.count
+    assert_equal user, users[0]
+  end
 end

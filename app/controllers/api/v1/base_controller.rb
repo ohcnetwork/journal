@@ -35,4 +35,14 @@ class Api::V1::BaseController < ApplicationController
         respond_with_error("Could not authenticate with the provided credentials", 401)
       end
     end
+
+    def authenticate_admin_user_using_x_auth_token!
+      auth_token = request.headers["X-Auth-Token"].presence
+
+      @admin_user = AdminUser.from_authentication_token(auth_token)
+
+      if @admin_user.blank?
+        respond_with_error("Could not authenticate with the provided credentials", 401)
+      end
+    end
 end
