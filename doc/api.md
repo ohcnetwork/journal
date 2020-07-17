@@ -43,6 +43,19 @@ curl -v                                       \
      http://localhost:3000/api/v1/admin/visits?visitable_id=8fa1033f-b8a1-4cc1-a00b-378eae56d790&visitable_type=Merchant&from=2020-07-05&to=2020-07-17
 ```
 
+```
+{
+  "visits": [
+    {
+      "entry_at":"2020-07-07T15:20:43.543+05:30",
+      "name":"Stephen Nedumpally",
+      "phone":"2255225522",
+      "age":45
+    }
+  ]
+}
+```
+
 Note: 
 
 1. `visitable_id` and `visitable_type` are mandatory parameters. They should come from scanning the QR code. If they are missing the backend will respond with `400`
@@ -79,7 +92,7 @@ curl -v                                       \
      -H "X-Auth-Token: aYrUiKbHeFeMnKwUgJUB5Q=="  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
-     http://localhost:3000/api/v1/admin/users/:user_id/routemap?from=21-05-2020&to=30-06-2020
+     http://localhost:3000/api/v1/admin/users/:user_id/route_map?from=21-05-2020&to=30-06-2020
 ```
 
 ```
