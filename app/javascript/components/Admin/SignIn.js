@@ -28,7 +28,7 @@ function SignIn() {
     setError(null);
     try {
       const response = await AdminAuthApi.signIn(payload);
-      const authToken = response.data;
+      const authToken = response.data.auth_token;
       localStorage.setItem("admin-auth-token", authToken);
       history.push("/admin");
     } catch (err) {

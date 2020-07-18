@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link, useRouteMatch } from "react-router-dom";
+import Header from "./Header";
 
 function AdminHome() {
   const history = useHistory();
@@ -59,7 +60,7 @@ function AdminHome() {
         </div>
       </div>
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
-        <div className="relative z-10 flex-shrink-0 flex h-16 bg-white shadow"></div>
+        <Header />
         <p>Admin Content</p>
       </div>
     </div>
