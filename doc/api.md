@@ -125,7 +125,7 @@ curl                                       \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"visitable_id":"3sds324234", visitable_type: "Merchant"}' \
+     -d '{"visitable_id":"3sds324234", "visitable_type": "Merchant"}' \
      http://localhost:3000/api/v1/visits
 ```
 
@@ -157,7 +157,7 @@ curl                                       \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"visitable_id":"3sds324234", visitable_type: "Merchant"}' \
+     -d '{"visitable_id":"3sds324234", "visitable_type": "Merchant"}' \
      http://localhost:3000/api/v1/visits/:visit_id/exit
 ```
 
