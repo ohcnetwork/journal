@@ -28,7 +28,7 @@ class User < ApplicationRecord
   end
 
   def as_json(options = {})
-    new_options = options.merge(only: [:id, :name, :phone_number, :date_of_birth])
+    new_options = options.merge(only: [:id, :name, :phone_number, :date_of_birth, :authentication_token])
     super new_options
   end
 
