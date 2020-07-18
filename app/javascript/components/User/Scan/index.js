@@ -70,7 +70,7 @@ function Scan() {
             htmlType="button"
             className="mt-4"
             block
-            colorType={state === states.SUCCESS && "primary"}
+            colorType={state === states.SUCCESS ? "primary" : "default"}
             onClick={() => {
               history.push("/user");
             }}

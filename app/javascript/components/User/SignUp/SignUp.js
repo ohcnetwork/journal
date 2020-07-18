@@ -19,9 +19,13 @@ const schema = yup.object().shape({
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
   date_of_birth: yup
-    .date("Please enter valid date")
+    .date()
+    .typeError("Please enter valid date")
     .required("Please enter date of birth")
-    .max(new Date(2010, 0, 1)),
+    .max(
+      new Date(2010, 0, 1),
+      "You have to be at least 10 years old to use this application. Please stay safe."
+    ),
 });
 
 function SignUp() {

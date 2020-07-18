@@ -11,10 +11,10 @@ function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      <Route path={`${match.url}/`} exact>
+      <Route path={`${match.path}/`} exact>
         <Content />
       </Route>
-      <Route path={`${match.url}/scan`}>
+      <Route path={`${match.path}/scan`}>
         <Scan />
       </Route>
     </div>
