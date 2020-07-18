@@ -1,41 +1,89 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import useQuery from "Hooks/useQuery";
+import { verifyOtp } from "Apis/authentication";
+import Input from "Common/Form/Input";
+import Button from "Common/Button";
+
 function SignUpOtp() {
+  const params = useQuery();
+  const userId = params.get("id");
+
   const history = useHistory();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!userId) {
+      history.push("/");
+    }
+  }, [params]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const {
+      target: {
+        otp: { value },
+      },
+    } = event;
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await verifyOtp(userId, value);
+      console.log(response);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="px-6 py-4">
-      <div className="font-bold text-xl mb-2">Enter OTP</div>
-      <form>
-        <div className="mb-4">
-          <input
-            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="mobileNumber"
+    <div className="py-4">
+      <h2 className="font-bold text-gray-900 text-lg mb-2">Enter OTP</h2>
+      <p className="text-sm text-gray-500">
+        You would have received a one time password as SMS in your registered
+        mobile number {params.get("mobile")}. Please provide the OTP here to
+        verify your mobile number.{" "}
+      </p>
+      <form onSubmit={handleSubmit}>
+        <div className="mt-2">
+          <Input
             pattern="\d*"
             maxLength="6"
             required
+            label="One Time Password"
+            name="otp"
+            autoComplete="one-time-code"
+            className="mt-6 mb-4"
           />
-          <p className="text-red-500 text-xs italic">
-            Please provide 6 digit OTP
-          </p>
         </div>
-
-        <div className="flex items-center justify-between">
+        {error && (
+          <div className="mb-2 text-red-600 text-center" role="alert">
+            <p>Could not verify OTP. Please try again.</p>
+          </div>
+        )}
+        <div className="flex items-center justify-between mt-6">
           <a
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-            href="#"
+            className="inline-block font-medium text-sm text-blue-500 hover:text-blue-800"
+            href="/"
           >
-            Back to Sign Up page
+            Back to Sign Up
           </a>
-          <button
-            onClick={() => {
-              history.push("/scan");
-            }}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Verify OTP
-          </button>
+          <div>
+            <span className="block w-full rounded-md shadow-sm">
+              <Button
+                htmlType="submit"
+                colorType="primary"
+                sizeType="lg"
+                loading={loading}
+              >
+                Verify OTP
+              </Button>
+            </span>
+          </div>
         </div>
       </form>
     </div>
