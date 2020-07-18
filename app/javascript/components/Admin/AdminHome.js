@@ -31,7 +31,7 @@ function AdminHome() {
       <Sidebar />
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         <Header />
-        <Route path={`${path}/route-map`}>
+        <Route path={`${path}route-map`}>
           <RouteMap />
         </Route>
       </div>
