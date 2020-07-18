@@ -3,6 +3,7 @@ const states = {
   ERROR_QR_READ: "ERROR_QR_READ",
   ERROR_MERCHANT: "ERROR_MERCHANT",
   SUCCESS: "SUCCESS",
+  LOADING: "LOADING",
 };
 
 export default states;
