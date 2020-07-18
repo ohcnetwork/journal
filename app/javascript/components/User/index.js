@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { isLoggedIn } from "Apis/Auth";
+import { isLoggedIn } from "Apis/authentication";
 import SignUp from "./SignUp/SignUp";
 import Home from "./Home";
 
@@ -12,8 +12,8 @@ const PrivateRoute = ({ children, ...rest }) => {
   useEffect(() => {
     async function userLoggedIn() {
       setLoading(true);
-      const userLoggedIn = await isLoggedIn();
-      setLoggedIn(userLoggedIn);
+      const loginStatus = await isLoggedIn();
+      setLoggedIn(loginStatus);
       setLoading(false);
     }
     userLoggedIn();
