@@ -15,8 +15,8 @@ function VisitCard({ data, refetch }) {
         <h3 className="font-medium leading-8 text-gray-900 text-base">
           {data.name}
         </h3>
-        <p className="font-medium leading-5 text-gray-600 text-sm">
-          {data.address} there is so much mroe data here
+        <p className="font-medium leading-5 text-gray-600 text-sm truncate">
+          {data.address}
         </p>
         <p className="text-gray-400 text-sm mt-2">
           {dayjs().to(dayjs(data.entry_at))}
