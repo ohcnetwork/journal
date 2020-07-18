@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Visit < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, touch: true
 
   belongs_to :visitable, polymorphic: true
   # Possible Visitable for now is only a Merchant.
