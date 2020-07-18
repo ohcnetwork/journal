@@ -40,6 +40,12 @@ Build with Rails and React ❤️
 foreman start -f Procfile.dev
 ```
 
+### Quick demo of how to use the basic APIs
+
+1. [User Login](https://share.getcloudapp.com/8Lu7O4AR)
+2. [Visits](https://share.getcloudapp.com/DOuA0W0Y)
+3. [Admin](https://share.getcloudapp.com/geuwNk9P)
+
 ## Contributing
 
 Checkout the [issues](https://github.com/coronasafe/journal/issues) page. When you find one to your skill liking and skill level, please leave us a comment that you are taking it up. 
