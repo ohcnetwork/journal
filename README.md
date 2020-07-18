@@ -42,7 +42,7 @@ foreman start -f Procfile.dev
 
 ### Quick demo of how to use the basic APIs
 
-1. [User Login]https://share.getcloudapp.com/8Lu7O4AR)
+1. [UserLogin]https://share.getcloudapp.com/8Lu7O4AR)
 2. [Visits](https://share.getcloudapp.com/DOuA0W0Y)
 3. [Admin](https://share.getcloudapp.com/geuwNk9P)
 
