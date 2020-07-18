@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 
-import getRouteMapOfUser from "Apis/Admin";
+import { getRouteMapOfUser } from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 
