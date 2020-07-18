@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 
+import getRouteMapOfUser from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 
@@ -20,12 +21,24 @@ const schema = yup.object().shape({
 });
 
 function RouteMap() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const getRouteMap = (data) => {
-    console.log(data);
+  const getRouteMap = async (data) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await getRouteMapOfUser(data);
+      console.log(response);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,12 +78,19 @@ function RouteMap() {
             autoComplete="bday"
           />
           <span className="self-center">
-            <Button htmlType="submit" colorType="primary" sizeType="lg">
+            <Button
+              htmlType="submit"
+              colorType="primary"
+              sizeType="lg"
+              loading={loading}
+            >
               Submit
             </Button>
           </span>
         </form>
+        {error && <p>Could not find the user specified</p>}
       </div>
+      <section></section>
     </main>
   );
 }
