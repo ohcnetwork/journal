@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { userOngoingVisits } from "Apis/visits";
-import VisitCard from "./VisitCard";
 import Button from "components/Common/Button";
-import { Link } from "react-router-dom";
+import VisitCard from "./VisitCard";
 
 function Content() {
   const [loading, setLoading] = useState(false);

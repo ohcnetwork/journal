@@ -9,10 +9,10 @@ function Merchant() {
 
   return (
     <>
-      <Route exact path={`${match.url}`}>
+      <Route exact path={`${match.path}`}>
         <GenerateForm />
       </Route>
-      <Route path={`${match.url}/qr`}>
+      <Route path={`${match.path}/qr`}>
         <DisplayQr />
       </Route>
     </>
