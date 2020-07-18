@@ -104,21 +104,24 @@ def create_visitors
       name: "Stephen Nedumpally",
       phone_number: "2255225522",
       date_of_birth: "05/05/1975",
-      role: "visitor"
+      role: "visitor",
+      otp: "1947"
     },
 
     {
       name: "Priyadarshini Ramdas",
       phone_number: "1237891231",
       date_of_birth: "18/01/1985",
-      role: "visitor"
+      role: "visitor",
+      otp: "1947"
     },
 
     {
       name: "Govardhan",
       phone_number: "7895674561",
       date_of_birth: "04/04/2005",
-      role: "visitor"
+      role: "visitor",
+      otp: "1947"
     }
   ].map do |user_data|
     User.create! user_data

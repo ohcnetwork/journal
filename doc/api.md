@@ -12,7 +12,7 @@ In the following examples replace the `auth_token` value with the value derived 
 ### Login
 
 ```
-curl -v                                      \
+curl                                       \
      -X POST                                 \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
@@ -36,7 +36,7 @@ Status: 401
 ### Visits Filter 
 
 ```
-curl -v                                       \
+curl                                        \
      -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
@@ -64,7 +64,7 @@ Note:
 ### Search for a user
 
 ```
-curl -v                                       \
+curl                                        \
      -H "X-Auth-Token: aYrUiKbHeFeMnKwUgJUB5Q=="  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
@@ -88,7 +88,7 @@ Note:
 ### RouteMap for a user
 
 ```
-curl -v                                       \
+curl                                        \
      -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
@@ -120,19 +120,19 @@ curl -v                                       \
 ### Log a new visit
 
 ```
-curl -v                                      \
+curl                                       \
      -X POST                                 \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"visitable_id":"3sds324234", visitable_type: "Merchant"}' \
+     -d '{"visitable_id":"3sds324234", "visitable_type": "Merchant"}' \
      http://localhost:3000/api/v1/visits
 ```
 
 ### Get all visits of a user (most recent one first)
 
 ```
-curl -v                                       \
+curl                                        \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
@@ -142,7 +142,7 @@ curl -v                                       \
 ### Get ongoing visits of a user (most recent one first)
 
 ```
-curl -v                                       \
+curl                                        \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL"  \
      -H "Accept: application/json"            \
      -H "Content-type: application/json"      \
@@ -152,12 +152,12 @@ curl -v                                       \
 ### Mark exit on an ongoing visit
 
 ```
-curl -v                                      \
+curl                                       \
      -X PUT                                 \
      -H "X-Auth-Token: pFfxLhBgvnoYeXnbDnFL" \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"visitable_id":"3sds324234", visitable_type: "Merchant"}' \
+     -d '{"visitable_id":"3sds324234", "visitable_type": "Merchant"}' \
      http://localhost:3000/api/v1/visits/:visit_id/exit
 ```
 
@@ -169,23 +169,22 @@ curl -v                                      \
 3. Sends out an OTP to the user's phone number.
 
 ```
-curl -v                                      \
+curl                                        \
      -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
+     -d '{"user":{"name":"Jacky", "date_of_birth": "1985-05-03", "phone_number": "2255"}}'            \
      http://localhost:3000/api/v1/sessions
 ```
 
 ### OTP Verification
 
 ```
-curl -v                                      \
+curl                                       \
      -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
-     http://localhost:3000/api/v1/sessions/verify_otp?otp=1947
+     http://localhost:3000/api/v1/users/:user_id/verify_otp?otp=1947
 ```
 
 If OTP is incorrect response will be a `400`
