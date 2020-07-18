@@ -6,7 +6,7 @@ import { useHistory, useRouteMatch, Route } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import { login } from "Apis/Auth";
+import { login } from "Apis/authentication";
 import SignUpOtp from "./SignUpOtp";
 import SignUpThump from "./signUpThump.jpg";
 

@@ -31,8 +31,8 @@ function SignUpOtp() {
     setLoading(true);
     setError(null);
     try {
-      const response = await verifyOtp(userId, value);
-      console.log(response);
+      await verifyOtp(userId, value);
+      history.push("/user");
     } catch (error) {
       setError(error);
     } finally {

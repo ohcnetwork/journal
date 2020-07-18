@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { logout } from "Apis/Auth";
+import { logout } from "Apis/authentication";
 import Button from "components/Common/Button";
 
 function Header() {
@@ -9,7 +9,7 @@ function Header() {
 
   const handleLogout = () => {
     logout();
-    history.push("/signUp");
+    history.push("/");
   };
 
   return (
