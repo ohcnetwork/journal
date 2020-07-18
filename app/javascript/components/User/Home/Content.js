@@ -51,7 +51,7 @@ function Content() {
             to end these visits.
           </p>
         </header>
-        <ul className="my-2 divide-y divide-gray-200">
+        <ul className="mt-4 mb-2 divide-y divide-gray-200">
           {onGoingVisits.map((visit) => {
             return (
               <VisitCard
