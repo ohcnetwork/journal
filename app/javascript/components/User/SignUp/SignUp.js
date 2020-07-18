@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 import { useHistory, useRouteMatch, Route } from "react-router-dom";
+import { isLoggedIn } from "Apis/authentication";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
@@ -25,12 +26,25 @@ const schema = yup.object().shape({
 
 function SignUp() {
   const [loading, setLoading] = useState(false);
+  const [verifyingLogin, setVerifyingLogin] = useState(false);
   const match = useRouteMatch();
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    async function userLoggedIn() {
+      setVerifyingLogin(true);
+      const loginStatus = await isLoggedIn();
+      if (loginStatus) {
+        history.push("/user");
+      }
+      setVerifyingLogin(false);
+    }
+    userLoggedIn();
+  }, []);
 
   const onSubmit = async (payload) => {
     setLoading(true);
@@ -46,8 +60,12 @@ function SignUp() {
     }
   };
 
+  if (verifyingLogin) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-6 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center md:py-6 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-sm">
         <img className="w-full" src={SignUpThump} alt="" />
         <div className="px-6 py-4">
