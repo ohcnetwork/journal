@@ -10,15 +10,15 @@ function VisitCard({ data, refetch }) {
     refetch();
   };
   return (
-    <li className="py-2 px-2 flex items-center justify-between border-solid border-gray-300 rounded-md border">
-      <div className="flex-shrink-0 truncate">
-        <h3 className="font-medium leading-5 text-gray-900 text-base">
+    <li className="py-2 flex items-center justify-between rounded-md">
+      <div className="truncate">
+        <h3 className="font-medium leading-8 text-gray-900 text-base">
           {data.name}
         </h3>
-        <h3 className="font-medium leading-5 text-gray-400 text-sm">
+        <p className="font-medium leading-5 text-gray-600 text-sm truncate">
           {data.address}
-        </h3>
-        <p className="text-gray-500 text-sm mt-1">
+        </p>
+        <p className="text-gray-400 text-sm mt-2">
           {dayjs().to(dayjs(data.entry_at))}
         </p>
       </div>
