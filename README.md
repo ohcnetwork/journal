@@ -46,6 +46,12 @@ foreman start -f Procfile.dev
 2. [Visits](https://share.getcloudapp.com/DOuA0W0Y)
 3. [Admin](https://share.getcloudapp.com/geuwNk9P)
 
+### Instructions for deployment
+
+1. Run `rake db:seed`. 
+2. Setup environment variables `ADMIN_LOGIN` && `ADMIN_PASSWORD`.
+3. Schedule `CleanupOldDataJob.perform_now` to be run once every day, probably midnight.
+
 ## Contributing
 
 Checkout the [issues](https://github.com/coronasafe/journal/issues) page. When you find one to your skill liking and skill level, please leave us a comment that you are taking it up. 
