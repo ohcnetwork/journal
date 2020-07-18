@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Route, useRouteMatch } from "react-router-dom";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import RouteMap from "./RouteMap";
 
 function AdminHome() {
   const history = useHistory();
+  const { path } = useRouteMatch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,7 +31,9 @@ function AdminHome() {
       <Sidebar />
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         <Header />
-        <p>Admin Content</p>
+        <Route path={`${path}/route-map`}>
+          <RouteMap />
+        </Route>
       </div>
     </div>
   );
