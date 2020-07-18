@@ -2,6 +2,7 @@ import React from "react";
 import { Route, useRouteMatch } from "react-router-dom";
 
 import SignIn from "./SignIn";
+import AdminHome from "./AdminHome";
 
 function Admin() {
   const match = useRouteMatch();
@@ -12,7 +13,7 @@ function Admin() {
         <SignIn />
       </Route>
       <Route exact path={`${match.url}/`}>
-        <h1 className="text-xl leading-6 font-bold">Admin</h1>
+        <AdminHome />
       </Route>
     </>
   );
