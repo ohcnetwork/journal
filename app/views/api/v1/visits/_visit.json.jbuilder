@@ -6,3 +6,4 @@ json.visitable_type visit.visitable_type
 json.name visit.visitable.name
 json.address visit.visitable.address
 json.phone visit.visitable.phone_number
+json.id visit.id
