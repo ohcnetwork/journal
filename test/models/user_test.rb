@@ -92,4 +92,15 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, users.count
     assert_equal user, users[0]
   end
+
+  test "user updation when visit is logged" do
+    user = create(:user, updated_at: 2.hours.ago)
+    prev_updated_at = user.updated_at
+    assert_equal 0, user.visits.count
+
+    visit = create(:visit, user: user)
+
+    assert_equal 1, user.visits.count
+    assert_not_equal prev_updated_at, user.updated_at
+  end
 end
