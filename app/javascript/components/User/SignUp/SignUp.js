@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { useHistory, useRouteMatch, Route } from "react-router-dom";
+import { useHistory, useRouteMatch, Route, Link } from "react-router-dom";
 import { isLoggedIn } from "Apis/authentication";
 
 import Input from "Common/Form/Input";
@@ -129,6 +129,11 @@ function SignUp() {
           </Route>
         </div>
       </div>
+      <Link to="/merchant">
+        <p className="mt-2 mb-4 text-gray-600 text-center">
+          Are you looking for the Merchant Page?
+        </p>
+      </Link>
     </div>
   );
 }
