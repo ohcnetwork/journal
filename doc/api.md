@@ -184,8 +184,7 @@ curl -v                                      \
      -X POST                                  \
      -H "Accept: application/json"           \
      -H "Content-type: application/json"     \
-     -d '{"name":"Jacky", date_of_birth: "1985/05/03", phone_number: "2255"}'            \
-     http://localhost:3000/api/v1/sessions/verify_otp?otp=1947
+     http://localhost:3000/api/v1/users/:user_id/verify_otp?otp=1947
 ```
 
 If OTP is incorrect response will be a `400`
