@@ -3,6 +3,7 @@ import QrScanner from "./QrScanner";
 import Success from "./Success";
 import Error from "./Error";
 import states from "./states.js";
+import Spinner from "Common/Spinner";
 
 const ComponentByState = ({
   state,
@@ -24,8 +25,10 @@ const ComponentByState = ({
       );
     case states.ERROR_QR_READ:
       return <Error state={state} resetState={resetState} />;
-    case states.ERROR_merchant:
+    case states.ERROR_MERCHANT:
       return <Error state={state} resetState={resetState} />;
+    case states.LOADING:
+      return <Spinner className="w-6 m-auto" />;
   }
 };
 
