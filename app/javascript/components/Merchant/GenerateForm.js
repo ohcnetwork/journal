@@ -29,7 +29,7 @@ function GenerateForm() {
   const qrCodeData = (merchantData) => {
     const qrCodeData = JSON.stringify({
       id: merchantData.id,
-      type: "merchant",
+      type: "Merchant",
     });
     return encodeURIComponent(qrCodeData);
   };
