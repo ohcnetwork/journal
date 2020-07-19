@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-Rails.application.config.middleware.use Rack::Deflater
+Rails.application.config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
