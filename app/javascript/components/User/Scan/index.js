@@ -17,23 +17,23 @@ function Scan() {
     setState(states.SCANNING);
   };
 
-  const onScanned = (merchantCode) => {
-    setState(states.LOADING);
-    logVisit(merchantCode, "Merchant")
-      .then((response) => {
-        if (response.data.visitable_id) {
-          setMerchantDetails({
-            name: response.data.name,
-            address: response.data.address,
-          });
-          setState(states.SUCCESS);
-        } else {
-          setState(states.ERROR_MERCHANT);
-        }
-      })
-      .catch(() => {
-        setState(states.ERROR_MERCHANT);
-      });
+  const onScanned = async (qrData) => {
+    try {
+      const { id } = JSON.parse(qrData);
+      setState(states.LOADING);
+      const response = await logVisit(id, "Merchant");
+      if (response.data.visitable_id) {
+        setMerchantDetails({
+          name: response.data.name,
+          address: response.data.address,
+        });
+        setState(states.SUCCESS);
+      } else {
+        throw new Error("Wrong data");
+      }
+    } catch (e) {
+      setState(states.ERROR_MERCHANT);
+    }
   };
 
   const onErrorScanning = () => {
