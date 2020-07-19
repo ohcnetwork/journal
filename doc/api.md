@@ -179,6 +179,8 @@ curl                                        \
 
 ### OTP Verification
 
+Note: Till we integrate an API service use `1947` as the OTP and it will work always.
+
 ```
 curl                                       \
      -X POST                                  \
