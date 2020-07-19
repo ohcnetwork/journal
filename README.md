@@ -40,6 +40,10 @@ Build with Rails and React ❤️
 foreman start -f Procfile.dev
 ```
 
+### API Documentation
+
+[https://github.com/coronasafe/journal/blob/develop/doc/api.md](https://github.com/coronasafe/journal/blob/develop/doc/api.md)
+
 ### Quick demo of how to use the basic APIs
 
 1. [User Login](https://share.getcloudapp.com/8Lu7O4AR)
