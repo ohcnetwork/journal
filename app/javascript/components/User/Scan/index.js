@@ -19,9 +19,9 @@ function Scan() {
 
   const onScanned = async (qrData) => {
     try {
-      const { id } = JSON.parse(qrData);
+      const { id, type } = JSON.parse(qrData);
       setState(states.LOADING);
-      const response = await logVisit(id, "Merchant");
+      const response = await logVisit(id, type);
       if (response.data.visitable_id) {
         setMerchantDetails({
           name: response.data.name,
