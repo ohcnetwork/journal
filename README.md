@@ -40,6 +40,12 @@ Build with Rails and React ❤️
 foreman start -f Procfile.dev
 ```
 
+### Running Tests
+
+API endpoints have test coverage.
+
+`bundle exec rake test` will run the test suite.
+
 ### API Documentation
 
 [https://github.com/coronasafe/journal/blob/develop/doc/api.md](https://github.com/coronasafe/journal/blob/develop/doc/api.md)
