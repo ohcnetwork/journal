@@ -22,10 +22,13 @@ function Content() {
   useEffect(() => {
     getOnGoingVisits();
   }, []);
-
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   return (
     <main className="py-1">
       <section className="px-4 mt-4">
+        <h2 className="mt-6 text-xl leading-6 font-medium text-gray-900">
+          Welcome {currentUser?.name}
+        </h2>
         <header>
           <h2 className="mt-6 text-xl leading-6 font-medium text-gray-800">
             Start a Visit
