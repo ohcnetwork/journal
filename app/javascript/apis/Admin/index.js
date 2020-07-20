@@ -4,9 +4,10 @@ import moment from "moment";
 export const getRouteMapOfUser = async ({phone_number, date_of_birth}) => {
   const user = await getUser({phone_number, date_of_birth});
   if(user){
-    const response = await Axios.get(`/admin/users/${user.id}/route_map`);
+    const response = (await Axios.get(`/admin/users/${user.id}/route_map`)).data;
+    return response && response.visits;
   }
-  return;
+  throw new Error('RouteMap not found');
 };
 
 const getUser = async({phone_number, date_of_birth})=>{

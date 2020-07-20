@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { getRouteMapOfUser } from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import dayjs from "dayjs";
 
 const schema = yup.object().shape({
   phone_number: yup
@@ -23,6 +24,7 @@ const schema = yup.object().shape({
 function RouteMap() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [visits, setVisits] = useState([]);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -32,8 +34,8 @@ function RouteMap() {
     setLoading(true);
     setError(null);
     try {
-      const response = await getRouteMapOfUser(data);
-      console.log(response);
+      const visitData = await getRouteMapOfUser(data);
+      setVisits(visitData);
     } catch (err) {
       setError(err);
     } finally {
@@ -90,8 +92,39 @@ function RouteMap() {
         </form>
         {error && <p>Could not find the user specified</p>}
       </div>
-      <section></section>
+      <br/>
+      {visits && visits.length > 0 && (<h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+          Route Map
+      </h3>)}
+      <section>
+        { visits.map((visit)=>{
+          return (
+            <VisitCard
+              key={visit.id}
+              data={visit}
+            />
+        )}
+        )}
+      </section>
     </main>
+  );
+}
+
+function VisitCard({data}) {
+  return (
+    <li className="py-2 flex items-center justify-between rounded-md">
+      <div className="truncate">
+        <h3 className="font-medium leading-8 text-gray-900 text-base">
+          {data.visitable.name}
+        </h3>
+        <p className="font-medium leading-5 text-gray-600 text-sm truncate">
+          {data.visitable.address}
+        </p>
+        <p className="text-gray-400 text-sm mt-2">
+          {dayjs().to(dayjs(data.entry_at))}
+        </p>
+      </div>
+    </li>
   );
 }
 
