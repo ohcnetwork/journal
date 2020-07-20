@@ -94,7 +94,7 @@ function RouteMap() {
       </div>
       <br/>
       {visits && visits.length > 0 && (<h3 className="text-3xl leading-12 font-extrabold text-gray-900">
-          Route Map
+          Places
       </h3>)}
       <section>
         { visits.map((visit)=>{
