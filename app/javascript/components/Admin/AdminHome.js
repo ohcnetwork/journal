@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Route, useRouteMatch } from "react-router-dom";
+import { isLoggedIn } from "Apis/Admin/Auth";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -10,18 +11,20 @@ function AdminHome() {
   const { path } = useRouteMatch();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    function isLoggedIn() {
-      setLoading(true);
-      const token = localStorage.getItem("admin-auth-token");
-      if (!token) {
-        history.push("/admin/login");
-      }
-      setLoading(false);
+  const Login = () => {
+    setLoading(true);
+    const token = localStorage.getItem("admin-auth-token");
+    if (!token) {
+      history.push("/admin/login");
+    } else {
+      isLoggedIn();
     }
+    setLoading(false);
+  }
 
-    isLoggedIn();
-  });
+  useEffect(() => {
+    Login();
+  },[]);
 
   if (loading) {
     return <p>Loading...</p>;
