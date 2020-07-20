@@ -97,6 +97,9 @@ curl                                        \
 
 ```
 {
+  user: {
+    name: "Abram Qureshi"
+  },
   visits: [
     {
       entry_at: "10:10:00 22-05-2020",

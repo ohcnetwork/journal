@@ -78,6 +78,7 @@ class Api::V1::Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :success
     assert_equal 4, json_body["visits"].count
+    assert_equal @user.name, json_body["user"]["name"]
 
     get route_map_api_v1_admin_user_path(@user), headers: headers(@admin_user), params: {
       from: 12.days.ago.to_date.to_s,
