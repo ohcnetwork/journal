@@ -31,16 +31,16 @@ const renderDate = (dateString) => {
 
 const columns = [
   {
-    title: "Visitable Name",
+    title: "Name",
     dataIndex: "visitable.name",
     className: "text-gray-900",
   },
   {
-    title: "Visitable Address",
+    title: "Address",
     dataIndex: "visitable.address",
   },
   {
-    title: "Visitable Phone",
+    title: "Phone",
     dataIndex: "visitable.phone",
   },
   {
@@ -58,8 +58,7 @@ const columns = [
 function RouteMap() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [visits, setVisits] = useState([]);
-
+  const [routeMap, setRouteMap] = useState({});
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
@@ -68,15 +67,15 @@ function RouteMap() {
     setLoading(true);
     setError(null);
     try {
-      const visitData = await getRouteMapOfUser(data);
-      setVisits(visitData);
+      const routeMap = await getRouteMapOfUser(data);
+      setRouteMap(routeMap);
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
   };
-
+  const { visits, user } = routeMap;
   return (
     <main className="px-8 py-6">
       <header>
@@ -118,6 +117,7 @@ function RouteMap() {
               htmlType="submit"
               colorType="primary"
               sizeType="lg"
+              className={"mt-6"}
               loading={loading}
             >
               Submit
@@ -127,14 +127,22 @@ function RouteMap() {
         {error && <p>Could not find the user specified</p>}
       </div>
       <br />
-      {visits && visits.length > 0 && (
-        <section>
-          <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
-            Places
-          </h3>
-          <Table columns={columns} data={visits} dataKey="id" />
-        </section>
-      )}
+      {user &&
+        visits &&
+        (visits.length > 0 ? (
+          <section>
+            <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+              Places visited by {user.name}
+            </h3>
+            <div className="mt-6">
+              <Table columns={columns} data={visits} dataKey="id" />
+            </div>
+          </section>
+        ) : (
+          <p className="text-2xl leading-12 font-extrabold text-gray-900">
+            {user.name} did not visit any place
+          </p>
+        ))}
     </main>
   );
 }
