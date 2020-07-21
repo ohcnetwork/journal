@@ -1,0 +1,1 @@
+json.merge! merchant.as_json
