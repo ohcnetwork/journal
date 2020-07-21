@@ -8,11 +8,14 @@ Uniqueness of date of birth + phone number is enforced, so as communicate with o
 
 ### Merchant
 Merchant enters shop details and should be able to generate QR code. 
+
 The QR code is used by the user to track the route map.
 
 ### Admin
 This is to be used by district officials, the emphasis here is on the functionality rather than the UI.
 
 Functionalities:
-Route Map of the user
-Filter Establishments
+<ul>
+  <li>Route Map of the user</li>
+  <li>Filter Visits based on date</li>
+</ul>
