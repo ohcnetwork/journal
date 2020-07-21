@@ -224,9 +224,54 @@ Response
   "phone_number": "9090909090", 
   "address": "NH44, Madavana, Maradu", 
   "lb_code": "M071100",
+  "district_name": "Ernakulam District ",
+  "lb_name_english": "Maradu",
   "lb_name_full": "Maradu Muncipality, Ernakulam District "
 }
 ```
+
+### Merchants Filter 
+
+```
+curl                                        \
+     -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
+     -H "Accept: application/json"            \
+     -H "Content-type: application/json"      \
+     http://localhost:3000/api/v1/admin/merchants?district_id=13
+```
+
+OR 
+
+```
+curl                                        \
+     -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
+     -H "Accept: application/json"            \
+     -H "Content-type: application/json"      \
+     http://localhost:3000/api/v1/admin/merchants?lb_code=LB12345
+```
+
+Response 
+
+```
+{
+  "merchants": [
+    {
+      "id": "51081d11", 
+      "name": "Lakeshore Hospital", 
+      "phone_number": "9090909090", 
+      "address": "NH44, Madavana, Maradu", 
+      "lb_code": "LB12345",
+      "district_name": "Ernakulam District ",
+      "lb_name_english": "Maradu",
+      "lb_name_full": "Maradu Muncipality, Ernakulam District "
+    }
+  ]
+}
+```
+
+Note: 
+
+1. `district_id` OR `lb_code` is a mandatory parameter. One of them should be present. If it  is missing the backend will respond with `400`
 
 ### Local Bodies
 
