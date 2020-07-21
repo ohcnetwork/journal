@@ -5,6 +5,7 @@ import { isLoggedIn } from "Apis/Admin/Auth";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import RouteMap from "./RouteMap";
+import Establishments from "./Establishments";
 
 function AdminHome() {
   const history = useHistory();
@@ -32,10 +33,13 @@ function AdminHome() {
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar />
-      <div className="flex flex-col w-0 flex-1 overflow-hidden">
+      <div className="flex flex-col w-0 flex-1 overflow-auto">
         <Header />
         <Route path={`${path}route-map`}>
           <RouteMap />
+        </Route>
+        <Route path={`${path}establishments`}>
+          <Establishments />
         </Route>
       </div>
     </div>
