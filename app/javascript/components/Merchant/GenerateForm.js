@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 import { create as merchantCreate } from "Apis/MerchantApi";
-import SelectController from "Common/Form/SelectController";
+import LocalBodyForm from "./LocalBodyForm";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of shop"),
@@ -82,13 +82,7 @@ function GenerateForm() {
                 register={register}
                 errors={errors}
               />
-              <SelectController
-                control={control}
-                name="district"
-                label="District"
-                placeholder="Select District"
-                options={[]}
-              />
+              <LocalBodyForm control={control} />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button
