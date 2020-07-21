@@ -24,3 +24,19 @@ const getUser = async ({ phone_number, date_of_birth }) => {
     throw err;
   }
 };
+
+export const getEstablishmentRegister = async ({ visitable_id, from, to }) => {
+  const dateFrom = moment(from).format("YYYY-MM-DD");
+  const dateTo = moment(to).format("YYYY-MM-DD");
+  try {
+    const response = (
+      await Axios.get(
+        `/admin/visits?visitable_id=${visitable_id}&visitable_type=Merchant&from=${dateFrom}&to=${dateTo}`
+      )
+    ).data;
+    return response;
+  } catch (err) {
+    console.log("Error while fetching Establishment ", err);
+    throw new Error("Establishment not found");
+  }
+};
