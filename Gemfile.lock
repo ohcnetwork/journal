@@ -185,6 +185,10 @@ GEM
       ast (~> 2.4.1)
     pg (1.2.3)
     popper_js (1.16.0)
+    postgres-copy (1.5.0)
+      activerecord (>= 5.1)
+      pg (>= 0.17)
+      responders
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -357,6 +361,7 @@ DEPENDENCIES
   minitest-ci
   omniauth-google-oauth2 (~> 0.8.0)
   pg
+  postgres-copy
   pry
   pry-byebug
   puma (~> 4.3)

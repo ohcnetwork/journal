@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 json.user do |_json|
   _json.name @user.name
 end

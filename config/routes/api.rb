@@ -9,6 +9,7 @@ namespace :api, defaults: { format: :json }  do
       end
     end
     resources :merchants, only: [:create]
+    resources :local_bodies, only: [:index]
     resources :qr_codes, only: [:show]
 
     resources :visits, only: [:create, :index] do
