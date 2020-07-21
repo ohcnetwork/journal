@@ -11,19 +11,19 @@ function AdminHome() {
   const { path } = useRouteMatch();
   const [loading, setLoading] = useState(false);
 
-  const Login = () => {
-    setLoading(true);
-    const token = localStorage.getItem("admin-auth-token");
-    if (!token) {
-      history.push("/admin/login");
-    } else {
-      isLoggedIn();
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
-    Login();
+    const login = () => {
+      setLoading(true);
+      const token = localStorage.getItem("admin-auth-token");
+      if (!token) {
+        history.push("/admin/login");
+      } else {
+        isLoggedIn();
+      }
+      setLoading(false);
+    };
+
+    login();
   }, []);
 
   if (loading) {
