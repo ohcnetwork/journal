@@ -5,7 +5,7 @@ export const getRouteMapOfUser = async ({phone_number, date_of_birth}) => {
   const user = await getUser({phone_number, date_of_birth});
   if(user){
     const response = (await Axios.get(`/admin/users/${user.id}/route_map`)).data;
-    return response && response.visits;
+    return response;
   }
   throw new Error('RouteMap not found');
 };
