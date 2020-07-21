@@ -67,7 +67,7 @@ function RouteMap() {
             placeholder="10 digit mobile number"
             register={register}
             errors={errors}
-            autoComplete="tel"
+            autoComplete="off"
           />
           <Input
             name="date_of_birth"
@@ -77,7 +77,7 @@ function RouteMap() {
             placeholder=""
             register={register}
             errors={errors}
-            autoComplete="bday"
+            autoComplete="off"
           />
           <span className="self-center">
             <Button
@@ -92,25 +92,22 @@ function RouteMap() {
         </form>
         {error && <p>Could not find the user specified</p>}
       </div>
-      <br/>
-      {visits && visits.length > 0 && (<h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+      <br />
+      {visits && visits.length > 0 && (
+        <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
           Places
-      </h3>)}
+        </h3>
+      )}
       <section>
-        { visits.map((visit)=>{
-          return (
-            <VisitCard
-              key={visit.id}
-              data={visit}
-            />
-        )}
-        )}
+        {visits.map((visit) => {
+          return <VisitCard key={visit.id} data={visit} />;
+        })}
       </section>
     </main>
   );
 }
 
-function VisitCard({data}) {
+function VisitCard({ data }) {
   return (
     <li className="py-2 flex items-center justify-between rounded-md">
       <div className="truncate">
