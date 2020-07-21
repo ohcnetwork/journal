@@ -28,9 +28,13 @@ def delete_all_records_from_all_tables
 
   Dir.glob(Rails.root + "app/models/*.rb").each { |file| require file }
 
+  exceptions = ["LocalBody"]
+
   ApplicationRecord.descendants.each do |klass|
-    klass.reset_column_information
-    klass.delete_all
+    unless exceptions.include?(klass.to_s)
+      klass.reset_column_information
+      klass.delete_all
+    end
   end
 end
 
@@ -57,19 +61,22 @@ def create_merchants
     {
       name: "Akshaya Centre, Kakkanad",
       phone_number: "1231231231",
-      address: "Civil Station, Kakkanad, 682030"
+      address: "Civil Station, Kakkanad, 682030",
+      lb_code: lb_codes.sample
     },
 
     {
       name: "Lakeshore Hospital",
       phone_number: "2342342341",
-      address: "Madavana, Maradu PO, 682304"
+      address: "Madavana, Maradu PO, 682304",
+      lb_code: lb_codes.sample
     },
 
     {
       name: "Veekay Mart, Kakkanad",
       phone_number: "4564564561",
-      address: "Seaport-Airport Road, Kakkanad, 682030"
+      address: "Seaport-Airport Road, Kakkanad, 682030",
+      lb_code: lb_codes.sample
     }
   ].map do |merchant_data|
     Merchant.create! merchant_data
@@ -123,7 +130,9 @@ def create_visitors
       role: "visitor",
       otp: "1947"
     }
-  ].map do |user_data|
-    User.create! user_data
-  end
+  ].map { |user_data| User.create!(user_data) }
+end
+
+def lb_codes
+  @_lb_codes ||= LocalBody.pluck(:lb_code)
 end

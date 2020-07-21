@@ -203,3 +203,71 @@ Otherwise:
   "date_of_birth": "1956-09-12"
 }
 ```
+
+### Create a Merchant
+
+```
+curl                                       \
+     -X POST                                  \
+     -H "Accept: application/json"           \
+     -H "Content-type: application/json"     \
+     -d '{"merchant":{"name":"Lakeshore Hospital", "phone_number": "2255", "address": "NH44, Madavana, Maradu", "lb_code": "M071100"}}
+     http://localhost:3000/api/v1/merchants
+```
+
+Response 
+
+```
+{
+  "id": "51081d11", 
+  "name": "Lakeshore Hospital", 
+  "phone_number": "9090909090", 
+  "address": "NH44, Madavana, Maradu", 
+  "lb_code": "M071100",
+  "lb_name_full": "Maradu Muncipality, Ernakulam District "
+}
+```
+
+### Local Bodies
+
+```
+curl                                        \
+     -H "X-Auth-Token: L7c99MyS9rX8jwxcbuRN"  \
+     -H "Accept: application/json"            \
+     -H "Content-type: application/json"      \
+     http://localhost:3000/api/v1/local_bodies
+```
+
+Response
+
+```
+{
+  "districts": {
+      "8": "Thrissur District ", 
+      "13": "Kannur District "},
+      "1": "Thiruvananthapuram District",
+      "6": "Idukki District ",
+      ...
+  },
+
+  "data": {
+    "8": {
+      "types": ["Muncipality", "Block Panchayat", "Grama Panchayat"]
+      "data": {
+        "Muncipality": [{"lb_name_english": "Kattappana", "lb_code": "M060200"}...], 
+        "Block Panchayat": [{"lb_name_english":"Adimaly", "lb_code":"B060100"}...],
+        "Grama Pachayat": [{"lb_name_english":"Peerumedu", "lb_code":"G060804"}...]
+      }
+    },
+    ...
+  }
+}
+
+Note: 
+
+- First select the district
+- Based on the district display the types of local bodies in that district.
+- Based on the type of the local body, display the list of local bodies in the district.
+- Based on the selected local body, get the `lb_code` which is the is the identifier for a local body.
+
+```

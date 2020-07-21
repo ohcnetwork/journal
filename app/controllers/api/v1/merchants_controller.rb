@@ -15,6 +15,6 @@ class Api::V1::MerchantsController < Api::V1::BaseController
   private
 
     def merchant_params
-      params[:merchant].permit(:name, :phone_number, :address)
+      params[:merchant].permit(:name, :phone_number, :address, :lb_code)
     end
 end

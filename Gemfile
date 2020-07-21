@@ -78,6 +78,9 @@ gem "dotenv-rails"
 # To run cron jobs
 gem "whenever", require: false
 
+# Import/Export CSV to/from database
+gem "postgres-copy"
+
 group :development do
   # speeds up development by keeping your application running in the background
   gem "spring"
