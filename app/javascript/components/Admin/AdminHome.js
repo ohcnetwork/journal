@@ -20,11 +20,11 @@ function AdminHome() {
       isLoggedIn();
     }
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     Login();
-  },[]);
+  }, []);
 
   if (loading) {
     return <p>Loading...</p>;
