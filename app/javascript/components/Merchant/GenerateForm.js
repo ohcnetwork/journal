@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import { create as merchantCreate } from "../../apis/MerchantApi";
+import { create as merchantCreate } from "Apis/MerchantApi";
+import SelectController from "Common/Form/SelectController";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of shop"),
@@ -22,7 +23,7 @@ function GenerateForm() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, control } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -80,6 +81,13 @@ function GenerateForm() {
                 placeholder="Complete address of the establishment/shop/premises"
                 register={register}
                 errors={errors}
+              />
+              <SelectController
+                control={control}
+                name="district"
+                label="District"
+                placeholder="Select District"
+                options={[]}
               />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">

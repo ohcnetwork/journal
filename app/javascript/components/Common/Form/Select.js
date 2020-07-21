@@ -47,8 +47,6 @@ CustomSelect.propTypes = {
   as: PropTypes.elementType,
   /** Unique name (in the form) for input, this will be used as key in react-hook-form */
   name: PropTypes.string.isRequired,
-  /** register function from react-hook-form */
-  register: PropTypes.func.isRequired,
   /** unique id for input. Will be auto-generated if not provided */
   id: PropTypes.string,
   /** errors object received from react-hook-form. Complete errors should be used as we are using ErrorMessage to parse through the object */
