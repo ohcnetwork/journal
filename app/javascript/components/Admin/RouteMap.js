@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import dayjs from "dayjs";
 
 import { getRouteMapOfUser } from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import dayjs from "dayjs";
+import Table from "Common/Table";
 
 const schema = yup.object().shape({
   phone_number: yup
@@ -20,6 +21,39 @@ const schema = yup.object().shape({
     .required("Please enter date of birth")
     .max(new Date(2010, 0, 1), "User should be at least 10 years old."),
 });
+
+const renderDate = (dateString) => {
+  if (!dateString) {
+    return null;
+  }
+  return dayjs(dateString).format("DD-MM-YYYY HH:mm");
+};
+
+const columns = [
+  {
+    title: "Visitable Name",
+    dataIndex: "visitable.name",
+    className: "text-gray-900",
+  },
+  {
+    title: "Visitable Address",
+    dataIndex: "visitable.address",
+  },
+  {
+    title: "Visitable Phone",
+    dataIndex: "visitable.phone",
+  },
+  {
+    title: "Entry",
+    dataIndex: "entry_at",
+    render: renderDate,
+  },
+  {
+    title: "Exit",
+    dataIndex: "exit_at",
+    render: renderDate,
+  },
+];
 
 function RouteMap() {
   const [loading, setLoading] = useState(false);
@@ -94,34 +128,14 @@ function RouteMap() {
       </div>
       <br />
       {visits && visits.length > 0 && (
-        <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
-          Places
-        </h3>
+        <section>
+          <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+            Places
+          </h3>
+          <Table columns={columns} data={visits} dataKey="id" />
+        </section>
       )}
-      <section>
-        {visits.map((visit) => {
-          return <VisitCard key={visit.id} data={visit} />;
-        })}
-      </section>
     </main>
-  );
-}
-
-function VisitCard({ data }) {
-  return (
-    <li className="py-2 flex items-center justify-between rounded-md">
-      <div className="truncate">
-        <h3 className="font-medium leading-8 text-gray-900 text-base">
-          {data.visitable.name}
-        </h3>
-        <p className="font-medium leading-5 text-gray-600 text-sm truncate">
-          {data.visitable.address}
-        </p>
-        <p className="text-gray-400 text-sm mt-2">
-          {dayjs().to(dayjs(data.entry_at))}
-        </p>
-      </div>
-    </li>
   );
 }
 
