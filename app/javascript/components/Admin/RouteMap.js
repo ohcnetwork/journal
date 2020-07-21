@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import dayjs from "dayjs";
 
 import { getRouteMapOfUser } from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import dayjs from "dayjs";
+import Table from "Common/Table";
 
 const schema = yup.object().shape({
   phone_number: yup
@@ -20,6 +21,39 @@ const schema = yup.object().shape({
     .required("Please enter date of birth")
     .max(new Date(2010, 0, 1), "User should be at least 10 years old."),
 });
+
+const renderDate = (dateString) => {
+  if (!dateString) {
+    return null;
+  }
+  return dayjs(dateString).format("DD-MM-YYYY HH:mm");
+};
+
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "visitable.name",
+    className: "text-gray-900",
+  },
+  {
+    title: "Address",
+    dataIndex: "visitable.address",
+  },
+  {
+    title: "Phone",
+    dataIndex: "visitable.phone",
+  },
+  {
+    title: "Entry",
+    dataIndex: "entry_at",
+    render: renderDate,
+  },
+  {
+    title: "Exit",
+    dataIndex: "exit_at",
+    render: renderDate,
+  },
+];
 
 function RouteMap() {
   const [loading, setLoading] = useState(false);
@@ -66,7 +100,7 @@ function RouteMap() {
             placeholder="10 digit mobile number"
             register={register}
             errors={errors}
-            autoComplete="tel"
+            autoComplete="off"
           />
           <Input
             name="date_of_birth"
@@ -76,7 +110,7 @@ function RouteMap() {
             placeholder=""
             register={register}
             errors={errors}
-            autoComplete="bday"
+            autoComplete="off"
           />
           <span className="self-center">
             <Button
@@ -92,44 +126,24 @@ function RouteMap() {
         </form>
         {error && <p>Could not find the user specified</p>}
       </div>
-      <br/>
-      {(user && visits) && (visits.length > 0 ? 
-      (<h3 className="text-2xl leading-12 font-extrabold text-gray-900">
-          Places visited by {user.name}
-      </h3>): 
-      (<h3 className="text-2xl leading-12 font-extrabold text-gray-900">
-        {user.name} did not visit any place
-      </h3>)
-      )}
-      <section>
-        {visits && visits.map((visit)=>{
-          return (
-            <VisitCard
-              key={visit.id}
-              data={visit}
-            />
-        )}
-        )}
-      </section>
+      <br />
+      {user &&
+        visits &&
+        (visits.length > 0 ? (
+          <section>
+            <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+              Places visited by {user.name}
+            </h3>
+            <div className="mt-6">
+              <Table columns={columns} data={visits} dataKey="id" />
+            </div>
+          </section>
+        ) : (
+          <p className="text-2xl leading-12 font-extrabold text-gray-900">
+            {user.name} did not visit any place
+          </p>
+        ))}
     </main>
-  );
-}
-
-function VisitCard({data}) {
-  return (
-    <li className="py-2 flex items-center justify-between rounded-md">
-      <div className="truncate">
-        <h3 className="font-medium leading-8 text-gray-900 text-base">
-          {data.visitable.name}
-        </h3>
-        <p className="font-medium leading-5 text-gray-600 text-sm truncate">
-          {data.visitable.address}
-        </p>
-        <p className="text-gray-400 text-sm mt-2">
-          {dayjs().to(dayjs(data.entry_at))}
-        </p>
-      </div>
-    </li>
   );
 }
 

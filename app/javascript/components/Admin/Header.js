@@ -9,7 +9,7 @@ function Header() {
 
   const handleLogout = () => {
     logout();
-    history.push("/admin");
+    history.push("/admin/login");
   };
 
   return (
