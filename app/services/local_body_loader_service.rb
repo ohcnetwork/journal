@@ -2,16 +2,11 @@
 
 class LocalBodyLoaderService
   def run!
-    empty_local_bodies_table!
     load_data!
   end
 
   def load_data!
     LocalBody.copy_from csv_file
-  end
-
-  def empty_local_bodies_table!
-    LocalBody.delete_all
   end
 
   def csv_file

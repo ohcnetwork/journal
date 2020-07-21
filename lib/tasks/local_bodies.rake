@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-desc "Load local bodies data from CSV file to local_bodies tablee"
-task not_production: :environment do
+desc "Load db/Kerala_Local_Body.csv to local_bodies table"
+task load_local_bodies_from_file: :environment do
   LocalBodyLoaderService.new.run!
 end

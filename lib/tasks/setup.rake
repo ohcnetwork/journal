@@ -19,7 +19,7 @@ task not_production: :environment do
 end
 
 desc "Sets up the project by running migration and populating sample data"
-task setup: [:environment, :not_production, "db:drop", "db:create", "db:migrate"] do
+task setup: [:environment, :not_production, "db:drop", "db:create", "db:schema:load"] do
   ["setup_sample_data"].each { |cmd| system "rake #{cmd}" }
 end
 
@@ -28,19 +28,17 @@ def delete_all_records_from_all_tables
 
   Dir.glob(Rails.root + "app/models/*.rb").each { |file| require file }
 
-  exceptions = ["LocalBody"]
-
   ApplicationRecord.descendants.each do |klass|
-    unless exceptions.include?(klass.to_s)
-      klass.reset_column_information
-      klass.delete_all
-    end
+    klass.reset_column_information
+    klass.delete_all
   end
 end
 
 desc "Deletes all records and populates sample data"
 task setup_sample_data: [:environment, :not_production] do
   delete_all_records_from_all_tables
+
+  load_local_bodies
 
   create_admin_user
 
@@ -50,6 +48,10 @@ task setup_sample_data: [:environment, :not_production] do
   create_visits
 
   puts "sample data was added successfully"
+end
+
+def load_local_bodies
+  LocalBodyLoaderService.new.run!
 end
 
 def create_admin_user
