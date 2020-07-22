@@ -49,6 +49,7 @@ function LocalBodyForm({ form }) {
         isLoading={loading}
         onChange={(value) => {
           setValue("type", null);
+          setValue("local_body", null);
           return value;
         }}
       />
@@ -92,7 +93,7 @@ function LocalBodyType({ form: { watch, control, setValue }, data }) {
   );
 }
 
-function LocalBody({ form: { watch, control }, data }) {
+function LocalBody({ form: { watch, control, errors }, data }) {
   const districtId = watch("district")?.value;
   const typeId = watch("type")?.value;
 
@@ -115,6 +116,7 @@ function LocalBody({ form: { watch, control }, data }) {
       placeholder="Select Local Body"
       options={localBodies}
       isDisabled={!typeId}
+      errors={errors}
     />
   );
 }

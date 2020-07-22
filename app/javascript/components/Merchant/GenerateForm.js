@@ -17,6 +17,7 @@ const schema = yup.object().shape({
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
   address: yup.string().trim().required("Please enter address"),
+  local_body: yup.mixed().required("Please enter local body"),
 });
 
 function GenerateForm() {
