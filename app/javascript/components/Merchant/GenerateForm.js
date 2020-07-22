@@ -23,9 +23,10 @@ function GenerateForm() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, errors, control, watch } = useForm({
+  const form = useForm({
     resolver: yupResolver(schema),
   });
+  const { register, handleSubmit, errors } = form;
 
   const qrCodeData = (merchantData) => {
     const qrCodeData = JSON.stringify({
@@ -82,7 +83,7 @@ function GenerateForm() {
                 register={register}
                 errors={errors}
               />
-              <LocalBodyForm control={control} watch={watch} />
+              <LocalBodyForm form={form} />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button
