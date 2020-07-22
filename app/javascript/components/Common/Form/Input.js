@@ -46,7 +46,7 @@ function Input({
         />
       </div>
       {errorMessage && (
-        <div className="mt-1 text-red-600" role="alert" id={errorMessage}>
+        <div className="mt-1 text-red-600" role="alert" id={errorId}>
           <p>{errorMessage?.message}</p>
         </div>
       )}

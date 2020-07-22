@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import { create as merchantCreate } from "../../apis/MerchantApi";
+import { create as merchantCreate } from "Apis/MerchantApi";
+import LocalBodyForm from "./LocalBodyForm";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of shop"),
@@ -16,15 +17,17 @@ const schema = yup.object().shape({
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
   address: yup.string().trim().required("Please enter address"),
+  local_body: yup.mixed().required("Please enter local body"),
 });
 
 function GenerateForm() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, errors } = useForm({
+  const form = useForm({
     resolver: yupResolver(schema),
   });
+  const { register, handleSubmit, errors } = form;
 
   const qrCodeData = (merchantData) => {
     const qrCodeData = JSON.stringify({
@@ -81,6 +84,7 @@ function GenerateForm() {
                 register={register}
                 errors={errors}
               />
+              <LocalBodyForm form={form} />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button
