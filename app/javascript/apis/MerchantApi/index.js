@@ -8,7 +8,3 @@ export const create = async (payload) => {
     return err.response.data;
   }
 };
-
-export const getLocalBodies = async () => {
-  return Axios.get(`/local_bodies`);
-};

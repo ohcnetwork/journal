@@ -23,7 +23,7 @@ function GenerateForm() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, errors, control } = useForm({
+  const { register, handleSubmit, errors, control, watch } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -82,7 +82,7 @@ function GenerateForm() {
                 register={register}
                 errors={errors}
               />
-              <LocalBodyForm control={control} />
+              <LocalBodyForm control={control} watch={watch} />
               <div className="mt-6">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button

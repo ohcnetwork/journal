@@ -7,7 +7,7 @@ import { get } from "lodash";
 
 import Label from "./Label";
 
-function CustomSelect({ id, className, label, as: As, errors, ...rest }) {
+function CustomSelect({ id, className, name, label, as: As, errors, ...rest }) {
   const labelId = useId(id);
   const errorId = useId();
   const errorMessage = get(errors, name);
