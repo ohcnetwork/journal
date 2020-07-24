@@ -5,6 +5,7 @@ import { isLoggedIn } from "Apis/Admin/Auth";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import RouteMap from "./RouteMap";
+import Establishment from "./Establishment";
 
 function AdminHome() {
   const history = useHistory();
@@ -36,6 +37,9 @@ function AdminHome() {
         <Header />
         <Route path={`${path}route-map`}>
           <RouteMap />
+        </Route>
+        <Route path={`${path}establishments`}>
+          <Establishment />
         </Route>
       </div>
     </div>

@@ -21,3 +21,14 @@ const getUser = async({phone_number, date_of_birth})=>{
     throw err;
   }
 }
+
+export const getMerchants = async ({districtId})=>{
+  try{
+    const url = districtId ? `/admin/merchants?district_id=${districtId}` : '/admin/merchants';
+    const response = (await Axios.get(url)).data;
+    return response;
+  } catch(err){
+    console.log('Error while fetching merchants', err);
+  }
+
+}
