@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_083331) do
+ActiveRecord::Schema.define(version: 2020_07_21_042608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -52,12 +52,23 @@ ActiveRecord::Schema.define(version: 2020_07_19_083331) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "local_bodies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "district_id"
+    t.integer "lb_type_csn"
+    t.string "lb_code"
+    t.string "lb_name_english"
+    t.string "lb_type"
+    t.string "district_name"
+    t.string "lb_name_full"
+  end
+
   create_table "merchants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "phone_number", null: false
     t.text "address", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "lb_code"
   end
 
   create_table "qr_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

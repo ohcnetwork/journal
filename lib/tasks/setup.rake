@@ -19,7 +19,7 @@ task not_production: :environment do
 end
 
 desc "Sets up the project by running migration and populating sample data"
-task setup: [:environment, :not_production, "db:drop", "db:create", "db:migrate"] do
+task setup: [:environment, :not_production, "db:drop", "db:create", "db:schema:load"] do
   ["setup_sample_data"].each { |cmd| system "rake #{cmd}" }
 end
 
@@ -38,6 +38,8 @@ desc "Deletes all records and populates sample data"
 task setup_sample_data: [:environment, :not_production] do
   delete_all_records_from_all_tables
 
+  load_local_bodies
+
   create_admin_user
 
   @visitors  = create_visitors
@@ -46,6 +48,10 @@ task setup_sample_data: [:environment, :not_production] do
   create_visits
 
   puts "sample data was added successfully"
+end
+
+def load_local_bodies
+  LocalBodyLoaderService.new.run!
 end
 
 def create_admin_user
@@ -57,19 +63,22 @@ def create_merchants
     {
       name: "Akshaya Centre, Kakkanad",
       phone_number: "1231231231",
-      address: "Civil Station, Kakkanad, 682030"
+      address: "Civil Station, Kakkanad, 682030",
+      lb_code: lb_codes.sample
     },
 
     {
       name: "Lakeshore Hospital",
       phone_number: "2342342341",
-      address: "Madavana, Maradu PO, 682304"
+      address: "Madavana, Maradu PO, 682304",
+      lb_code: lb_codes.sample
     },
 
     {
       name: "Veekay Mart, Kakkanad",
       phone_number: "4564564561",
-      address: "Seaport-Airport Road, Kakkanad, 682030"
+      address: "Seaport-Airport Road, Kakkanad, 682030",
+      lb_code: lb_codes.sample
     }
   ].map do |merchant_data|
     Merchant.create! merchant_data
@@ -123,7 +132,9 @@ def create_visitors
       role: "visitor",
       otp: "1947"
     }
-  ].map do |user_data|
-    User.create! user_data
-  end
+  ].map { |user_data| User.create!(user_data) }
+end
+
+def lb_codes
+  @_lb_codes ||= LocalBody.pluck(:lb_code)
 end

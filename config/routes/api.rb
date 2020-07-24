@@ -9,6 +9,7 @@ namespace :api, defaults: { format: :json }  do
       end
     end
     resources :merchants, only: [:create]
+    resources :local_bodies, only: [:index]
     resources :qr_codes, only: [:show]
 
     resources :visits, only: [:create, :index] do
@@ -28,6 +29,7 @@ namespace :api, defaults: { format: :json }  do
           get :route_map
         end
       end
+      resources :merchants, only: [:index]
     end
   end
 end

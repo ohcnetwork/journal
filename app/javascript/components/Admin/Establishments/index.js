@@ -3,23 +3,25 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 import dayjs from "dayjs";
-
-import { getRouteMapOfUser } from "Apis/Admin";
+import { useHistory } from "react-router-dom";
+import { getEstablishmentRegister } from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 import Table from "Common/Table";
 
 const schema = yup.object().shape({
-  phone_number: yup
-    .string()
-    .trim()
-    .required("Please enter mobile number")
-    .length(10, "Please enter 10 digit mobile number"),
-  date_of_birth: yup
+  visitable_id: yup.string().trim().required("Please enter establishments ID"),
+
+  from: yup
     .date()
     .typeError("Please enter valid date")
-    .required("Please enter date of birth")
-    .max(new Date(2010, 0, 1), "User should be at least 10 years old."),
+    .required("Please provide from date")
+    .min(new Date(2019, 0, 1), "No data available before this date"),
+  to: yup
+    .date()
+    .typeError("Please enter valid date")
+    .required("Please provide to date")
+    .min(new Date(2019, 0, 1), "No data available before this date"),
 });
 
 const renderDate = (dateString) => {
@@ -32,79 +34,102 @@ const renderDate = (dateString) => {
 const columns = [
   {
     title: "Name",
-    dataIndex: "visitable.name",
+    dataIndex: "name",
     className: "text-gray-900",
   },
   {
-    title: "Address",
-    dataIndex: "visitable.address",
+    title: "Phone",
+    dataIndex: "phone",
   },
   {
-    title: "Phone",
-    dataIndex: "visitable.phone",
+    title: "Age",
+    dataIndex: "age",
   },
   {
     title: "Entry",
     dataIndex: "entry_at",
     render: renderDate,
   },
-  {
-    title: "Exit",
-    dataIndex: "exit_at",
-    render: renderDate,
-  },
 ];
 
-function RouteMap() {
+function Establishments() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [routeMap, setRouteMap] = useState({});
+  const [establishmentRegister, setEstablishmentRegister] = useState({});
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const getRouteMap = async (data) => {
+  const getRegister = async (data) => {
     setLoading(true);
     setError(null);
     try {
-      const routeMap = await getRouteMapOfUser(data);
-      setRouteMap(routeMap);
+      const register = await getEstablishmentRegister(data);
+      setEstablishmentRegister(register);
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
   };
-  const { visits, user } = routeMap;
+  const { visits } = establishmentRegister;
+
+  const history = useHistory();
+  const showListPage = ()=>{
+    history.push('/admin/establishments/list');
+  }
   return (
     <main className="px-8 py-6">
       <header>
-        <h2 className="text-3xl leading-12 font-extrabold text-gray-900">
-          Route Map
-        </h2>
-        <p className="text-sm text-gray-500 leading-5 mt-1">
-          Please enter date of birth and phone number of the person you want to
-          generate route map for.
-        </p>
+        <div>
+          <h2 className="text-3xl leading-12 font-extrabold text-gray-900">
+            Establishment Register
+          </h2>
+            <p className="text-sm text-gray-500 leading-5 mt-1">
+              Please enter establishment id to get the visitors details.
+          </p>
+        </div>
+        <div>
+          <Button
+            htmlType="submit"
+            colorType="primary"
+            sizeType="lg"
+            className={"mt-6"}
+            onClick={()=>showListPage()}
+          >
+            List
+            </Button>
+        </div>
+        
       </header>
       <div className="mt-8 rounded-sm bg-white">
         <form
           className="flex p-4 space-x-6"
           noValidate
-          onSubmit={handleSubmit(getRouteMap)}
+          onSubmit={handleSubmit(getRegister)}
         >
           <Input
-            name="phone_number"
-            label="Mobile number"
+            name="visitable_id"
+            label="Establishment Id"
             required
-            placeholder="10 digit mobile number"
+            placeholder="Establishment Id"
             register={register}
             errors={errors}
             autoComplete="off"
           />
           <Input
-            name="date_of_birth"
-            label="Date of Birth"
+            name="from"
+            label="From Date"
+            required
+            type="date"
+            placeholder=""
+            register={register}
+            errors={errors}
+            autoComplete="off"
+          />
+          <Input
+            name="to"
+            label="To Date"
             required
             type="date"
             placeholder=""
@@ -124,15 +149,14 @@ function RouteMap() {
             </Button>
           </span>
         </form>
-        {error && <p>Could not find the user specified</p>}
+        {error && <p>Could not find the estaablishment specified</p>}
       </div>
       <br />
-      {user &&
-        visits &&
+      {visits &&
         (visits.length > 0 ? (
           <section>
             <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
-              Places visited by {user.name}
+              Visitors details
             </h3>
             <div className="mt-6">
               <Table columns={columns} data={visits} dataKey="id" />
@@ -140,11 +164,11 @@ function RouteMap() {
           </section>
         ) : (
           <p className="text-2xl leading-12 font-extrabold text-gray-900">
-            {user.name} did not visit any place
+            No visitors
           </p>
         ))}
     </main>
   );
 }
 
-export default RouteMap;
+export default Establishments;
