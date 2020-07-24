@@ -24,7 +24,7 @@ const List = () => {
           Establishments
         </h2>
       </header>
-      <div class="flex flex-row">
+      <div className="flex flex-row">
         <Input
           name="district_id"
           label="District Id"
@@ -39,7 +39,7 @@ const List = () => {
             htmlType="submit"
             colorType="primary"
             sizeType="lg"
-            className={"mt-6"}
+            className={"mt-6 ml-3"}
             loading={loading}
             onClick={()=>{
               loadData();

@@ -80,7 +80,7 @@ function Establishments() {
   }
   return (
     <main className="px-8 py-6">
-      <header>
+      <header className="flex flex-row justify-between">
         <div>
           <h2 className="text-3xl leading-12 font-extrabold text-gray-900">
             Establishment Register
