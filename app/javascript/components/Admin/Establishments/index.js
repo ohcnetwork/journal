@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 import dayjs from "dayjs";
-
+import { useHistory } from "react-router-dom";
 import { getEstablishmentRegister } from "Apis/Admin";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 import Table from "Common/Table";
 
 const schema = yup.object().shape({
-  visitable_id: yup.string().trim().required("Please enter estaablishments ID"),
+  visitable_id: yup.string().trim().required("Please enter establishments ID"),
 
   from: yup
     .date()
@@ -73,15 +73,34 @@ function Establishments() {
     }
   };
   const { visits } = establishmentRegister;
+
+  const history = useHistory();
+  const showListPage = ()=>{
+    history.push('/admin/establishments/list');
+  }
   return (
     <main className="px-8 py-6">
-      <header>
-        <h2 className="text-3xl leading-12 font-extrabold text-gray-900">
-          Establishment Register
-        </h2>
-        <p className="text-sm text-gray-500 leading-5 mt-1">
-          Please enter establishment id to get the visitors details.
-        </p>
+      <header className="flex flex-row justify-between">
+        <div>
+          <h2 className="text-3xl leading-12 font-extrabold text-gray-900">
+            Establishment Register
+          </h2>
+            <p className="text-sm text-gray-500 leading-5 mt-1">
+              Please enter establishment id to get the visitors details.
+          </p>
+        </div>
+        <div>
+          <Button
+            htmlType="submit"
+            colorType="primary"
+            sizeType="lg"
+            className={"mt-6"}
+            onClick={()=>showListPage()}
+          >
+            List
+            </Button>
+        </div>
+        
       </header>
       <div className="mt-8 rounded-sm bg-white">
         <form
