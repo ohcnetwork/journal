@@ -1,11 +1,21 @@
 import Axios from "../axios";
 import moment from "moment";
 
-export const getRouteMapOfUser = async ({ phone_number, date_of_birth }) => {
+export const getRouteMapOfUser = async ({
+  phone_number,
+  date_of_birth,
+  from,
+  to,
+}) => {
   const user = await getUser({ phone_number, date_of_birth });
   if (user) {
-    const response = (await Axios.get(`/admin/users/${user.id}/route_map`))
-      .data;
+    const dateFrom = moment(from).format("YYYY-MM-DD");
+    const dateTo = moment(to).format("YYYY-MM-DD");
+    const response = (
+      await Axios.get(
+        `/admin/users/${user.id}/route_map?from=${dateFrom}&to=${dateTo}`
+      )
+    ).data;
     return response;
   }
   throw new Error("RouteMap not found");
@@ -27,13 +37,14 @@ const getUser = async ({ phone_number, date_of_birth }) => {
 
 export const getMerchants = async ({ districtId }) => {
   try {
-    const url = districtId ? `/admin/merchants?district_id=${districtId}` : '/admin/merchants';
+    const url = districtId
+      ? `/admin/merchants?district_id=${districtId}`
+      : "/admin/merchants";
     const response = (await Axios.get(url)).data;
     return response;
   } catch (err) {
-    console.log('Error while fetching merchants', err);
+    console.log("Error while fetching merchants", err);
   }
-
 };
 
 export const getEstablishmentRegister = async ({ visitable_id, from, to }) => {

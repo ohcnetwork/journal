@@ -20,6 +20,16 @@ const schema = yup.object().shape({
     .typeError("Please enter valid date")
     .required("Please enter date of birth")
     .max(new Date(2010, 0, 1), "User should be at least 10 years old."),
+  from: yup
+    .date()
+    .typeError("Please enter valid date")
+    .required("Please provide from date")
+    .min(new Date(2019, 0, 1), "No data available before this date"),
+  to: yup
+    .date()
+    .typeError("Please enter valid date")
+    .required("Please provide to date")
+    .when("from", (from, schema) => from && schema.min(from)),
 });
 
 const renderDate = (dateString) => {
@@ -105,6 +115,26 @@ function RouteMap() {
           <Input
             name="date_of_birth"
             label="Date of Birth"
+            required
+            type="date"
+            placeholder=""
+            register={register}
+            errors={errors}
+            autoComplete="off"
+          />{" "}
+          <Input
+            name="from"
+            label="From Date"
+            required
+            type="date"
+            placeholder=""
+            register={register}
+            errors={errors}
+            autoComplete="off"
+          />
+          <Input
+            name="to"
+            label="To Date"
             required
             type="date"
             placeholder=""
