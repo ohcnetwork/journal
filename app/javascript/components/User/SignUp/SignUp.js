@@ -9,7 +9,7 @@ import Input from "Common/Form/Input";
 import Button from "Common/Button";
 import { login } from "Apis/authentication";
 import SignUpOtp from "./SignUpOtp";
-import SignUpThump from "./signUpThump.jpg";
+import SignUpThumb from "./SignUpThumb";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter your name"),
@@ -71,7 +71,7 @@ function SignUp() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center md:py-6 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-sm">
-        <img className="w-full" src={SignUpThump} alt="" />
+        <img className="w-full px-6" src={SignUpThumb} alt="Sign up Thumb" />
         <div className="px-6 py-4">
           <Route path={`${match.url}`} exact>
             <>
