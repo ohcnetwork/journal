@@ -21,7 +21,7 @@ const schema = yup.object().shape({
     .date()
     .typeError("Please enter valid date")
     .required("Please provide to date")
-    .min(new Date(2019, 0, 1), "No data available before this date"),
+    .when("from", (from, schema) => from && schema.min(from)),
 });
 
 const renderDate = (dateString) => {
@@ -75,9 +75,9 @@ function Establishments() {
   const { visits } = establishmentRegister;
 
   const history = useHistory();
-  const showListPage = ()=>{
-    history.push('/admin/establishments/list');
-  }
+  const showListPage = () => {
+    history.push("/admin/establishments/list");
+  };
   return (
     <main className="px-8 py-6">
       <header className="flex flex-row justify-between">
@@ -85,8 +85,8 @@ function Establishments() {
           <h2 className="text-3xl leading-12 font-extrabold text-gray-900">
             Establishment Register
           </h2>
-            <p className="text-sm text-gray-500 leading-5 mt-1">
-              Please enter establishment id to get the visitors details.
+          <p className="text-sm text-gray-500 leading-5 mt-1">
+            Please enter establishment id to get the visitors details.
           </p>
         </div>
         <div>
@@ -95,12 +95,11 @@ function Establishments() {
             colorType="primary"
             sizeType="lg"
             className={"mt-6"}
-            onClick={()=>showListPage()}
+            onClick={() => showListPage()}
           >
             List
-            </Button>
+          </Button>
         </div>
-        
       </header>
       <div className="mt-8 rounded-sm bg-white">
         <form
