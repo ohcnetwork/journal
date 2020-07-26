@@ -29,7 +29,9 @@ const schema = yup.object().shape({
     .date()
     .typeError("Please enter valid date")
     .required("Please provide to date")
-    .when("from", (from, schema) => from && schema.min(from)),
+    .when("from", (from) =>
+      yup.date().min(from, "End date must be before start date")
+    ),
 });
 
 const renderDate = (dateString) => {
@@ -66,12 +68,13 @@ const columns = [
 ];
 
 function RouteMap() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [routeMap, setRouteMap] = useState({});
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [routeMap, setRouteMap] = useState({});
 
   const getRouteMap = async (data) => {
     setLoading(true);
@@ -121,7 +124,7 @@ function RouteMap() {
             register={register}
             errors={errors}
             autoComplete="off"
-          />{" "}
+          />
           <Input
             name="from"
             label="From Date"
@@ -131,6 +134,7 @@ function RouteMap() {
             register={register}
             errors={errors}
             autoComplete="off"
+            defaultValue={dayjs().subtract(14, "day").format("YYYY-MM-DD")}
           />
           <Input
             name="to"
@@ -141,6 +145,7 @@ function RouteMap() {
             register={register}
             errors={errors}
             autoComplete="off"
+            defaultValue={dayjs().format("YYYY-MM-DD")}
           />
           <span className="self-center">
             <Button
@@ -165,7 +170,7 @@ function RouteMap() {
                 Places visited by {user.name}
               </h3>
               <div className="mt-6">
-                <Table columns={columns} data={visits} dataKey="id" />
+                <Table columns={columns} data={visits} dataKey="entry_at" />
               </div>
             </section>
           ) : (
