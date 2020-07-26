@@ -7,7 +7,7 @@ import { getLocalBodies } from "Apis/utilities";
  * Select the local body using cascading form fields
  * District -> local body type -> local body.
  */
-function LocalBodyForm({ form }) {
+function LocalBodyForm({ className, form }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
 
@@ -39,7 +39,7 @@ function LocalBodyForm({ form }) {
   }, [data]);
 
   return (
-    <>
+    <div className={className}>
       <SelectController
         control={control}
         name="district"
@@ -55,7 +55,7 @@ function LocalBodyForm({ form }) {
       />
       <LocalBodyType form={form} data={data?.data} />
       <LocalBody form={form} data={data?.data} />
-    </>
+    </div>
   );
 }
 
