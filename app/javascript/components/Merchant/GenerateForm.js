@@ -5,9 +5,9 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
+import LocalBodyForm from "Common/LocalBodyForm";
 import Button from "Common/Button";
 import { create as merchantCreate } from "Apis/MerchantApi";
-import LocalBodyForm from "./LocalBodyForm";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of shop"),

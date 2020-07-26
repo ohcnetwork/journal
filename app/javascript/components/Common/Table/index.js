@@ -28,7 +28,7 @@ function Table({ columns, data, dataKey }) {
                           className
                         )}
                       >
-                        {render ? render(item, data) : item}
+                        {render ? render(item, dataItem) : item}
                       </td>
                     );
                   })}

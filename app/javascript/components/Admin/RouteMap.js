@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
@@ -29,7 +30,9 @@ const schema = yup.object().shape({
     .date()
     .typeError("Please enter valid date")
     .required("Please provide to date")
-    .when("from", (from, schema) => from && schema.min(from)),
+    .when("from", (from) =>
+      yup.date().min(from, "End date must be before start date")
+    ),
 });
 
 const renderDate = (dateString) => {
@@ -39,11 +42,22 @@ const renderDate = (dateString) => {
   return dayjs(dateString).format("DD-MM-YYYY HH:mm");
 };
 
+const renderEstablishmentLink = (name, data) => (
+  <Link
+    to={`/admin/establishments/${data.visitable.id}`}
+    title="View visitor register for this establishment"
+    target="_blank"
+  >
+    {name}
+  </Link>
+);
+
 const columns = [
   {
     title: "Name",
     dataIndex: "visitable.name",
     className: "text-gray-900",
+    render: renderEstablishmentLink,
   },
   {
     title: "Address",
@@ -66,12 +80,13 @@ const columns = [
 ];
 
 function RouteMap() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [routeMap, setRouteMap] = useState({});
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [routeMap, setRouteMap] = useState({});
 
   const getRouteMap = async (data) => {
     setLoading(true);
@@ -121,7 +136,7 @@ function RouteMap() {
             register={register}
             errors={errors}
             autoComplete="off"
-          />{" "}
+          />
           <Input
             name="from"
             label="From Date"
@@ -131,6 +146,7 @@ function RouteMap() {
             register={register}
             errors={errors}
             autoComplete="off"
+            defaultValue={dayjs().subtract(14, "day").format("YYYY-MM-DD")}
           />
           <Input
             name="to"
@@ -141,6 +157,7 @@ function RouteMap() {
             register={register}
             errors={errors}
             autoComplete="off"
+            defaultValue={dayjs().format("YYYY-MM-DD")}
           />
           <span className="self-center">
             <Button
@@ -156,23 +173,24 @@ function RouteMap() {
         </form>
         {error && <p>Could not find the user specified</p>}
       </div>
-      <br />
-      {user &&
-        visits &&
-        (visits.length > 0 ? (
-          <section>
-            <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
-              Places visited by {user.name}
-            </h3>
-            <div className="mt-6">
-              <Table columns={columns} data={visits} dataKey="id" />
-            </div>
-          </section>
-        ) : (
-          <p className="text-2xl leading-12 font-extrabold text-gray-900">
-            {user.name} did not visit any place
-          </p>
-        ))}
+      <section className="mt-6">
+        {user &&
+          visits &&
+          (visits.length > 0 ? (
+            <section>
+              <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+                Places visited by {user.name}
+              </h3>
+              <div className="mt-6">
+                <Table columns={columns} data={visits} dataKey="entry_at" />
+              </div>
+            </section>
+          ) : (
+            <p className="text-2xl leading-12 font-extrabold text-gray-900">
+              {user.name} has not visited any places.
+            </p>
+          ))}
+      </section>
     </main>
   );
 }
