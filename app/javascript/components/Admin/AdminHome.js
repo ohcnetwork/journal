@@ -6,7 +6,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import RouteMap from "./RouteMap";
 import Establishments from "./Establishments/index";
-import EstablishmentList from "./Establishments/List";
+import EstSearch from "./Establishments/EstSearch";
 
 function AdminHome() {
   const history = useHistory();
@@ -43,7 +43,7 @@ function AdminHome() {
           <Establishments />
         </Route>
         <Route exact path={`${path}establishments`}>
-          <EstablishmentList />
+          <EstSearch />
         </Route>
       </div>
     </div>

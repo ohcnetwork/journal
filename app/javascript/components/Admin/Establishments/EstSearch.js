@@ -6,29 +6,13 @@ import { yupResolver } from "@hookform/resolvers";
 import { getMerchants } from "Apis/Admin";
 import LocalBodyForm from "Common/LocalBodyForm";
 import Button from "Common/Button";
-import Table from "Common/Table";
+import EstList from "./EstList";
 
 const schema = yup.object().shape({
   local_body: yup.mixed().required("Please enter local body"),
 });
 
-const columns = [
-  {
-    title: "Merchant Name",
-    dataIndex: "visitable.name",
-    className: "text-gray-900",
-  },
-  {
-    title: "Address",
-    dataIndex: "visitable.address",
-  },
-  {
-    title: "Phone",
-    dataIndex: "visitable.phone",
-  },
-];
-
-const List = () => {
+const EstSearch = () => {
   const form = useForm({
     resolver: yupResolver(schema),
   });
@@ -86,12 +70,10 @@ const List = () => {
         </span>
       </form>
       <section className="mt-6">
-        {loading && <p>Loading...</p>}
-        {error && <p>Could not find merchant list. Please try again.</p>}
-        {!error && !loading && <Table columns={columns} data={merchants} />}
+        <EstList data={merchants} loading={loading} error={error} />
       </section>
     </main>
   );
 };
 
-export default List;
+export default EstSearch;
