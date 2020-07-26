@@ -5,7 +5,7 @@ import { isLoggedIn } from "Apis/Admin/Auth";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import RouteMap from "./RouteMap";
-import Establishments from "./Establishments/index";
+import VisitorRegister from "./Establishments/VisitorRegister";
 import EstSearch from "./Establishments/EstSearch";
 
 function AdminHome() {
@@ -40,7 +40,7 @@ function AdminHome() {
           <RouteMap />
         </Route>
         <Route path={`${path}establishments/:id`}>
-          <Establishments />
+          <VisitorRegister />
         </Route>
         <Route exact path={`${path}establishments`}>
           <EstSearch />
