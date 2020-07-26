@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
@@ -41,11 +42,22 @@ const renderDate = (dateString) => {
   return dayjs(dateString).format("DD-MM-YYYY HH:mm");
 };
 
+const renderEstablishmentLink = (name, data) => (
+  <Link
+    to={`/admin/establishments/${data.visitable.id}`}
+    title="View visitor register for this establishment"
+    target="_blank"
+  >
+    {name}
+  </Link>
+);
+
 const columns = [
   {
     title: "Name",
     dataIndex: "visitable.name",
     className: "text-gray-900",
+    render: renderEstablishmentLink,
   },
   {
     title: "Address",
