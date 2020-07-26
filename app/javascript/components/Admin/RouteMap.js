@@ -156,23 +156,24 @@ function RouteMap() {
         </form>
         {error && <p>Could not find the user specified</p>}
       </div>
-      <br />
-      {user &&
-        visits &&
-        (visits.length > 0 ? (
-          <section>
-            <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
-              Places visited by {user.name}
-            </h3>
-            <div className="mt-6">
-              <Table columns={columns} data={visits} dataKey="id" />
-            </div>
-          </section>
-        ) : (
-          <p className="text-2xl leading-12 font-extrabold text-gray-900">
-            {user.name} did not visit any place
-          </p>
-        ))}
+      <section className="mt-6">
+        {user &&
+          visits &&
+          (visits.length > 0 ? (
+            <section>
+              <h3 className="text-3xl leading-12 font-extrabold text-gray-900">
+                Places visited by {user.name}
+              </h3>
+              <div className="mt-6">
+                <Table columns={columns} data={visits} dataKey="id" />
+              </div>
+            </section>
+          ) : (
+            <p className="text-2xl leading-12 font-extrabold text-gray-900">
+              {user.name} has not visited any places.
+            </p>
+          ))}
+      </section>
     </main>
   );
 }

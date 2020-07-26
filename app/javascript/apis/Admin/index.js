@@ -35,16 +35,13 @@ const getUser = async ({ phone_number, date_of_birth }) => {
   }
 };
 
-export const getMerchants = async ({ districtId }) => {
-  try {
-    const url = districtId
-      ? `/admin/merchants?district_id=${districtId}`
-      : "/admin/merchants";
-    const response = (await Axios.get(url)).data;
-    return response;
-  } catch (err) {
-    console.log("Error while fetching merchants", err);
-  }
+export const getMerchants = async ({ lbCode }) => {
+  const response = await Axios.get("/admin/merchants", {
+    params: {
+      lb_code: lbCode,
+    },
+  });
+  return response.data;
 };
 
 export const getEstablishmentRegister = async ({ visitable_id, from, to }) => {
@@ -60,14 +57,5 @@ export const getEstablishmentRegister = async ({ visitable_id, from, to }) => {
   } catch (err) {
     console.log("Error while fetching Establishment ", err);
     throw new Error("Establishment not found");
-  }
-};
-
-export const getLocalBodies = async () => {
-  try {
-    const response = (await Axios.get(`/local_bodies`)).data;
-    return response;
-  } catch (err) {
-    console.log("Error while fetching local bodies ", err);
   }
 };

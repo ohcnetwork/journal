@@ -1,38 +1,65 @@
-import React, { useState, useEffect } from "react";
-import { getMerchants, getLocalBodies } from "Apis/Admin";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers";
 
-import Input from "Common/Form/Input";
+import { getMerchants } from "Apis/Admin";
+import LocalBodyForm from "Common/LocalBodyForm";
 import Button from "Common/Button";
+import Table from "Common/Table";
+
+const schema = yup.object().shape({
+  local_body: yup.mixed().required("Please enter local body"),
+});
+
+const columns = [
+  {
+    title: "Merchant Name",
+    dataIndex: "visitable.name",
+    className: "text-gray-900",
+  },
+  {
+    title: "Address",
+    dataIndex: "visitable.address",
+  },
+  {
+    title: "Phone",
+    dataIndex: "visitable.phone",
+  },
+];
 
 const List = () => {
+  const form = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { handleSubmit } = form;
+
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [merchants, setMerchants] = useState([]);
-  const [districtId, setDistrictId] = useState(-1);
-  const [search, setSearch] = useState(false);
-  const [districts, setDistricts] = useState({});
-  useEffect(() => {
-    loadData();
-  }, []);
 
-  const loadData = async () => {
-    const response = await getLocalBodies();
-    if (response && response.districts) {
-      setDistricts(response.districts);
-    }
-  };
-
-  const loadMerchants = async () => {
+  const loadMerchants = async (lbCode) => {
     setLoading(true);
-    const response = await getMerchants({ districtId });
-    if (response && response.merchants) {
-      setMerchants(response.merchants);
+    setError(null);
+    try {
+      const response = await getMerchants({ lbCode });
+      if (response && response.merchants) {
+        setMerchants(response.merchants);
+      }
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  const handleSelectChange = (value) => {
-    setDistrictId(value);
+  const handleFormValues = (data) => {
+    const {
+      local_body: { value: localBodyId },
+    } = data;
+    loadMerchants(localBodyId);
   };
+
   return (
     <main className="px-8 py-6">
       <header>
@@ -40,59 +67,29 @@ const List = () => {
           Establishments
         </h2>
       </header>
-      <div className="flex flex-row">
-        <select onChange={(e) => handleSelectChange(e.target.value)} value={districtId} className="inline-flex block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option key={-1} value={-1}>{'--Select--'}</option>
-          {Object.keys(districts).map((id, index) => {
-            return (<option key={index} value={id}>{districts[id]}</option>);
-          })}
-        </select>
-
-        <span className="self-center">
+      <form
+        className="max-w-xl"
+        noValidate
+        onSubmit={handleSubmit(handleFormValues)}
+      >
+        <LocalBodyForm form={form} />
+        <span className="block w-full rounded-md shadow-sm">
           <Button
             htmlType="submit"
             colorType="primary"
             sizeType="lg"
-            className={"mt-6 ml-3"}
             loading={loading}
-            onClick={() => {
-              loadMerchants();
-              setSearch(true);
-            }}
+            block
           >
-            Submit
-            </Button>
+            Search
+          </Button>
         </span>
-      </div>
-      {search && districtId > -1 &&
-        (<section>
-          <table className="table-auto">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">District</th>
-                <th className="px-4 py-2">LB Code</th>
-                <th className="px-4 py-2">Address</th>
-                <th className="px-4 py-2">Phone</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              {merchants && merchants.map((merchant, index) => {
-                return (
-                  <tr key={index}>
-                    <td className="border px-4 py-2">{merchant.name}</td>
-                    <td className="border px-4 py-2">{merchant.district_name}</td>
-                    <td className="border px-4 py-2">{merchant.lb_code}</td>
-                    <td className="border px-4 py-2">{merchant.address}</td>
-                    <td className="border px-4 py-2">{merchant.phone_number}</td>
-                  </tr>
-                );
-              })
-              }
-            </tbody>
-          </table>
-        </section>)}
+      </form>
+      <section className="mt-6">
+        {loading && <p>Loading...</p>}
+        {error && <p>Could not find merchant list. Please try again.</p>}
+        {!error && !loading && <Table columns={columns} data={merchants} />}
+      </section>
     </main>
   );
 };
