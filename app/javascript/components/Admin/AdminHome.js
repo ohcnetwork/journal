@@ -6,7 +6,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import RouteMap from "./RouteMap";
 import Establishments from "./Establishments/index";
-import EstablishmentList from './Establishments/List';
+import EstablishmentList from "./Establishments/List";
 
 function AdminHome() {
   const history = useHistory();
@@ -39,13 +39,12 @@ function AdminHome() {
         <Route path={`${path}route-map`}>
           <RouteMap />
         </Route>
-        <Route exact path={`${path}establishments/list`}>
-          <EstablishmentList />
-        </Route>
-        <Route exact path={`${path}establishments`}>
+        <Route path={`${path}establishments/:id`}>
           <Establishments />
         </Route>
-        
+        <Route exact path={`${path}establishments`}>
+          <EstablishmentList />
+        </Route>
       </div>
     </div>
   );
