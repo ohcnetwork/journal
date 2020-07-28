@@ -67,8 +67,4 @@ class User < ApplicationRecord
         break token unless User.find_by(authentication_token: token)&.first
       end
     end
-
-    def sms_sending_enabled?
-      ENV["SMS_API_KEY"].present?
-    end
 end

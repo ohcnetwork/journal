@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Merchant < ApplicationRecord
+  include OtpVerifiable
+
   has_many :visits, as: :visitable, dependent: :destroy
 
   validates :name, :phone_number, :address, :temp_id, presence: true

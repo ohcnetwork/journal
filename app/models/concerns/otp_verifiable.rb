@@ -17,4 +17,8 @@ module OtpVerifiable
       false
     end
   end
+
+  def sms_sending_enabled?
+    ENV["SMS_API_KEY"].present?
+  end
 end

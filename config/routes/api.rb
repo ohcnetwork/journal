@@ -8,7 +8,11 @@ namespace :api, defaults: { format: :json }  do
         post :verify_otp
       end
     end
-    resources :merchants, only: [:create]
+    resources :merchants, only: [:create] do 
+      member do
+        post :verify_otp
+      end
+    end
     resources :local_bodies, only: [:index]
     resources :qr_codes, only: [:show]
 
