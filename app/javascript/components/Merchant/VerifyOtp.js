@@ -43,7 +43,7 @@ function VerifyOtp() {
     setError(null);
     try {
       const response = await verifyOtp(tempId, value);
-      history.push(`/merchant/qr?id=${qrCodeData(response.data)}`);
+      history.push(`/merchant/qr?code=${qrCodeData(response.data)}`);
     } catch (error) {
       setError(error);
     } finally {
