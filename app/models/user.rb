@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  include OtpVerifiable
+
   devise :database_authenticatable, :registerable, :omniauthable
 
   validates :phone_number, uniqueness: true
@@ -47,23 +47,6 @@ class User < ApplicationRecord
 
   def self.from_authentication_token(auth_token)
     User.find_by(authentication_token: auth_token)
-  end
-
-  def send_otp!
-    if sms_sending_enabled?
-      token = OtpService.new(phone_number).send!
-      update!(otp_token: token)
-    end
-  end
-
-  def valid_otp?(otp)
-    if sms_sending_enabled?
-      OtpService.new(phone_number).verify!(otp, self.otp_token)
-    elsif Rails.env.development?
-      otp == "1947" # for testing in development mode without sending OTP
-    else
-      false
-    end
   end
 
   private

@@ -24,4 +24,9 @@ class MerchantTest < ActiveSupport::TestCase
     assert_equal 1, Merchant.by_district_id(13).count
     assert_equal merchant1, Merchant.by_district_id(13).first
   end
+
+  test "temp_id generation" do
+    merchant = create(:merchant)
+    assert merchant.temp_id.is_a?(String)
+  end
 end
