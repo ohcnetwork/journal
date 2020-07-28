@@ -12,7 +12,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
       @user.update user_params
     end
 
-    OtpService.new(@user).send!
+    @user.send_otp!
   end
 
   private
