@@ -178,9 +178,9 @@ curl                                        \
      http://localhost:3000/api/v1/sessions
 ```
 
-### OTP Verification
+### User OTP Verification
 
-Note: Till we integrate an API service use `1947` as the OTP and it will work always.
+Note: In development mode you can use `1947` as the OTP and it will work always.
 
 ```
 curl                                       \
@@ -204,6 +204,10 @@ Otherwise:
 
 ### Create a Merchant
 
+1. Creates a new merchant if phone number doesn't already exist.
+2. Updates the existing merchant with given details if phone number already exists.
+3. Sends out an OTP to the merchant's phone number.
+
 ```
 curl                                       \
      -X POST                                  \
@@ -214,6 +218,28 @@ curl                                       \
 ```
 
 Response 
+
+```
+{
+  "temp_id": "1166xx2"
+}
+```
+
+### Merchant OTP Verification
+
+Note: In development mode you can use `1947` as the OTP and it will work always.
+
+```
+curl                                       \
+     -X POST                                  \
+     -H "Accept: application/json"           \
+     -H "Content-type: application/json"     \
+     http://localhost:3000/api/v1/merchants/:temp_id/verify_otp?otp=1947
+```
+
+If OTP is incorrect response will be a `400`
+
+Otherwise:
 
 ```
 {
