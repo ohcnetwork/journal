@@ -59,8 +59,10 @@ class User < ApplicationRecord
   def valid_otp?(otp)
     if sms_sending_enabled?
       OtpService.new(phone_number).verify!(otp, self.otp_token)
-    else
+    elsif Rails.env.development?
       otp == "1947" # for testing in development mode without sending OTP
+    else
+      false
     end
   end
 
