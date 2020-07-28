@@ -49,6 +49,23 @@ class User < ApplicationRecord
     User.find_by(authentication_token: auth_token)
   end
 
+  def send_otp!
+    if sms_sending_enabled?
+      token = OtpService.new(phone_number).send!
+      update!(otp_token: token)
+    end
+  end
+
+  def valid_otp?(otp)
+    if sms_sending_enabled?
+      OtpService.new(phone_number).verify!(otp, self.otp_token)
+    elsif Rails.env.development?
+      otp == "1947" # for testing in development mode without sending OTP
+    else
+      false
+    end
+  end
+
   private
 
     def send_devise_notification(notification, *args)
@@ -66,5 +83,9 @@ class User < ApplicationRecord
         token = Devise.friendly_token
         break token unless User.find_by(authentication_token: token)&.first
       end
+    end
+
+    def sms_sending_enabled?
+      ENV["SMS_API_KEY"].present?
     end
 end

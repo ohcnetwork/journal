@@ -4,9 +4,9 @@ require "test_helper"
 
 class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   def test_verify_valid_otp
-    user = create(:user, otp: "2255")
+    user = create(:user)
 
-    post verify_otp_api_v1_user_url(user), params: { otp: user.otp }, as: :json
+    post verify_otp_api_v1_user_url(user), params: { otp: "1947" }, as: :json
 
     assert_response :success
 
@@ -18,9 +18,9 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_verify_invalid_otp
-    user = create(:user, otp: "2255")
+    user = create(:user)
 
-    post verify_otp_api_v1_user_url(user), params: { otp: "3355" }, as: :json
+    post verify_otp_api_v1_user_url(user), params: { otp: "1945" }, as: :json
     assert_response :bad_request
   end
 end

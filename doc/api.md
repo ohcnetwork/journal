@@ -1,11 +1,9 @@
-### Testing with api using curl
+### OTP Service 
 
-``` ruby
-user = User.where(email: 'john@example.com').first
-auth_token = user.authentication_token
-```
+Setup environment variable `SMS_API_KEY` with the `AppKey` of the OTP service. Then OTP sending and 
+verification APIs will work.
 
-In the following examples replace the `auth_token` value with the value derived in the above step when appropriate.
+If this key is not present then no SMS will be sent. But in `development` mode you can use the OTP `1947` for testing. 
 
 ## Admin
 

@@ -103,4 +103,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, user.visits.count
     assert_not_equal prev_updated_at, user.updated_at
   end
+
+  test "valid_otp?" do
+    assert User.new.respond_to?(:valid_otp?)
+  end
+
+  test "send_otp!" do
+    assert User.new.respond_to?(:valid_otp?)
+  end
 end
