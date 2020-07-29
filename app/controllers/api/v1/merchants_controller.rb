@@ -17,7 +17,7 @@ class Api::V1::MerchantsController < Api::V1::BaseController
 
   def verify_otp
     @merchant = Merchant.find_by(temp_id: params[:id])
-    if @merchant.valid_otp?(params[:otp])
+    if @merchant && @merchant.valid_otp?(params[:otp])
       render json: @merchant.as_json
     else
       head :bad_request

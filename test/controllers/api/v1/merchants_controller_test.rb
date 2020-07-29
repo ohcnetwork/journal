@@ -52,7 +52,7 @@ class Api::V1::MerchantsControllerTest < ActionDispatch::IntegrationTest
   def test_verify_valid_otp
     merchant = create(:merchant)
 
-    post verify_otp_api_v1_merchant_url(merchant), params: { otp: "1947" }, as: :json
+    post verify_otp_api_v1_merchant_url(id: merchant.temp_id), params: { otp: "1947" }, as: :json
 
     assert_response :success
 
@@ -69,7 +69,7 @@ class Api::V1::MerchantsControllerTest < ActionDispatch::IntegrationTest
   def test_verify_invalid_otp
     merchant = create(:merchant)
 
-    post verify_otp_api_v1_merchant_url(merchant), params: { otp: "1945" }, as: :json
+    post verify_otp_api_v1_merchant_url(id: merchant.temp_id), params: { otp: "1945" }, as: :json
     assert_response :bad_request
   end
 end
