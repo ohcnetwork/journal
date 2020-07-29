@@ -2,7 +2,7 @@
 
 class Api::V1::VisitsController < Api::V1::BaseController
   def index
-    @visits = @user.visits.order("entry_at desc")
+    @visits = @user.visits.includes(:visitable).order("entry_at desc")
   end
 
   def create
@@ -10,7 +10,7 @@ class Api::V1::VisitsController < Api::V1::BaseController
   end
 
   def ongoing
-    @visits = @user.visits.ongoing.order("entry_at desc")
+    @visits = @user.visits.ongoing.includes(:visitable).order("entry_at desc")
     render :index
   end
 
