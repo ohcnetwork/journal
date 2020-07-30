@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module ApiResponders
+module FriendlyRedirection
   extend ActiveSupport::Concern
-  before_action :store_user_location!, if: :storable_location?
+  # before_action :store_user_location!, if: :storable_location?
   def storable_location?
     request.path != "/sign_in" &&
     request.path != "/sign_up" &&

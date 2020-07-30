@@ -1,6 +1,6 @@
-authenticate :user, ->(u) { u.super_admin? } do
+# frozen_string_literal: true
 
-    ActiveAdmin.routes(self)
+authenticate :user, ->(u) { u.super_admin? } do
     namespace :superadmin do
       root to: "users#index"
       resources :users

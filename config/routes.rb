@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     instance_eval(File.read(Rails.root.join("config/routes/#{routes_name}.rb")))
   end
 
-  draw :devise
   draw :api
 
   root "home#index"

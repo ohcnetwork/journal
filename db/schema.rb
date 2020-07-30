@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_070922) do
+ActiveRecord::Schema.define(version: 2020_07_28_083700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 2020_07_14_070922) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "admin_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "authentication_token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -45,8 +52,37 @@ ActiveRecord::Schema.define(version: 2020_07_14_070922) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
+  create_table "local_bodies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "district_id"
+    t.integer "lb_type_csn"
+    t.string "lb_code"
+    t.string "lb_name_english"
+    t.string "lb_type"
+    t.string "district_name"
+    t.string "lb_name_full"
+  end
+
+  create_table "merchants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "phone_number", null: false
+    t.text "address", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "lb_code"
+    t.text "otp_token"
+    t.text "temp_id"
+  end
+
+  create_table "qr_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "qr_coded_id"
+    t.string "qr_coded_type"
+    t.text "svg"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["qr_coded_type", "qr_coded_id"], name: "index_qr_codes_on_qr_coded_type_and_qr_coded_id"
+  end
+
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -58,12 +94,23 @@ ActiveRecord::Schema.define(version: 2020_07_14_070922) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "last_name"
-    t.string "first_name"
     t.string "role", default: "standard"
     t.string "authentication_token"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.string "name", null: false
+    t.string "phone_number", null: false
+    t.date "date_of_birth", null: false
+    t.text "otp_token"
+    t.index ["phone_number", "date_of_birth"], name: "index_users_on_phone_number_and_date_of_birth", unique: true
+    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "visitable_type"
+    t.uuid "visitable_id"
+    t.datetime "entry_at"
+    t.datetime "exit_at"
+    t.uuid "user_id"
   end
 
 end

@@ -28,22 +28,20 @@ require "minitest/ci"
 Minitest::Ci.report_dir = "reports" if ENV["CI"]
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :all
-
-  # Add more helper methods to be used by all tests here...
+  include FactoryBot::Syntax::Methods
 end
 
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include FactoryBot::Syntax::Methods
+end
+
+def json_body
+  JSON.parse(response.body)
 end
 
 def headers(user, options = {})
   {
     "X-Auth-Token" => user.authentication_token,
-    "X-Auth-Email" => user.email
   }.merge(options)
 end

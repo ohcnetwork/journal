@@ -1,30 +1,23 @@
 # frozen_string_literal: true
 
-class Api::V1::SessionsController < Devise::SessionsController
-  include Devise::Controllers::Rememberable
-  skip_before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token
+class Api::V1::SessionsController < Api::V1::BaseController
+  skip_before_action :authenticate_user_using_x_auth_token!
 
   def create
-    user = User.find_for_database_authentication(email: params[:email])
-    if invalid_password?(user)
-      respond_with_error "Incorrect email or password", 401
-    else
-      params[:remember_me] ? remember_me(user) : forget_me(user)
-      sign_in(user)
-      render json: { user: user, redirect_to: stored_location_for(user) }
-    end
-  end
+    @user = User.where(phone_number: params[:user][:phone_number]).first
 
-  def destroy
-    sign_out(resource_name)
-    reset_session
-    respond "We'll see you around 👋"
+    if @user.blank?
+      @user = User.create! user_params
+    else
+      @user.update user_params
+    end
+
+    @user.send_otp!
   end
 
   private
 
-    def invalid_password?(user)
-      user.blank? || !user.valid_password?(params[:password])
+    def user_params
+      params.require(:user).permit(:name, :phone_number, :date_of_birth)
     end
 end

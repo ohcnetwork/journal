@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "2.7.0"
 
-gem "rails", "~> 6.0.2.2"
+gem "rails", "~> 6.0.3"
 gem "sprockets", "~> 3.7.2"
 
 # friends of Rails
@@ -25,7 +25,7 @@ gem "jbuilder", ">= 2.2.13"
 gem "devise", "~> 4.7"
 
 # Error tracking
-gem "honeybadger", "~> 3.1"
+gem "honeybadger", "~> 4.7"
 
 # Bootstrap framework
 gem "bootstrap", "~> 4.4.1"
@@ -41,9 +41,6 @@ gem "simple_form", "~>5.0"
 
 gem "coffee-script"
 
-# Admin framework
-gem "activeadmin"
-
 # Email validation
 gem "email_validator"
 
@@ -58,7 +55,7 @@ gem "mail_interceptor", group: [:development, :staging]
 gem "email_prefixer"
 
 # Application server
-gem "puma", "~> 3.12"
+gem "puma", "~> 4.3"
 
 # Rails request timeout, needed if running on Heroku-
 # https://devcenter.heroku.com/articles/request-timeout
@@ -73,6 +70,17 @@ gem "bootsnap"
 # Background jobs
 gem "delayed_job_active_record"
 
+# To generate QR Code
+gem "rqrcode"
+
+# To load enviroment variables from .env
+gem "dotenv-rails"
+# To run cron jobs
+gem "whenever", require: false
+
+# Import/Export CSV to/from database
+gem "postgres-copy"
+
 group :development do
   # speeds up development by keeping your application running in the background
   gem "spring"
@@ -83,11 +91,14 @@ group :development do
   # For better debugging
   gem "byebug"
 
+  # pry bindings to byebug
+  gem "pry-byebug"
+
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "web-console", "~> 3.0"
+  gem "web-console", "~> 4.0"
 
   # Reenable after https://github.com/rails/rails/issues/26158 is fixed
-  gem "listen", "~> 3.1.5"
+  gem "listen", "~> 3.2"
 
   # reports N+1 queries
   gem "bullet"
@@ -96,7 +107,7 @@ group :development do
   gem "rubocop", require: false
 
   # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
-  gem 'rubocop-rails', require: false
+  gem "rubocop-rails", require: false
 
   # Patch-level verification for Bundler.
   gem "bundler-audit", require: false
@@ -114,10 +125,15 @@ group :test do
 
   # Minitest reporter plugin for CircleCI.
   gem "minitest-ci"
+
+  # generate test data
+  gem "factory_bot_rails"
+
+  gem "faker"
 end
 
 # To inject React components in views and pass props from server
-gem 'react-rails', '~> 2.6'
+gem "react-rails", "~> 2.6"
 
 # For Google Login
-gem 'omniauth-google-oauth2', '~> 0.8.0'
+gem "omniauth-google-oauth2", "~> 0.8.0"

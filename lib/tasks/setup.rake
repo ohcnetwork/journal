@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 desc "Ensure that code is not running in production environment"
-task :not_production do
+task not_production: :environment do
   if Rails.env.production? && ENV["DELETE_PRODUCTION_DATA"].blank?
     puts ""
     puts "*" * 50
@@ -19,7 +19,7 @@ task :not_production do
 end
 
 desc "Sets up the project by running migration and populating sample data"
-task setup: [:environment, :not_production, "db:drop", "db:create", "db:migrate"] do
+task setup: [:environment, :not_production, "db:drop", "db:create", "db:schema:load"] do
   ["setup_sample_data"].each { |cmd| system "rake #{cmd}" }
 end
 
@@ -38,17 +38,103 @@ desc "Deletes all records and populates sample data"
 task setup_sample_data: [:environment, :not_production] do
   delete_all_records_from_all_tables
 
-  create_user email: "sam@example.com"
+  load_local_bodies
+
+  create_admin_user
+
+  @visitors  = create_visitors
+  @merchants = create_merchants
+
+  create_visits
 
   puts "sample data was added successfully"
 end
 
-def create_user(options = {})
-  user_attributes = { email: "sam@example.com",
-                      password: "welcome",
-                      first_name: "Sam",
-                      last_name: "Smith",
-                      role: "super_admin" }
-  attributes = user_attributes.merge options
-  User.create! attributes
+def load_local_bodies
+  LocalBodyLoaderService.new.run!
+end
+
+def create_admin_user
+  AdminUser.create!(name: "CoronaSafe")
+end
+
+def create_merchants
+  [
+    {
+      name: "Akshaya Centre, Kakkanad",
+      phone_number: "1231231231",
+      address: "Civil Station, Kakkanad, 682030",
+      lb_code: lb_codes.sample
+    },
+
+    {
+      name: "Lakeshore Hospital",
+      phone_number: "2342342341",
+      address: "Madavana, Maradu PO, 682304",
+      lb_code: lb_codes.sample
+    },
+
+    {
+      name: "Veekay Mart, Kakkanad",
+      phone_number: "4564564561",
+      address: "Seaport-Airport Road, Kakkanad, 682030",
+      lb_code: lb_codes.sample
+    }
+  ].map do |merchant_data|
+    Merchant.create! merchant_data
+  end
+end
+
+def create_visits
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 10.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 5.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 2.days.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: 1.day.ago
+  end
+
+  10.times do
+    Visit.create! user: @visitors.sample, visitable: @merchants.sample, entry_at: Time.zone.today
+  end
+end
+
+def create_visitors
+  [
+    {
+      name: "Stephen Nedumpally",
+      phone_number: "2255225522",
+      date_of_birth: "05/05/1975",
+      role: "visitor",
+      otp: "1947"
+    },
+
+    {
+      name: "Priyadarshini Ramdas",
+      phone_number: "1237891231",
+      date_of_birth: "18/01/1985",
+      role: "visitor",
+      otp: "1947"
+    },
+
+    {
+      name: "Govardhan",
+      phone_number: "7895674561",
+      date_of_birth: "04/04/2005",
+      role: "visitor",
+      otp: "1947"
+    }
+  ].map { |user_data| User.create!(user_data) }
+end
+
+def lb_codes
+  @_lb_codes ||= LocalBody.pluck(:lb_code)
 end
