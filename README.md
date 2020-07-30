@@ -62,6 +62,7 @@ API endpoints have test coverage.
 2. Setup environment variables `ADMIN_LOGIN` && `ADMIN_PASSWORD`.
 3. Schedule `CleanupOldDataJob.perform_now` to be run once every day, probably midnight.
 4. Setup the OTP service AppKey as an environment variable `SMS_API_KEY`
+5. Setup environment variable `RAILS_SERVE_STATIC_FILES` = `true`
 
 ## Contributing
 
