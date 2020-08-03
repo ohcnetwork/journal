@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.8.0
@@ -85,7 +85,7 @@ jobs:
           shell: /bin/bash
           command: bundle exec rake test --trace
 workflows:
-  version: 2
+  version: 2.1
   commit:
     jobs:
       - build
