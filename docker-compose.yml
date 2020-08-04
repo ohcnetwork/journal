@@ -16,5 +16,5 @@ services:
       DATABASE_NAME: 'journal_production'
       ADMIN_LOGIN: root
       ADMIN_PASSWORD: whoami
-      SMS_API_KEY: 'AAXXZZSUPERAPPxxQy'
+      SMS_API_KEY: 'xxxxxxxxxxx'
 
