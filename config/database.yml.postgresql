@@ -20,10 +20,9 @@ test:
   database: journal_test
 
 production:
-  <<: *default
   adapter: postgresql
-  host: <%= ENV.fetch('DATABASE_HOST') %>
-  port: <%= ENV.fetch('DATABASE_PORT') %>
-  username: <%= ENV.fetch('DATABASE_USERNAME') %>
-  password: <%= ENV.fetch('DATABASE_PASSWORD') %>
-  database: <%= ENV.fetch('DATABASE_NAME') %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
