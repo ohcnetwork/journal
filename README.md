@@ -46,6 +46,24 @@ API endpoints have test coverage.
 
 `bundle exec rake test` will run the test suite.
 
+### Containerization
+
+Build image
+
+1. Clone the repo.
+2. `cp config/database.yml.postgresql config/database.yml`.
+3. Setup `config/master.key`.
+4. `docker-compose build`.
+
+Run
+
+1. Setup env variables. (list in `config/docker-compose.yml`)
+2. `docker-compose run web rake db:migrate`.
+3. `docker-compose up`.
+4. React app will be compiled at `public/packs`.
+
+Video: [https://share.getcloudapp.com/Blu50Kl4](https://share.getcloudapp.com/Blu50Kl4)
+
 ### API Documentation
 
 [https://github.com/coronasafe/journal/blob/develop/doc/api.md](https://github.com/coronasafe/journal/blob/develop/doc/api.md)
