@@ -13,5 +13,12 @@ ADD Gemfile* $APP_HOME/
 RUN bundle install
 
 ADD . $APP_HOME
-RUN yarn install --check-files
+
+RUN yarn install
+
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_ENV=production
+
+RUN rake assets:precompile
+
 CMD ["rails","server","-b","0.0.0.0"]
