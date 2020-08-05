@@ -59,9 +59,8 @@ Run
 
 1. Setup env variables. (list in `config/docker-compose.yml`)
 2. `docker-compose run web rake db:migrate`.
-3. `docker-compose run web rake db:seed`.
-4. `docker-compose up`.
-5. React app will be compiled at `public/packs`.
+3. `docker-compose up`.
+4. React app will be compiled at `public/packs`.
 
 Video: [https://share.getcloudapp.com/Blu50Kl4](https://share.getcloudapp.com/Blu50Kl4)
 
