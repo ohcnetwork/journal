@@ -20,6 +20,6 @@ RUN yarn install
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_ENV=production
 
-RUN rake assets:precompile
+RUN SECRET_KEY_BASE='dummy' rake assets:precompile
 
 CMD ["rails","server","-b","0.0.0.0"]
