@@ -51,9 +51,8 @@ API endpoints have test coverage.
 Build image
 
 1. Clone the repo.
-2. `cp config/database.yml.postgresql config/database.yml`.
-3. Setup `config/master.key`.
-4. `docker-compose build`.
+1. Setup `config/master.key`.
+1. `docker-compose build`.
 
 Run
 

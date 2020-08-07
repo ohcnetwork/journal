@@ -10,6 +10,7 @@ WORKDIR $APP_HOME
 
 RUN gem install bundler:2.1.2
 ADD Gemfile* $APP_HOME/
+COPY config/database.yml.postgresql config/database.yml
 RUN bundle install
 
 ADD . $APP_HOME
