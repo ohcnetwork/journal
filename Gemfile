@@ -59,7 +59,6 @@ gem "puma", "~> 4.3"
 
 # Rails request timeout, needed if running on Heroku-
 # https://devcenter.heroku.com/articles/request-timeout
-gem "rack-timeout"
 
 # Display notifications
 gem "jquery-growl-rails"

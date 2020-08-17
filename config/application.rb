@@ -17,6 +17,7 @@ module Journal
 
     config.time_zone = "Kolkata"
     config.active_record.default_timezone = "Kolkata"
+    config.hosts << "012d81c63952.ngrok.io"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
