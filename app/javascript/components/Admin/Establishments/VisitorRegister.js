@@ -49,6 +49,11 @@ const columns = [
     dataIndex: "entry_at",
     render: renderDate,
   },
+  {
+    title: "Exit",
+    dataIndex: "exit_at",
+    render: renderDate,
+  },
 ];
 
 function VisitorRegister() {
