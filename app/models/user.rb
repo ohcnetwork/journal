@@ -34,7 +34,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.find_by(email: data["email"]).first
+    user = User.find_by(email: data["email"])
     unless user
       user = User.new(first_name: data["first_name"],
                       last_name: data["last_name"],
@@ -64,7 +64,7 @@ class User < ApplicationRecord
     def generate_authentication_token
       loop do
         token = Devise.friendly_token
-        break token unless User.find_by(authentication_token: token)&.first
+        break token unless User.exists?(authentication_token: token)
       end
     end
 end

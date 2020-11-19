@@ -1,0 +1,20 @@
+version: "3.8"
+services: 
+  web:
+    build: 
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: 'true'
+      RAILS_LOG_TO_STDOUT: 'true'
+      DATABASE_HOST: '192.168.0.148'
+      DATABASE_PORT: '5432'
+      DATABASE_USERNAME: 'unni'
+      DATABASE_PASSWORD: ''
+      DATABASE_NAME: 'journal_production'
+      ADMIN_LOGIN: root
+      ADMIN_PASSWORD: whoami
+      SMS_API_KEY: 'xxxxxxxxxxx'
+

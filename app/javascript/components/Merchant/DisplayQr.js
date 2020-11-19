@@ -34,7 +34,7 @@ function DisplayQr() {
               <span>Please scan QR code using</span>
               <br />
               <span className="text-indigo-700">
-                https://journal.coronasafe.in
+                https://journal.coronasafe.network
               </span>
               <br />
               <span>when you enter and exit this area.</span>
