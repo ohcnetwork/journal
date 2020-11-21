@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   include OtpVerifiable
 
-  devise :database_authenticatable, :registerable, :omniauthable
+  devise :database_authenticatable, :registerable
 
   validates :phone_number, uniqueness: true
   validates :name, :phone_number, :date_of_birth, presence: true
