@@ -2,9 +2,9 @@
 
 source "https://rubygems.org"
 
-ruby "2.7.0"
+ruby "2.7.1"
 
-gem "rails", "~> 6.0.3"
+gem "rails"
 gem "sprockets", "~> 3.7.2"
 
 # friends of Rails
@@ -133,6 +133,3 @@ end
 
 # To inject React components in views and pass props from server
 gem "react-rails", "~> 2.6"
-
-# For Google Login
-gem "omniauth-google-oauth2", "~> 0.8.0"
