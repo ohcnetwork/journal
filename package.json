@@ -60,6 +60,7 @@
     "react_ujs": "^2.6.1",
     "remixicon": "^2.3.0",
     "tailwindcss": "^1.2.0",
+    "webpacker-pwa": "^0.1.2",
     "yup": "^0.29.1"
   }
 }

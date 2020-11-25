@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdminUser < ApplicationRecord
-  devise :database_authenticatable, :registerable, :omniauthable
+  devise :database_authenticatable, :registerable
 
   before_create :ensure_authentication_token_is_present
 
